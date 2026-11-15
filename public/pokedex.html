@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Minha Pokédex | Pokémon Trainer Hub</title>
+  <link rel="stylesheet" href="/css/pokemon.css">
+  <script src="/js/pokemon-app.js" defer></script>
+</head>
+<body data-page="pokedex">
+  <header class="site-header" data-site-header></header>
+  <main class="page-wrap">
+    <p class="eyebrow">Catálogo regional</p>
+    <div class="page-intro"><div><h1>Minha Pokédex</h1><p class="muted">Encontre, descubra e favorite os Pokémon que cruzaram seu caminho.</p></div><strong class="panel" id="pokedex-count">Carregando coleção...</strong></div>
+    <div class="toolbar">
+      <label class="field" style="width:min(100%,400px)"><span class="sr-only">Buscar por Pokémon</span><input class="search-input" id="pokedex-search" type="search" placeholder="Buscar Pokémon pelo nome..."></label>
+      <div class="filter-list" id="type-filters" aria-label="Filtrar por tipo"></div>
+    </div>
+    <p class="form-note" id="pokedex-message" role="status"></p>
+    <section class="pokemon-grid" id="pokemon-grid" aria-live="polite"><div class="empty-state">Carregando Pokédex...</div></section>
+  </main>
+  <dialog id="pokemon-dialog" class="form-card" style="width:min(560px,calc(100% - 30px));border:0">
+    <div id="pokemon-dialog-content"></div>
+    <button class="btn btn-dark btn-small" id="pokemon-dialog-close" type="button">Fechar</button>
+  </dialog>
+  <footer class="site-footer"><div class="footer-inner"><strong>Pokémon Trainer Hub</strong><span>Descubra cada Pokémon jogando o quiz.</span></div></footer>
+</body>
+</html>
