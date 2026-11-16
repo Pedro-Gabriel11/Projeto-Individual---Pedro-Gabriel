@@ -1,7 +1,8 @@
--- Execute este arquivo no banco configurado em DB_DATABASE depois de script-tabelas.sql.
--- Ele adiciona as tabelas Pokémon sem remover nem alterar as tabelas legadas do AquaTech.
+-- Inicializa o banco e as tabelas usados pelo Pokémon Trainer Hub.
 
-USE aquatech;
+CREATE DATABASE IF NOT EXISTS pokemon_trainer_hub
+    CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE pokemon_trainer_hub;
 
 CREATE TABLE IF NOT EXISTS pokemon_treinador (
     id INT PRIMARY KEY AUTO_INCREMENT,

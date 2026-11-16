@@ -3,16 +3,17 @@ Repositório dedicado ao projeto individual do aluno Pedro Gabriel para a instit
 
 ## Aplicação Pokémon
 
-O site público em `public/` usa HTML, CSS e JavaScript sem framework. As telas chamam a API Express local em `/api`; não dependem de PokeAPI, Payload ou de uma API de imagens externa. Os arquivos originais do Figma em `src_exemplo/` foram mantidos como referência e não são servidos pelo site.
+O site público em `public/` usa HTML, CSS e JavaScript sem framework. As telas chamam a API Express local em `/api`; não dependem de PokeAPI, Payload ou de uma API de imagens externa.
 
 ### Banco de dados
 
-1. Configure `APP_HOST`, `APP_PORT`, `DB_HOST`, `DB_DATABASE=aquatech`, `DB_USER`, `DB_PASSWORD` e `DB_PORT` no arquivo de ambiente usado por `app.js`. Se `AMBIENTE_PROCESSO` não estiver definido, o servidor usa o ambiente indicado no início de `app.js`.
-2. Crie o banco e as tabelas legadas com `src/database/script-tabelas.sql`, se ainda não existirem.
-3. Execute `src/database/script-tabelas-pokemon.sql` no banco `aquatech`. O script acrescenta as tabelas Pokémon sem apagar nem alterar as tabelas legadas e cadastra quatro registros demonstrativos de Pokémon e perguntas.
-4. Inicie o servidor com `npm start` e acesse a aplicação pelo endereço configurado em `APP_HOST` e `APP_PORT`.
+1. Configure `APP_HOST`, `APP_PORT`, `DB_HOST`, `DB_DATABASE=pokemon_trainer_hub`, `DB_USER`, `DB_PASSWORD` e `DB_PORT` no arquivo de ambiente usado por `app.js`. Se `AMBIENTE_PROCESSO` não estiver definido, o servidor usa o ambiente indicado no início de `app.js`.
+2. Execute `src/database/script-tabelas-pokemon.sql`; ele cria o banco Pokémon e as tabelas necessárias, além de cadastrar quatro registros demonstrativos e perguntas.
+3. Inicie o servidor com `npm start` e acesse a aplicação pelo endereço configurado em `APP_HOST` e `APP_PORT`.
 
 O catálogo e o quiz iniciais são dados locais de demonstração e podem ser editados no script SQL. Como os arquivos do Figma não incluíam as imagens referenciadas pelo Payload, as telas usam ilustrações CSS locais; substitua-as por arquivos locais próprios quando estiverem disponíveis. A página `public/historia.html` contém campos de texto orientativos para a história pessoal, pois o material recebido não especificava lembranças biográficas.
+
+O script cria um banco separado e não apaga bancos de dados existentes. Contas e dados de sistemas anteriores não são migrados automaticamente.
 
 ### API local
 
