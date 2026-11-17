@@ -1,0 +1,55 @@
+.hero { position: relative; overflow: hidden; min-height: 650px; background: radial-gradient(ellipse at 86% 30%,rgba(115,203,183,.44),transparent 33%),radial-gradient(ellipse at 78% 78%,rgba(248,207,73,.28),transparent 30%),linear-gradient(110deg,#fbf8ed 0%,#fbf8ed 50%,#e8f4eb 100%); }
+.hero::after { position: absolute; right: -85px; bottom: -180px; width: 520px; height: 520px; border: 2px solid rgba(45,132,121,.18); border-radius: 50%; box-shadow: 0 0 0 35px rgba(45,132,121,.06),0 0 0 75px rgba(45,132,121,.04); content: ""; }
+.hero-inner { position: relative; z-index: 1; display: grid; width: min(1120px,calc(100% - 40px)); min-height: 650px; grid-template-columns: 1.1fr .9fr; align-items: center; gap: 35px; margin: auto; padding: 65px 0; }
+.hero-copy { max-width: 640px; }
+.hero h1 { margin-top: 22px; color: #153b3c; font-size: clamp(45px,7vw,78px); }
+.hero h1 span { color: var(--coral); }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 27px; }
+.hero-note { display: flex; align-items: center; gap: 14px; margin-top: 38px; color: var(--muted); font-size: 13px; font-weight: 700; }
+.avatar-stack { display: flex; }
+.avatar-stack span { display: grid; width: 34px; height: 34px; place-items: center; margin-left: -7px; border: 2px solid var(--paper); border-radius: 50%; background: #83cda9; font-size: 11px; font-weight: 900; }
+.avatar-stack span:first-child { margin-left: 0; background: #f29b6e; }
+.avatar-stack span:last-child { background: #73bfe2; }
+.hero-art { position: relative; display: grid; min-height: 390px; place-items: center; }
+.hero-pokeball { position: relative; display: grid; width: min(310px,70vw); aspect-ratio: 1; place-items: center; border: 14px solid var(--ink); border-radius: 50%; background: linear-gradient(#ef6a4d 0 47%,var(--ink) 47% 53%,white 53%); box-shadow: 0 30px 60px rgba(22,59,60,.18); transform: rotate(-13deg); }
+.hero-pokeball::after { width: 74px; height: 74px; border: 12px solid var(--ink); border-radius: 50%; background: var(--paper); content: ""; }
+.float-card { position: absolute; z-index: 1; padding: 17px 19px; border: 1px solid white; border-radius: 20px; background: rgba(255,255,255,.9); box-shadow: 0 16px 40px rgba(22,59,60,.13); }
+.float-card strong { display: block; font-size: 20px; }
+.float-card small { color: var(--muted); font-weight: 800; }
+.float-card.one { top: 28px; left: 0; transform: rotate(-5deg); }
+.float-card.two { right: 0; bottom: 32px; transform: rotate(4deg); }
+.section { padding: 76px 0; }
+.section-white { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: white; }
+.section-heading { max-width: 680px; margin: 0 auto 38px; text-align: center; }
+.section-heading h2 { margin: 12px 0; }
+.feature-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 17px; }
+.feature-card { padding: 25px; border: 1px solid var(--line); border-radius: 24px; background: white; box-shadow: 0 12px 35px rgba(28,67,64,.05); }
+.feature-icon { display: grid; width: 54px; height: 54px; place-items: center; border-radius: 17px; background: var(--green-soft); font-size: 24px; }
+.feature-card:nth-child(2) .feature-icon { background: #fff0cc; }
+.feature-card:nth-child(3) .feature-icon { background: #dceff7; }
+.feature-card h3 { margin: 22px 0 8px; font-size: 21px; }
+.feature-card p { margin: 0; color: var(--muted); line-height: 1.65; }
+.story-grid { display: grid; grid-template-columns: 1fr 1fr; align-items: stretch; gap: 28px; }
+.story-card { padding: clamp(27px,5vw,48px); border-radius: 28px; background: var(--ink); color: white; }
+.story-card h2 { margin-top: 13px; }
+.story-card p { color: rgba(255,255,255,.75); line-height: 1.75; }
+.story-side { display: flex; flex-direction: column; justify-content: center; padding: 20px; }
+.story-side h2 { max-width: 460px; }
+
+@media (max-width: 850px) {
+  .hero-inner { grid-template-columns: 1fr .7fr; }
+  .hero-pokeball { width: min(250px,60vw); }
+  .feature-grid { grid-template-columns: repeat(2,1fr); }
+}
+
+@media (max-width: 650px) {
+  .hero, .hero-inner { min-height: auto; }
+  .hero-inner { width: min(100% - 28px,1120px); grid-template-columns: 1fr; padding: 60px 0 45px; }
+  .hero-art { min-height: 250px; }
+  .hero-pokeball { width: 200px; border-width: 10px; }
+  .hero-pokeball::after { width: 60px; height: 60px; border-width: 9px; }
+  .float-card.one { left: 5%; }
+  .float-card.two { right: 4%; }
+  .feature-grid, .story-grid { grid-template-columns: 1fr; }
+  .section { padding: 56px 0; }
+}

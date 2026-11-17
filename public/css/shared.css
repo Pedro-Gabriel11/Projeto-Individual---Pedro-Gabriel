@@ -1,0 +1,107 @@
+:root {
+  color-scheme: light;
+  --ink: #163b3c;
+  --muted: #647d79;
+  --green: #2d8479;
+  --green-soft: #e8f4eb;
+  --coral: #ef6a4d;
+  --yellow: #f8cf49;
+  --paper: #fbf8ed;
+  --line: #dce8df;
+  font-family: "Trebuchet MS", Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 320px; background: var(--paper); color: var(--ink); }
+a { color: inherit; text-decoration: none; }
+button, input { font: inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
+button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid #e9b72a; outline-offset: 3px; }
+h1, h2, h3, p { margin-top: 0; }
+h1, h2, h3 { font-family: "Trebuchet MS", Arial, sans-serif; letter-spacing: -.035em; }
+h1 { margin-bottom: 12px; font-size: clamp(36px, 6vw, 58px); line-height: 1.02; }
+h2 { font-size: clamp(25px, 4vw, 36px); }
+.eyebrow { color: #df6147; font-size: 11px; font-weight: 900; letter-spacing: .22em; text-transform: uppercase; }
+.lead { max-width: 620px; color: var(--muted); font-size: 17px; line-height: 1.7; }
+.muted { color: var(--muted); }
+.text-center { text-align: center; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; clip-path: inset(50%); }
+
+.site-header { position: relative; z-index: 3; min-height: 76px; border-bottom: 1px solid rgba(220,232,223,.9); background: rgba(251,248,237,.95); }
+.site-header-inner, .page-wrap, .footer-inner { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+.site-header-inner { display: flex; min-height: 76px; align-items: center; justify-content: space-between; gap: 20px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 900; }
+.brand-mark { position: relative; display: grid; width: 38px; height: 38px; place-items: center; overflow: hidden; border: 3px solid var(--ink); border-radius: 50%; background: linear-gradient(#fff 0 46%,var(--ink) 46% 54%,#fff 54%); box-shadow: 0 3px 0 var(--ink); }
+.brand-mark::after { width: 11px; height: 11px; border: 3px solid var(--ink); border-radius: 50%; background: var(--yellow); content: ""; }
+.brand-name small { display: block; color: var(--green); font-size: 9px; letter-spacing: .2em; text-transform: uppercase; }
+.brand-name strong { font-size: 17px; }
+.site-nav { display: flex; align-items: center; justify-content: flex-end; gap: 6px; flex-wrap: wrap; }
+.site-nav a, .nav-user { padding: 10px 13px; border-radius: 999px; color: #466361; font-size: 13px; font-weight: 800; }
+.site-nav a:hover { background: white; color: var(--ink); }
+.site-nav .nav-cta { background: var(--ink); color: white; }
+.site-nav .nav-cta:hover { background: #245959; }
+.nav-user { display: inline-flex; align-items: center; gap: 8px; background: white; }
+.nav-avatar { display: grid; width: 28px; height: 28px; place-items: center; border-radius: 50%; background: var(--yellow); color: var(--ink); }
+.mobile-nav { display: none; }
+
+.page-wrap { padding: 42px 0 70px; }
+.page-intro { display: flex; align-items: end; justify-content: space-between; gap: 20px; }
+.page-intro h1 { margin: 8px 0; }
+.btn { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; gap: 9px; padding: 13px 22px; border: 0; border-radius: 999px; background: var(--coral); box-shadow: 0 5px 0 #b94331; color: white; cursor: pointer; font-weight: 900; transition: transform .18s ease,filter .18s ease; }
+.btn:hover { filter: brightness(1.03); transform: translateY(-2px); }
+.btn:disabled { cursor: wait; opacity: .6; transform: none; }
+.btn-dark { background: var(--ink); box-shadow: 0 5px 0 #091f20; }
+.btn-yellow { background: var(--yellow); box-shadow: 0 5px 0 #c99d19; color: var(--ink); }
+.btn-outline { border: 2px solid var(--ink); background: transparent; box-shadow: none; color: var(--ink); }
+.btn-small { min-height: 38px; padding: 9px 15px; font-size: 13px; }
+
+.site-footer { padding: 28px 0; background: #102f31; color: rgba(255,255,255,.67); font-size: 13px; }
+.footer-inner { display: flex; justify-content: space-between; gap: 14px; }
+.footer-inner strong { color: white; }
+.form-note { min-height: 22px; margin: 14px 0; color: #aa3f2f; font-size: 13px; font-weight: 800; }
+.empty-state { margin-top: 15px; padding: 28px 17px; border: 1px dashed #ceddd3; border-radius: 17px; background: #f8faf6; color: #7b908c; font-size: 13px; font-weight: 800; text-align: center; }
+
+.stat-card, .panel, .form-card, .pokemon-card { border: 1px solid var(--line); border-radius: 24px; background: white; box-shadow: 0 12px 35px rgba(28,67,64,.05); }
+.stats-grid, .profile-grid, .pokemon-grid { display: grid; gap: 17px; }
+.stats-grid { grid-template-columns: repeat(3, 1fr); margin: 28px 0 18px; }
+.stat-card { min-height: 132px; padding: 20px; }
+.stat-icon { display: grid; width: 38px; height: 38px; place-items: center; border-radius: 13px; background: var(--green-soft); }
+.stat-card small { display: block; margin-top: 13px; color: #718783; font-size: 12px; font-weight: 800; }
+.stat-card strong { display: block; margin-top: 2px; font-size: 28px; }
+.panel { padding: 25px; }
+.panel h2 { margin-bottom: 5px; font-size: 22px; }
+.panel > p { color: #718783; font-size: 13px; }
+.recent-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 9px; margin-top: 15px; }
+.mini-pokemon { padding: 11px 5px; border-radius: 15px; background: var(--green-soft); text-align: center; }
+.mini-pokemon .pokemon-art { width: 60px; height: 60px; margin: auto; }
+.mini-pokemon strong { display: block; margin-top: 6px; font-size: 12px; }
+
+.pokemon-art { position: relative; display: grid; width: 100%; aspect-ratio: 1.1; place-items: center; overflow: hidden; border-radius: 17px; background: radial-gradient(circle at 50% 42%,rgba(255,255,255,.75) 0 25%,transparent 26%),linear-gradient(135deg,#dff2e6,#edf6ef); color: var(--green); font-size: 39px; font-weight: 900; }
+.pokemon-art.locked { background: linear-gradient(135deg,#e8e8e1,#f3f2eb); color: #9da69f; filter: grayscale(1); }
+.pokemon-art.silhouette { background: linear-gradient(140deg,#dcefe4,#eff7ee); }
+.pokemon-art.silhouette::before { width: 42%; height: 54%; border-radius: 46% 46% 37% 37%; background: #132d2e; box-shadow: -20px 10px 0 -11px #132d2e,21px 13px 0 -12px #132d2e; content: ""; }
+.pokemon-art.silhouette::after { position: absolute; width: 18%; height: 18%; border: 6px solid #132d2e; border-radius: 50%; background: #eff7ee; content: ""; }
+.pokemon-art.silhouette-rowlet::before { width: 45%; height: 50%; border-radius: 48% 48% 42% 42%; clip-path: polygon(50% 0,100% 23%,87% 100%,13% 100%,0 23%); }
+.pokemon-art.silhouette-rowlet::after { width: 28%; height: 12%; border-width: 4px; border-radius: 10% 10% 50% 50%; }
+.pokemon-art.silhouette-litten::before { width: 45%; height: 47%; border-radius: 40% 40% 45% 45%; clip-path: polygon(0 0,35% 20%,50% 0,65% 20%,100% 0,92% 78%,75% 100%,25% 100%,8% 78%); }
+.pokemon-art.silhouette-litten::after { width: 9%; height: 9%; border: 0; border-radius: 50%; background: #eff7ee; box-shadow: -24px 0 #eff7ee,24px 0 #eff7ee; }
+.pokemon-art.silhouette-popplio::before { width: 44%; height: 42%; border-radius: 48% 48% 40% 40%; box-shadow: -22px 18px 0 -7px #132d2e,22px 18px 0 -7px #132d2e; }
+.pokemon-art.silhouette-popplio::after { width: 15%; height: 15%; border: 5px solid #132d2e; border-radius: 50%; background: #eff7ee; box-shadow: 0 27px 0 -8px #132d2e; }
+
+@media (max-width: 850px) {
+  .stats-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 650px) {
+  .site-header-inner, .page-wrap, .footer-inner { width: min(100% - 28px,1120px); }
+  .site-header-inner { min-height: 68px; flex-wrap: wrap; padding: 9px 0; }
+  .site-nav { justify-content: flex-end; gap: 1px; }
+  .site-nav a { padding: 8px; font-size: 11px; }
+  .site-nav .nav-user { display: none; }
+  .mobile-nav { display: flex; justify-content: space-around; border-top: 1px solid var(--line); padding: 7px 4px; }
+  .mobile-nav a { color: #466361; font-size: 11px; font-weight: 900; }
+  .page-wrap { padding-top: 30px; }
+  .page-intro { align-items: stretch; flex-direction: column; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .footer-inner { flex-direction: column; }
+}

@@ -1,0 +1,15 @@
+.dashboard-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 18px; }
+.chart { display: flex; height: 180px; align-items: end; gap: 10px; margin-top: 22px; padding: 0 10px; border-bottom: 1px solid var(--line); }
+.chart-bar { position: relative; flex: 1; min-width: 12px; border-radius: 8px 8px 0 0; background: #62b39a; }
+.chart-bar span { position: absolute; right: 0; bottom: calc(100% + 5px); left: 0; color: var(--muted); font-size: 10px; text-align: center; }
+.type-row { margin-top: 18px; }
+.type-row-label { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 13px; font-weight: 800; }
+.type-track { height: 9px; overflow: hidden; border-radius: 99px; background: #eef2ed; }
+.type-fill { height: 100%; border-radius: inherit; background: var(--yellow); }
+.goal-panel { background: var(--ink); color: white; }
+.goal-panel p { color: rgba(255,255,255,.68); line-height: 1.65; }
+.goal-panel h2 { font-size: 28px; }
+
+@media (max-width: 850px) {
+  .dashboard-grid { grid-template-columns: 1fr; }
+}

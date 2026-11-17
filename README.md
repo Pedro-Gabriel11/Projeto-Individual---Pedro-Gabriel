@@ -3,7 +3,7 @@ Repositório dedicado ao projeto individual do aluno Pedro Gabriel para a instit
 
 ## Aplicação Pokémon
 
-O site público em `public/` usa HTML, CSS e JavaScript sem framework. As telas chamam a API Express local em `/api`; não dependem de PokeAPI, Payload ou de uma API de imagens externa.
+O site público em `public/` usa HTML, CSS e JavaScript sem framework. Os estilos ficam em `public/css/shared.css` e `public/css/pages/`; os scripts compartilhados ficam em `public/js/shared/` e os scripts de cada tela em `public/js/pages/`. As telas chamam a API Express local em `/api`; não dependem de PokeAPI, Payload ou de uma API de imagens externa.
 
 ### Banco de dados
 
