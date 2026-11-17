@@ -38,10 +38,16 @@ h2 { font-size: clamp(25px, 4vw, 36px); }
 .site-nav { display: flex; align-items: center; justify-content: flex-end; gap: 6px; flex-wrap: wrap; }
 .site-nav a, .nav-user { padding: 10px 13px; border-radius: 999px; color: #466361; font-size: 13px; font-weight: 800; }
 .site-nav a:hover { background: white; color: var(--ink); }
+.site-nav a[aria-current="page"] { background: var(--green-soft); color: var(--ink); }
 .site-nav .nav-cta { background: var(--ink); color: white; }
 .site-nav .nav-cta:hover { background: #245959; }
+.site-nav .nav-cta[aria-current="page"] { background: #245959; color: white; }
 .nav-user { display: inline-flex; align-items: center; gap: 8px; background: white; }
 .nav-avatar { display: grid; width: 28px; height: 28px; place-items: center; border-radius: 50%; background: var(--yellow); color: var(--ink); }
+.nav-logout { padding: 9px 13px; border: 1px solid var(--line); border-radius: 999px; background: white; color: #a33e2e; cursor: pointer; font-size: 13px; font-weight: 900; }
+.nav-logout:hover { border-color: #efc3b9; background: #fff0ec; }
+.nav-logout:disabled { cursor: wait; opacity: .6; }
+.nav-message { color: #a33e2e; font-size: 12px; }
 .mobile-nav { display: none; }
 
 .page-wrap { padding: 42px 0 70px; }
@@ -98,8 +104,10 @@ h2 { font-size: clamp(25px, 4vw, 36px); }
   .site-nav { justify-content: flex-end; gap: 1px; }
   .site-nav a { padding: 8px; font-size: 11px; }
   .site-nav .nav-user { display: none; }
-  .mobile-nav { display: flex; justify-content: space-around; border-top: 1px solid var(--line); padding: 7px 4px; }
-  .mobile-nav a { color: #466361; font-size: 11px; font-weight: 900; }
+  .mobile-nav { display: flex; justify-content: flex-start; gap: 6px; overflow-x: auto; border-top: 1px solid var(--line); padding: 7px 14px; }
+  .mobile-nav a { flex: 0 0 auto; padding: 5px 8px; border-radius: 99px; color: #466361; font-size: 11px; font-weight: 900; }
+  .mobile-nav a[aria-current="page"] { background: var(--green-soft); color: var(--ink); }
+  .mobile-nav .nav-logout { flex: 0 0 auto; padding: 5px 8px; font-size: 11px; }
   .page-wrap { padding-top: 30px; }
   .page-intro { align-items: stretch; flex-direction: column; }
   .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }

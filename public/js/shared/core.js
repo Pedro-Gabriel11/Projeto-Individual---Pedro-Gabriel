@@ -4,6 +4,8 @@
   var API = "/api";
   var TOKEN_KEY = "pokemon_trainer_token";
   var USER_KEY = "pokemon_trainer_user";
+  var RETURN_KEY = "pokemon_trainer_return_to";
+  var PROTECTED_PAGES = ["/dashboard.html", "/pokedex.html", "/quiz.html", "/perfil.html"];
 
   function getTrainer() {
     try {
@@ -53,10 +55,20 @@
 
   function requireSession() {
     if (!sessionStorage.getItem(TOKEN_KEY)) {
+      var requestedPage = window.location.pathname;
+      if (PROTECTED_PAGES.indexOf(requestedPage) !== -1) {
+        sessionStorage.setItem(RETURN_KEY, requestedPage + window.location.search + window.location.hash);
+      }
       window.location.replace("/login.html");
       return false;
     }
     return true;
+  }
+
+  function getPostLoginTarget() {
+    var target = sessionStorage.getItem(RETURN_KEY);
+    sessionStorage.removeItem(RETURN_KEY);
+    return PROTECTED_PAGES.indexOf(target) !== -1 ? target : "/dashboard.html";
   }
 
   function renderHeader() {
@@ -64,23 +76,54 @@
     if (!header) return;
     var trainer = getTrainer();
     var signedIn = Boolean(trainer && sessionStorage.getItem(TOKEN_KEY));
+    var currentPage = document.body.dataset.page;
+    function link(url, label, page) {
+      var current = currentPage === page ? ' aria-current="page"' : "";
+      return '<a href="' + url + '"' + current + '>' + label + '</a>';
+    }
+
     var nav = signedIn
       ? '<nav class="site-nav" aria-label="Navegação principal">' +
-        '<a href="/dashboard.html">Painel</a><a href="/pokedex.html">Pokédex</a>' +
-        '<a href="/quiz.html">Quiz</a><a href="/perfil.html">Perfil</a>' +
+        link("/", "Início", "inicio") + link("/historia.html", "Minha história", "historia") +
+        link("/dashboard.html", "Painel", "dashboard") + link("/pokedex.html", "Pokédex", "pokedex") +
+        link("/quiz.html", "Quiz", "quiz") + link("/perfil.html", "Perfil", "perfil") +
         '<span class="nav-user"><span class="nav-avatar">' + escapeHtml(trainer.nome.slice(0, 1).toUpperCase()) +
-        '</span>' + escapeHtml("@" + trainer.usuario) + '</span></nav>'
+        '</span>' + escapeHtml("@" + trainer.usuario) + '</span>' +
+        '<button class="nav-logout" type="button" data-logout>Sair</button>' +
+        '<span class="nav-message" id="nav-message" role="status" aria-live="polite"></span></nav>'
       : '<nav class="site-nav" aria-label="Navegação principal">' +
-        '<a href="/#descobrir">Descobrir</a><a href="/historia.html">Minha história</a>' +
-        '<a href="/login.html">Entrar</a><a class="nav-cta" href="/cadastro.html">Começar</a></nav>';
+        link("/#descobrir", "Descobrir", "descobrir") + link("/historia.html", "Minha história", "historia") +
+        link("/login.html", "Entrar", "login") +
+        '<a class="nav-cta' + (currentPage === "cadastro" ? " current" : "") +
+        '" href="/cadastro.html"' + (currentPage === "cadastro" ? ' aria-current="page"' : "") +
+        '>Começar</a></nav>';
     header.innerHTML =
       '<div class="site-header-inner"><a class="brand" href="/" aria-label="Pokémon Trainer Hub, página inicial">' +
       '<span class="brand-mark" aria-hidden="true"></span><span class="brand-name"><small>Pokémon</small>' +
       '<strong>Trainer Hub</strong></span></a>' + nav + '</div>' +
       (signedIn
-        ? '<nav class="mobile-nav" aria-label="Navegação móvel"><a href="/dashboard.html">Painel</a>' +
-          '<a href="/pokedex.html">Pokédex</a><a href="/quiz.html">Quiz</a><a href="/perfil.html">Perfil</a></nav>'
+        ? '<nav class="mobile-nav" aria-label="Navegação móvel">' +
+          link("/", "Início", "inicio") + link("/historia.html", "História", "historia") +
+          link("/dashboard.html", "Painel", "dashboard") + link("/pokedex.html", "Pokédex", "pokedex") +
+          link("/quiz.html", "Quiz", "quiz") + link("/perfil.html", "Perfil", "perfil") +
+          '<button class="nav-logout" type="button" data-logout>Sair</button></nav>'
         : "");
+    header.querySelectorAll("[data-logout]").forEach(function (button) {
+      button.addEventListener("click", logout);
+    });
+  }
+
+  async function logout() {
+    var buttons = document.querySelectorAll("[data-logout]");
+    buttons.forEach(function (button) { button.disabled = true; });
+    try {
+      await request("/treinadores/sair", { method: "POST" });
+      clearSession();
+      window.location.href = "/";
+    } catch (error) {
+      setMessage("nav-message", error.message);
+      buttons.forEach(function (button) { button.disabled = false; });
+    }
   }
 
   function statCard(icon, label, value, helper) {
@@ -98,6 +141,7 @@
     clearSession: clearSession,
     escapeHtml: escapeHtml,
     getTrainer: getTrainer,
+    getPostLoginTarget: getPostLoginTarget,
     request: request,
     requireSession: requireSession,
     saveSession: saveSession,

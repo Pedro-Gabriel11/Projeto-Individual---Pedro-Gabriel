@@ -20,7 +20,7 @@
         })
       });
       app.saveSession(data);
-      window.location.href = "/dashboard.html";
+      window.location.href = app.getPostLoginTarget();
     } catch (error) {
       app.setMessage("login-message", error.message);
     } finally {
