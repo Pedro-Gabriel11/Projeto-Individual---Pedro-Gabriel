@@ -15,11 +15,11 @@ var HOST_APP = process.env.APP_HOST;
 
 var app = express();
 
-var pokemonRouter = require("./src/routes/pokemon");
+var apiRouter = require("./src/routes");
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
-app.use("/api", pokemonRouter);
+app.use("/api", apiRouter);
 
 app.listen(PORTA_APP, function () {
     console.log(`

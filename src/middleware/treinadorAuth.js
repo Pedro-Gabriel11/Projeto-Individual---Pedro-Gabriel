@@ -1,5 +1,5 @@
 var crypto = require("crypto");
-var pokemonModel = require("../models/pokemonModel");
+var treinadorModel = require("../models/treinadorModel");
 
 function autenticarTreinador(req, res, next) {
     var cabecalho = req.headers.authorization || "";
@@ -10,7 +10,7 @@ function autenticarTreinador(req, res, next) {
     }
 
     var tokenHash = crypto.createHash("sha256").update(correspondencia[1]).digest("hex");
-    pokemonModel.buscarSessao(tokenHash)
+    treinadorModel.buscarSessao(tokenHash)
         .then(function (treinador) {
             if (!treinador) {
                 return res.status(401).json({ mensagem: "Sua sessão expirou. Entre novamente." });
