@@ -410,3 +410,82 @@ O objetivo do OpenCode é atuar como um assistente de desenvolvimento, ajudando 
 O agente deve:
 
 - Respeitar
+
+## 13. Decisões arquiteturais confirmadas
+
+As decisões abaixo são requisitos obrigatórios do Pokémon Trainer Hub e devem ser respeitadas durante todo o desenvolvimento.
+
+### 13.1. API Aquatech
+
+- A API Aquatech fornecida pela faculdade deve ser preservada.
+- O Pokémon Trainer Hub será desenvolvido como uma extensão da API original.
+- As funcionalidades Pokémon deverão ser adicionadas à arquitetura existente.
+- Os módulos originais da Aquatech não devem ser removidos, substituídos ou descaracterizados.
+- A organização existente de routes, controllers, models e configurações deve ser respeitada.
+- A autenticação original deve ser analisada antes de qualquer implementação de um sistema alternativo.
+- Novas tabelas e relacionamentos devem ser adicionados sem comprometer a integridade das estruturas existentes.
+- Não duplicar funcionalidades de autenticação ou gerenciamento de usuários sem justificativa técnica.
+- Caso existam incompatibilidades entre o cadastro original e o cadastro de treinadores, apresentar alternativas antes de implementar alterações.
+
+### 13.2. Catálogo de Pokémon
+
+O catálogo do Pokémon Trainer Hub deve contemplar exclusivamente:
+
+1. Espécies de Pokémon introduzidas originalmente na sétima geração.
+2. Formas regionais de Alola pertencentes a espécies introduzidas em gerações anteriores.
+
+Não incluir Pokémon de outras gerações em suas formas originais apenas porque aparecem na Pokédex Regional de Alola.
+
+Exemplos de espécies da sétima geração:
+- Rowlet.
+- Litten.
+- Popplio.
+- Rockruff.
+- Mimikyu.
+
+Exemplos de formas regionais permitidas:
+- Vulpix de Alola.
+- Sandshrew de Alola.
+- Raichu de Alola.
+- Marowak de Alola.
+- Meowth de Alola.
+
+As formas regionais de Alola devem ser tratadas como entradas próprias no catálogo, com identificação clara de sua espécie de origem.
+
+### 13.3. Critérios de organização do catálogo
+
+- Não utilizar os 302 registros da Pokédex Regional de Sun/Moon como catálogo integral do projeto.
+- Não utilizar a Pokédex expandida de Ultra Sun/Ultra Moon como referência de escopo.
+- Não cadastrar formas originais de espécies antigas que não pertencem ao escopo definido.
+- Diferenciar espécie introduzida na geração VII de forma regional de Alola.
+- Preservar nomes oficiais, tipos e características correspondentes.
+- Não inventar registros, imagens ou informações.
+- Não misturar numeração regional e numeração nacional.
+- Manter os dados do catálogo separados dos dados de coleção de cada treinador.
+- Verificar a procedência e a consistência dos dados antes de inserir registros no MySQL.
+
+### 13.4. Pokédex e desbloqueios
+
+- Todos os registros válidos do catálogo devem estar disponíveis na Pokédex.
+- Pokémon não descobertos devem aparecer como silhuetas.
+- Informações restritas de Pokémon não descobertos não devem ser disponibilizadas indevidamente ao front-end.
+- O desbloqueio deve acontecer automaticamente após uma resposta correta no quiz relacionada ao Pokémon.
+- Não implementar captura ou desbloqueio manual.
+- Não permitir registros duplicados na coleção de um treinador.
+- Favoritos devem ser permitidos somente para Pokémon descobertos.
+
+### 13.5. Diretrizes de implementação
+
+Antes de modificar a arquitetura, o agente deverá analisar a API Aquatech original e apresentar um plano de integração.
+
+Antes de popular ou alterar o catálogo, deverá validar os registros de acordo com os critérios desta seção.
+
+Nenhuma funcionalidade original deve ser removida apenas para simplificar a implementação Pokémon.
+
+Alterações estruturais importantes exigem justificativa e autorização do desenvolvedor.
+
+### 13.6. Regra principal
+
+O projeto deve preservar a base técnica fornecida pela faculdade, acrescentando as funcionalidades Pokémon sem comprometer a estrutura original.
+
+O agente deve analisar antes de modificar, explicar antes de realizar alterações importantes e validar antes de considerar uma tarefa concluída.
