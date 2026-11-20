@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS pokemon_treinador (
     nome VARCHAR(80) NOT NULL,
     usuario VARCHAR(24) NOT NULL,
     email VARCHAR(254) NOT NULL,
-    senha_hash VARCHAR(160) NOT NULL,
+    senha_hash VARCHAR(255) NOT NULL,
     criado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     UNIQUE KEY uq_pokemon_treinador_usuario (usuario),
     UNIQUE KEY uq_pokemon_treinador_email (email)

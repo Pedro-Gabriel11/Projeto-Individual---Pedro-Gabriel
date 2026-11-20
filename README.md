@@ -56,8 +56,10 @@ os dados que alimentam a dashboard de progresso.
 
 ## Status do projeto
 
-O projeto está **em desenvolvimento**. O código das funcionalidades abaixo já está
-escrito, mas ainda não foi validado de ponta a ponta com o banco em execução.
+O projeto está **em desenvolvimento**. O fluxo principal — cadastro, login, quiz,
+desbloqueio de Pokémon e dashboard — já foi validado de ponta a ponta com o banco
+em execução. O que falta é conteúdo: a história pessoal, o catálogo completo e as
+imagens.
 
 | Funcionalidade | Descrição | Status |
 |---|---|---|
@@ -71,7 +73,7 @@ escrito, mas ainda não foi validado de ponta a ponta com o banco em execução.
 | **Minha história** | Página que conecta a franquia à trajetória pessoal do autor | Conteúdo pendente |
 | **Catálogo completo** | 106 entradas (Geração VII + formas de Alola) | 4 entradas de demonstração |
 | **Imagens dos Pokémon** | Artes e silhuetas do catálogo | Pendente (ilustrações em CSS) |
-| **Validação ponta a ponta** | Teste manual de todos os fluxos com o banco ativo | Pendente |
+| **Validação ponta a ponta** | Teste manual do fluxo principal com o banco ativo | Concluída |
 
 ### Páginas
 
