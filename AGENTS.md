@@ -1,475 +1,219 @@
 # AGENTS.md — Pokémon Trainer Hub
 
-## 1. Direção e objetivo do projeto
-
-O Pokémon Trainer Hub é um projeto individual de desenvolvimento web, inspirado no universo Pokémon, com foco especial na região de Alola e na Geração VII.
-
-O objetivo é desenvolver uma aplicação web funcional na qual os usuários possam criar suas contas como treinadores, acessar uma Pokédex, responder a quizzes, desbloquear Pokémon e acompanhar seu progresso.
-
-### Tecnologias utilizadas
-
-- **Frontend:** HTML5, CSS3 e JavaScript.
-- **Backend:** Node.js e Express.
-- **Banco de dados:** MySQL.
-- **Comunicação:** API REST desenvolvida com Express.
-
-A aplicação deve manter uma arquitetura simples, organizada e compatível com o nível e os objetivos acadêmicos do projeto.
-
-Não introduzir frameworks ou tecnologias adicionais, como React, Next.js ou similares, sem autorização prévia.
-
-O desenvolvimento deve priorizar a manutenção e a evolução do código existente, evitando reescritas desnecessárias.
+Instruções para agentes de IA (Claude Code, OpenCode) que trabalharem neste projeto.
+Leia este arquivo antes de qualquer alteração.
 
 ---
 
-## 2. Aquatech como referência exclusivamente técnica
+## 1. Sobre o desenvolvedor
 
-O projeto Aquatech foi fornecido como referência acadêmica para auxiliar na organização e implementação da estrutura técnica do Pokémon Trainer Hub.
+Pedro Gabriel, aluno do **1º semestre** de Análise e Desenvolvimento de Sistemas
+na São Paulo Tech School. Este é um projeto individual acadêmico.
 
-Entretanto, o Aquatech não faz parte do produto final e não deve ser incorporado funcionalmente ao Pokémon Trainer Hub.
+Como trabalhar comigo:
 
-Sua utilização deve ser limitada à consulta de padrões técnicos e boas práticas, como:
+- Responda sempre em **português**.
+- **Explique o que está sendo feito e por quê**, não só entregue o código.
+- Prefira **código simples e legível** a código enxuto e esperto.
+- Se precisar usar um recurso além do básico de JavaScript, **explique antes de usar**.
+- Quando houver mais de uma forma de resolver, mostre a mais direta primeiro.
+- Vou precisar **explicar este código para um professor**. Se eu não conseguir
+  entender uma solução, ela não serve, mesmo que funcione.
 
-- Inicialização e configuração do Express.
-- Organização de rotas, controllers e models.
-- Configuração e conexão com o MySQL.
-- Utilização de variáveis de ambiente com dotenv.
-- Implementação de middlewares.
-- Organização das consultas SQL.
-- Utilização de consultas parametrizadas.
-- Validação de dados recebidos pela API.
-- Tratamento de erros.
-- Organização e separação de responsabilidades.
+### Escopo de cada tarefa
 
-O código existente do Pokémon Trainer Hub deve ser priorizado sempre que já apresentar uma solução adequada.
-
-O Aquatech deve ser consultado apenas quando houver necessidade de compreender ou comparar algum padrão técnico.
-
----
-
-## 3. Funcionalidades do Aquatech que não devem ser incorporadas
-
-Não incorporar funcionalidades, regras de negócio, tabelas ou módulos específicos do Aquatech.
-
-Os seguintes elementos não fazem parte do Pokémon Trainer Hub:
-
-- Cadastro de empresas.
-- Cadastro de usuários do Aquatech.
-- Cadastro e gerenciamento de aquários.
-- Monitoramento de aquários.
-- Registro de medidas.
-- Registro de avisos.
-- Códigos de ativação.
-- Funcionalidades relacionadas ao monitoramento de sensores.
-- Regras de negócio específicas da plataforma Aquatech.
-
-Não criar, importar ou manter módulos relacionados a essas funcionalidades.
-
-Também não utilizar nomes de endpoints, tabelas ou entidades do Aquatech como parte da API do Pokémon Trainer Hub.
-
-A aplicação deve possuir sua própria estrutura de dados, autenticação, regras de negócio e identidade.
+- Faça **uma tarefa por vez**, no escopo de arquivos que eu indicar.
+- Não altere arquivos fora do escopo pedido.
+- Não reescreva arquivos inteiros quando uma alteração pontual resolve.
+- Ao terminar, **liste o que mudou e por quê**, e aguarde antes de seguir.
+- Não faça commits automaticamente.
+- Não instale dependências novas sem me perguntar.
 
 ---
 
-## 4. Banco de dados próprio: pokemon_trainer_hub
+## 2. O projeto
 
-O Pokémon Trainer Hub deve utilizar seu próprio banco de dados MySQL, denominado:
+O Pokémon Trainer Hub é uma aplicação web ambientada no universo Pokémon, com
+foco na região de Alola e na Geração VII.
 
-`pokemon_trainer_hub`
+O visitante cria uma conta como treinador, responde quizzes de silhueta e trivia,
+desbloqueia Pokémon na própria Pokédex a cada acerto, e acompanha o progresso em
+uma dashboard.
 
-A configuração da conexão deve utilizar variáveis de ambiente, mantendo as credenciais fora do código-fonte.
+### Tecnologias
 
-A variável `DB_DATABASE` deve apontar para o banco de dados próprio do projeto.
+- **Front-end:** HTML, CSS e JavaScript puro — sem frameworks.
+- **Back-end:** Node.js com Express.
+- **Banco:** MySQL, base `pokemon_trainer_hub`.
+- **Testes:** módulo nativo `node:test`.
 
-Não utilizar tabelas ou estruturas do banco de dados do Aquatech.
-
-O banco deve armazenar informações relacionadas exclusivamente às funcionalidades do Pokémon Trainer Hub.
-
-### Entidades previstas
-
-A estrutura deve considerar as seguintes entidades:
-
-- `pokemon_treinador`: informações dos treinadores cadastrados.
-- `pokemon_sessao`: sessões de autenticação dos treinadores.
-- `pokemon_especie`: informações das espécies de Pokémon.
-- `pokemon_catalogo`: registros das entradas disponíveis na Pokédex, incluindo formas regionais.
-- `pokemon_pergunta`: perguntas utilizadas nos quizzes.
-- `pokemon_alternativa`: alternativas das perguntas, caso a separação seja necessária.
-- `pokemon_tentativa`: histórico das tentativas realizadas pelos treinadores.
-- `pokemon_resposta`: respostas individuais dos treinadores, quando necessário.
-- `pokemon_colecao`: Pokémon desbloqueados e informações relacionadas aos favoritos.
-
-A estrutura definitiva deve ser definida após a análise do banco existente, evitando tabelas redundantes ou informações duplicadas.
-
-Não criar novas tabelas sem antes verificar se a estrutura atual já atende à necessidade.
+Não introduzir React, Next.js, TypeScript, bibliotecas de CSS ou qualquer
+tecnologia adicional sem autorização.
 
 ---
 
-## 5. Autenticação e gerenciamento de treinadores
+## 3. Estado atual
 
-O sistema deve possuir autenticação própria para os treinadores do Pokémon Trainer Hub.
+**Funciona e está validado de ponta a ponta:** cadastro, login, sessão, quiz,
+desbloqueio de Pokémon, favoritos, dashboard e perfil.
 
-As funcionalidades previstas são:
+**Pendente:**
 
-- Cadastro de treinadores.
-- Login utilizando e-mail ou nome de usuário.
-- Verificação de credenciais.
-- Gerenciamento de sessões.
-- Logout.
-- Proteção de rotas privadas.
-
-### Regras de segurança
-
-- Nunca armazenar senhas em texto puro.
-- Utilizar hash seguro para armazenamento de senhas.
-- Verificar duplicidade de e-mail e nome de usuário.
-- Validar os dados recebidos durante cadastro e login.
-- Utilizar tokens de sessão seguros.
-- Armazenar no banco somente o hash do token de sessão.
-- Implementar expiração das sessões.
-- Invalidar a sessão durante o logout.
-- Garantir que cada treinador tenha acesso somente aos próprios dados.
-
-O projeto já possui uma implementação de autenticação utilizando `scrypt`, tokens de sessão e middleware Bearer.
-
-Antes de alterar essa implementação, analisar seu funcionamento completo e preservar as partes que já estiverem corretas.
-
-Não modificar a estratégia de armazenamento de tokens no frontend sem avaliar previamente os impactos na arquitetura e na segurança.
+| Item | Situação |
+|---|---|
+| Conteúdo da página `historia.html` | A ser escrito pelo autor — não gerar |
+| Catálogo de Pokémon | 4 registros de demonstração; meta é 106 |
+| Imagens | Nenhuma no projeto; hoje tudo é ilustração em CSS |
+| Identidade visual | Paleta ainda é a genérica do template |
+| HTML dentro de JavaScript | Precisa ser extraído (ver seção 6) |
 
 ---
 
-## 6. Estrutura da API e organização do código
+## 4. Aquatech: referência técnica, fora do projeto
 
-O projeto deve manter uma única aplicação Express, responsável por disponibilizar o frontend e a API.
+O Aquatech (`web-data-viz`) é o template fornecido pela faculdade. Ele **não está
+dentro deste repositório** — fica numa pasta irmã, fora do projeto, e normalmente
+não estará acessível durante o trabalho.
 
-Os endpoints da API devem utilizar o prefixo:
+Dele vale a **organização**: Express servindo front e API, separação em
+routes/controllers/models, conexão via `dotenv`.
 
-`/api`
-
-A organização deve respeitar a separação de responsabilidades entre:
-
-- Routes: definição dos endpoints.
-- Controllers: tratamento das requisições e respostas.
-- Models: comunicação com o banco de dados.
-- Middlewares: autenticação, validações e outras responsabilidades compartilhadas.
-- Database: configuração e conexão com o MySQL.
-
-### Endpoints existentes
-
-Os seguintes endpoints fazem parte do contrato atual da aplicação e devem ser preservados sempre que possível:
-
-- `POST /api/treinadores/cadastrar`
-- `POST /api/treinadores/autenticar`
-- `POST /api/treinadores/sair`
-- `GET /api/treinadores/visao-geral`
-- `GET /api/treinadores/pokedex`
-- `PATCH /api/treinadores/pokedex/:pokemonId/favorito`
-- `GET /api/pokemon`
-- `GET /api/quiz/perguntas`
-- `POST /api/quiz/tentativas`
-
-Antes de modificar qualquer endpoint:
-
-1. Verificar sua implementação atual.
-2. Identificar quais páginas e scripts do frontend utilizam esse endpoint.
-3. Avaliar se a alteração é realmente necessária.
-4. Atualizar os consumidores afetados, caso seja necessário.
-5. Documentar mudanças no contrato da API.
-
-Não criar endpoints duplicados ou desnecessários.
-
-Não criar rotas relacionadas ao Aquatech.
+Dele **não** vale nada de negócio: empresas, aquários, sensores, medidas, avisos,
+códigos de ativação. Não criar tabelas, rotas, entidades ou arquivos com esses
+nomes. O Pokémon Trainer Hub tem domínio, banco e API próprios.
 
 ---
 
-## 7. Catálogo de Pokémon
+## 5. Banco de dados
 
-A Pokédex do Pokémon Trainer Hub deve possuir um catálogo específico, limitado ao escopo definido para o projeto.
+Base própria: `pokemon_trainer_hub`. Credenciais sempre por variáveis de ambiente,
+nunca no código.
 
-### Escopo confirmado
+### Tabelas existentes
 
-O catálogo deve conter:
+| Tabela | Guarda |
+|---|---|
+| `pokemon_treinador` | Contas (`senha_hash` em VARCHAR(255)) |
+| `pokemon_sessao` | Sessões ativas, com hash do token e expiração |
+| `pokemon_catalogo` | Entradas da Pokédex |
+| `pokemon_pergunta` | Perguntas do quiz, alternativas e resposta correta |
+| `pokemon_colecao` | Pokémon desbloqueados e favoritados por treinador |
+| `pokemon_tentativa` | Histórico de partidas: pontos, acertos, erros, precisão |
 
-**1. Pokémon introduzidos na Geração VII**
+Não criar tabela nova sem antes verificar se uma existente atende.
 
-- National Pokédex #722 até #809.
-- Total esperado: 88 espécies.
+### Alterações no banco
 
-**2. Formas regionais de Alola de Pokémon de gerações anteriores**
+- `CREATE TABLE IF NOT EXISTS` **não atualiza** tabela já existente. Mudanças
+  estruturais exigem um `ALTER TABLE`, e ele deve ser informado explicitamente.
+- Atualizar o script `src/database/script-tabelas-pokemon.sql` junto, para que
+  uma instalação nova já saia correta.
+- Preservar dados existentes. Nada de `DROP` sem autorização explícita.
+- Sempre usar **consultas parametrizadas** (`?`), nunca concatenar valores vindos
+  do usuário dentro do SQL.
 
-- Total esperado: 18 formas regionais.
+---
 
-**Total esperado: 106 entradas no catálogo.**
+## 6. Organização do código
 
-### Regras importantes
+Uma única aplicação Express serve o front estático e a API sob o prefixo `/api`.
 
-- Não utilizar a Pokédex regional completa de Sun/Moon ou Ultra Sun/Ultra Moon.
-- Não incluir espécies originais de gerações anteriores apenas porque aparecem na Pokédex regional de Alola.
-- As formas de Alola devem ser entradas separadas no catálogo.
-- Cada forma regional deve possuir relacionamento com sua espécie original.
-- Não duplicar uma espécie sem justificativa relacionada à forma regional.
-- O número nacional da Pokédex pertence à espécie, não deve ser confundido com uma numeração própria do catálogo.
-- Caso o projeto utilize uma ordem própria, identificá-la claramente como ordem do catálogo do Hub.
+```
+app.js              servidor e variáveis de ambiente
+src/routes/         quais endereços existem
+src/controllers/    recebe a requisição, valida, responde
+src/models/         únicos arquivos que escrevem SQL
+src/database/       conexão e script das tabelas
+public/             HTML, CSS e JS do navegador
+tests/              testes unitários
+```
 
-Antes de inserir os dados definitivos, validar a lista completa das 106 entradas.
+### Endpoints atuais
 
-Não inventar nomes, tipos, descrições, imagens ou características.
+```
+POST   /api/treinadores/cadastrar
+POST   /api/treinadores/autenticar
+POST   /api/treinadores/sair                              🔒
+GET    /api/treinadores/visao-geral                       🔒
+GET    /api/treinadores/pokedex                           🔒
+PATCH  /api/treinadores/pokedex/:pokemonId/favorito       🔒
+GET    /api/quiz/perguntas                                🔒
+POST   /api/quiz/tentativas                               🔒
+GET    /api/pokemon
+```
+
+🔒 = exige `Authorization: Bearer <token>`.
+
+Antes de alterar um endpoint: verificar quem o consome em `public/js/`, avaliar
+se a mudança é necessária, e atualizar os consumidores junto.
+
+### Regra de front-end a seguir daqui em diante
+
+Hoje várias páginas montam HTML dentro de strings no JavaScript. **Isso deve ser
+corrigido página por página**, quando solicitado: a estrutura vai para o arquivo
+`.html`, e o JavaScript apenas preenche os valores com `textContent`.
+
+Não criar código novo que gere HTML por concatenação de strings.
+
+---
+
+## 7. Autenticação e segurança
+
+Já implementado e funcionando: senha com `scrypt` (sal + hash), token de sessão
+aleatório do qual só o hash fica no banco, expiração de 7 dias, e middleware
+`autenticarTreinador` protegendo as rotas privadas.
+
+**Analisar antes de alterar.** Essa parte funciona; mudanças aqui exigem
+justificativa e explicação.
+
+Regras permanentes:
+
+- Nunca armazenar senha em texto puro.
+- Nunca enviar ao front dados que o treinador não deveria ver.
+- Cada treinador acessa somente os próprios dados.
+- As regras de acesso valem no **back-end**. Esconder algo com CSS ou JavaScript
+  não é proteção.
+
+### Pokémon bloqueados
+
+A API não deve enviar ao navegador nome, tipos, descrição, categoria, slug ou
+caminho de imagem de um Pokémon que o treinador ainda não desbloqueou — só o
+necessário para mostrar a silhueta ou o estado bloqueado.
+
+---
+
+## 8. Catálogo de Pokémon
+
+Escopo: Geração VII (nacional #722 a #809, 88 espécies) mais as 18 formas
+regionais de Alola. Total de 106 entradas.
+
+- Formas de Alola são entradas separadas, ligadas à espécie original.
+- Não incluir espécies de gerações anteriores só porque aparecem na Pokédex
+  regional de Alola.
+- O número nacional pertence à espécie; não confundir com a ordem do catálogo.
+
+**Não inventar dados.** Nome, tipos, categoria, descrição e altura precisam ser
+corretos. Em caso de dúvida sobre qualquer campo, deixar `NULL` e avisar.
+
+Inserir em lotes pequenos, para que eu consiga conferir antes do próximo.
 
 ### Imagens
 
-As imagens utilizadas devem possuir origem identificável e condições de uso compatíveis com o projeto.
-
-Não inventar caminhos de arquivos ou referências para imagens inexistentes.
-
-Priorizar arquivos locais organizados e documentados.
-
-Caso ainda não existam imagens definitivas, manter uma solução visual provisória sem comprometer o funcionamento do sistema.
+Usar apenas imagens de origem identificável e com uso compatível com um trabalho
+acadêmico. Não referenciar arquivos que não existem. Enquanto não houver imagem
+definitiva, manter a ilustração em CSS como alternativa.
 
 ---
 
-## 8. Regras da Pokédex e desbloqueios
+## 9. Testes
 
-A Pokédex deve representar o progresso individual de cada treinador.
+O projeto tem testes unitários em `tests/`, rodados com `npm test`. Devem ser
+preservados e ampliados conforme o código evoluir.
 
-Cada treinador deve possuir sua própria coleção de Pokémon desbloqueados.
+**Atenção:** os testes unitários não tocam no banco. Já aconteceu de todos
+passarem com um erro real de banco no caminho — a coluna `senha_hash` era pequena
+demais para o hash gerado, e isso só apareceu no primeiro cadastro de verdade.
 
-### Regras de desbloqueio
-
-- Pokémon podem ser desbloqueados por meio dos quizzes.
-- Uma resposta correta pode desbloquear o Pokémon associado à pergunta.
-- Uma resposta incorreta não deve desbloquear o Pokémon.
-- Um Pokémon já desbloqueado não deve ser duplicado na coleção.
-- O desbloqueio deve estar associado ao treinador autenticado.
-- O sistema deve permitir favoritar e desfavoritar Pokémon desbloqueados.
-
-### Privacidade dos Pokémon bloqueados
-
-Informações de Pokémon bloqueados não devem ser disponibilizadas indevidamente ao frontend.
-
-O backend deve controlar quais informações podem ser retornadas para cada treinador.
-
-Não basta esconder visualmente o nome de um Pokémon utilizando CSS ou JavaScript.
-
-A API não deve enviar ao frontend informações que revelem a identidade de Pokémon ainda bloqueados, incluindo:
-
-- Nome.
-- Tipos.
-- Descrição.
-- Categoria.
-- Identificadores ou slugs reveladores.
-- Caminhos de imagens identificáveis.
-- Chaves de silhueta que permitam descobrir sua identidade.
-
-A apresentação visual de um Pokémon bloqueado deve utilizar apenas informações estritamente necessárias para exibir sua silhueta ou estado bloqueado.
-
-As regras de acesso devem ser aplicadas no backend, não somente na interface.
-
----
-
-## 9. Segurança e persistência de dados
-
-A segurança deve ser considerada em todas as etapas de desenvolvimento.
-
-### Banco de dados
-
-- Utilizar consultas parametrizadas.
-- Evitar concatenação de valores fornecidos pelo usuário em consultas SQL.
-- Utilizar transações quando uma operação envolver múltiplas alterações relacionadas.
-- Garantir integridade dos relacionamentos.
-- Evitar duplicidade de registros.
-- Não expor credenciais do banco de dados.
-
-### Autenticação
-
-- Proteger rotas privadas por meio de middleware.
-- Validar o token recebido nas requisições.
-- Verificar expiração e revogação das sessões.
-- Garantir isolamento dos dados entre treinadores.
-
-### Backend
-
-- Utilizar validações consistentes.
-- Implementar limites adequados para o tamanho das requisições.
-- Avaliar mecanismos de proteção contra tentativas excessivas de login.
-- Padronizar respostas de erro.
-- Evitar exposição de informações internas ou sensíveis.
-
-### Transações
-
-Operações relacionadas ao envio de respostas de quizzes, registro de tentativas e desbloqueio de Pokémon devem manter consistência.
-
-Quando uma resposta correta resultar em um desbloqueio, as operações relacionadas devem ser realizadas em uma transação, evitando situações em que apenas parte dos dados seja persistida.
-
-### Persistência
-
-Informações importantes não devem existir somente no armazenamento local do navegador.
-
-O progresso, os desbloqueios, os favoritos e o histórico de quizzes devem ser persistidos no MySQL.
-
----
-
-## 10. Fluxo de trabalho e orientações para o OpenCode
-
-O desenvolvimento deve ocorrer por etapas independentes e controladas.
-
-Não executar todas as etapas de uma só vez.
-
-Antes de qualquer alteração:
-
-1. Ler este arquivo `AGENTS.md`.
-2. Analisar a estrutura atual do projeto.
-3. Identificar os arquivos envolvidos.
-4. Verificar o estado do Git.
-5. Identificar alterações existentes que precisam ser preservadas.
-6. Apresentar um plano de execução compatível com o escopo solicitado.
-
-### Regras obrigatórias
-
-- Não reescrever arquivos inteiros sem necessidade.
-- Não remover funcionalidades existentes sem autorização.
-- Não sobrescrever alterações anteriores do usuário.
-- Não modificar arquivos fora do escopo autorizado.
-- Não instalar dependências sem justificativa e autorização.
-- Não executar comandos SQL destrutivos sem autorização explícita.
-- Não alterar o banco de dados real sem autorização.
-- Não realizar commits automaticamente.
-- Não alterar o conteúdo da pasta `Aquatech/`.
-- Não incorporar funcionalidades de negócio do Aquatech.
-
-### Execução por etapas
-
-Cada etapa deve possuir:
-
-- Objetivo definido.
-- Escopo de arquivos autorizado.
-- Análise prévia.
-- Plano de implementação.
-- Alterações realizadas.
-- Testes executados.
-- Resultado dos testes.
-- Problemas encontrados.
-- Pendências identificadas.
-
-Ao concluir uma etapa, apresentar um relatório claro e aguardar autorização antes de iniciar a próxima.
-
-Se uma alteração necessária ultrapassar o escopo autorizado, interromper a execução e solicitar aprovação.
-
----
-
-## 11. Dados, scripts SQL e migrações
-
-Antes de modificar a estrutura do banco de dados, analisar os scripts SQL existentes e verificar o estado real do banco, quando houver autorização para acessá-lo.
-
-O projeto possui um script inicial de criação das tabelas Pokémon.
-
-Não presumir que executar novamente um script com `CREATE TABLE IF NOT EXISTS` atualizará tabelas já existentes.
-
-### Regras para alterações no banco
-
-- Identificar a estrutura atual antes de propor mudanças.
-- Preservar os dados existentes.
-- Evitar operações destrutivas.
-- Não remover tabelas ou colunas sem justificativa e autorização.
-- Criar scripts de migração quando houver mudanças estruturais.
-- Documentar a finalidade de cada migração.
-- Garantir compatibilidade entre o banco e os models.
-- Validar relacionamentos e restrições de integridade.
-
-### Catálogo e dados iniciais
-
-A inserção definitiva dos 106 registros deve ocorrer somente após a validação da lista completa.
-
-Não substituir dados existentes sem analisar previamente seus impactos.
-
-Dados de demonstração devem ser identificados como provisórios e não devem ser tratados como catálogo definitivo.
-
----
-
-## 12. Critérios de qualidade e testes
-
-Toda alteração deve ser validada por testes compatíveis com o escopo modificado.
-
-### Testes existentes
-
-O projeto já possui testes unitários relacionados a funcionalidades como:
-
-- Cadastro e hash de senha.
-- Funcionamento do quiz.
-- Validação de respostas.
-- Favoritos.
-
-Os testes existentes devem ser preservados e ampliados conforme necessário.
-
-### Cobertura desejada
-
-A evolução do projeto deve considerar:
-
-**Autenticação**
-- Cadastro válido.
-- Cadastro com e-mail duplicado.
-- Login válido.
-- Login inválido.
-- Sessão expirada.
-- Logout.
-- Acesso sem autenticação.
-
-**Pokédex**
-- Consulta da coleção.
-- Separação entre Pokémon desbloqueados e bloqueados.
-- Favoritar e desfavoritar.
-- Isolamento de dados entre treinadores.
-- Proteção de informações de Pokémon bloqueados.
-
-**Quiz**
-- Carregamento das perguntas.
-- Validação das alternativas.
-- Cálculo correto da pontuação.
-- Registro das tentativas.
-- Desbloqueio de Pokémon.
-- Prevenção de duplicidade de desbloqueios.
-
-**Banco de dados e API**
-- Persistência real dos dados.
-- Funcionamento dos relacionamentos.
-- Validação das transações.
-- Tratamento de erros.
-- Testes de integração entre API e MySQL.
-
-Os testes unitários existentes não devem ser considerados prova suficiente de que toda a aplicação está funcionando.
-
-Quando possível, adicionar testes de integração e testes de interface.
-
-Não afirmar que uma funcionalidade foi validada se apenas seus testes unitários isolados foram executados.
-
----
-
-## 13. Decisão definitiva sobre o Aquatech
-
-Esta decisão é definitiva e deve ser respeitada durante todo o desenvolvimento.
-
-O Aquatech é exclusivamente uma referência técnica e acadêmica.
-
-O Pokémon Trainer Hub é um projeto independente, com identidade visual, funcionalidades, API, autenticação e banco de dados próprios.
-
-### O que pode ser aproveitado do Aquatech
-
-- Organização técnica.
-- Padrões de desenvolvimento.
-- Estrutura de pastas como referência.
-- Configurações e boas práticas de conexão.
-- Padrões de rotas, controllers e models.
-- Exemplos de validação e tratamento de erros.
-
-### O que não pode ser aproveitado como funcionalidade
-
-- Módulos de negócio.
-- Tabelas específicas.
-- Entidades do domínio Aquatech.
-- Endpoints do Aquatech.
-- Regras de negócio de monitoramento.
-- Funcionalidades de empresas, aquários, sensores, medidas e avisos.
-
-A pasta `Aquatech/` deve permanecer intacta e ser utilizada somente para consulta.
-
-O projeto ativo deve continuar sendo o Pokémon Trainer Hub, com seu próprio servidor Express, sua própria API sob `/api` e seu próprio banco `pokemon_trainer_hub`.
-
-**Em caso de conflito entre alguma orientação antiga, implementação anterior ou proposta de integração com o Aquatech e as regras deste documento, prevalecem as decisões estabelecidas neste arquivo.**
+Por isso: **não afirmar que algo funciona só porque o teste unitário passou.**
+Diga o que foi verificado e o que ainda precisa ser testado no navegador com o
+banco rodando.
