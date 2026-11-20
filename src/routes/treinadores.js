@@ -1,13 +1,12 @@
 var express = require("express");
 var router = express.Router();
 var treinadorController = require("../controllers/treinadorController");
-var autenticarTreinador = require("../middleware/treinadorAuth");
 
 router.post("/cadastrar", treinadorController.cadastrar);
 router.post("/autenticar", treinadorController.autenticar);
-router.post("/sair", autenticarTreinador, treinadorController.sair);
-router.get("/visao-geral", autenticarTreinador, treinadorController.visaoGeral);
-router.get("/pokedex", autenticarTreinador, treinadorController.listarPokedex);
-router.patch("/pokedex/:pokemonId/favorito", autenticarTreinador, treinadorController.alterarFavorito);
+router.post("/sair", treinadorController.autenticarTreinador, treinadorController.sair);
+router.get("/visao-geral", treinadorController.autenticarTreinador, treinadorController.visaoGeral);
+router.get("/pokedex", treinadorController.autenticarTreinador, treinadorController.listarPokedex);
+router.patch("/pokedex/:pokemonId/favorito", treinadorController.autenticarTreinador, treinadorController.alterarFavorito);
 
 module.exports = router;
