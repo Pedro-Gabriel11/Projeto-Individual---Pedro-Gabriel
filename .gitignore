@@ -6,3 +6,6 @@ node_modules/
 .DS_Store
 
 .github
+
+# Rascunhos visuais do planejamento (não vão para o repositório)
+.superpowers/
