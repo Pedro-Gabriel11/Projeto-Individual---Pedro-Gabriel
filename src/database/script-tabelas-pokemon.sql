@@ -178,5 +178,27 @@ INSERT INTO pokemon (id, numero, nome, tipo1, tipo2, categoria, descricao, altur
 (100, 809, 'Melmetal', 'Aço', NULL, 'Pokémon Porca Sextavada', 'Venerado há muito tempo por sua capacidade de criar ferro do nada, por algum motivo voltou à vida depois de 3.000 anos.', 2.5, 'melmetal.png');
 
 -- =====================================================================
--- CATÁLOGO: LOTE 4 (ids 89 a 106 — formas de Alola)
+-- CATÁLOGO: LOTE 4 (ids 101 a 118 — formas de Alola)
+-- "numero" é o número nacional da espécie original (ex.: Vulpix de Alola = 37).
+-- Descrições: entrada de Pokémon Moon da FORMA DE ALOLA (fonte: PokémonDB).
+-- Dados: PokeAPI e PokémonDB. Descrições e categorias: tradução livre de Pokémon Moon.
 -- =====================================================================
+INSERT INTO pokemon (id, numero, nome, tipo1, tipo2, categoria, descricao, altura, imagem) VALUES
+(101, 19, 'Rattata de Alola', 'Sombrio', 'Normal', 'Pokémon Rato', 'Fica ativo quando o sol se põe. Corre pela cidade atrás de comida boa para o chefe do seu ninho, Raticate.', 0.3, 'rattata-alola.png'),
+(102, 20, 'Raticate de Alola', 'Sombrio', 'Normal', 'Pokémon Rato', 'Este Pokémon gourmet é exigente com o sabor e o frescor da comida. Restaurantes onde vivem Raticate têm boa reputação.', 0.7, 'raticate-alola.png'),
+(103, 26, 'Raichu de Alola', 'Elétrico', 'Psíquico', 'Pokémon Rato', 'Usa a psicocinese para controlar a eletricidade. Sobe na própria cauda e, com o poder psíquico, a faz flutuar para se locomover montado nela.', 0.7, 'raichu-alola.png'),
+(104, 27, 'Sandshrew de Alola', 'Gelo', 'Aço', 'Pokémon Rato', 'Uma antiga tradição dos festivais de Alola, mantida até hoje, é uma competição para ver quem desliza um Sandshrew mais longe sobre o gelo.', 0.7, 'sandshrew-alola.png'),
+(105, 28, 'Sandslash de Alola', 'Gelo', 'Aço', 'Pokémon Rato', 'Os espinhos de aço deste Pokémon são cobertos de gelo. Os golpes desses espinhos causam ferimentos profundos e queimaduras graves de frio.', 1.2, 'sandslash-alola.png'),
+(106, 37, 'Vulpix de Alola', 'Gelo', NULL, 'Pokémon Raposa', 'No tempo quente, este Pokémon faz lascas de gelo com suas seis caudas e as espalha ao redor para se refrescar.', 0.6, 'vulpix-alola.png'),
+(107, 38, 'Ninetales de Alola', 'Gelo', 'Fada', 'Pokémon Raposa', 'Com seu temperamento calmo, este Pokémon era venerado como uma divindade encarnada antes de ser identificado como uma variante regional de Ninetales.', 1.1, 'ninetales-alola.png'),
+(108, 50, 'Diglett de Alola', 'Terra', 'Aço', 'Pokémon Toupeira', 'Seus fios dourados funcionam como sensores. Ele os põe para fora da toca para vigiar os arredores.', 0.2, 'diglett-alola.png'),
+(109, 51, 'Dugtrio de Alola', 'Terra', 'Aço', 'Pokémon Toupeira', 'Estes Pokémon são muito queridos na região de Alola, onde se acredita que sejam divindades femininas da terra encarnadas.', 0.7, 'dugtrio-alola.png'),
+(110, 52, 'Meowth de Alola', 'Sombrio', NULL, 'Pokémon Gato Arranhador', 'Quando seu orgulho delicado é ferido, ou quando a moeda de ouro da testa fica suja, tem um ataque de fúria histérica.', 0.4, 'meowth-alola.png'),
+(111, 53, 'Persian de Alola', 'Sombrio', NULL, 'Pokémon Gato Elegante', 'Despreza todos, menos a si mesmo. Suas táticas preferidas são golpes traiçoeiros e ataques pelas costas.', 1.1, 'persian-alola.png'),
+(112, 74, 'Geodude de Alola', 'Pedra', 'Elétrico', 'Pokémon Rocha', 'Se você pisar sem querer num Geodude dormindo no chão, vai ouvir um estalo e sentir um choque percorrer o corpo inteiro.', 0.4, 'geodude-alola.png'),
+(113, 75, 'Graveler de Alola', 'Pedra', 'Elétrico', 'Pokémon Rocha', 'Comem pedras e vivem brigando por elas. O choque de Graveler batendo uns nos outros causa um clarão e um estrondo.', 1, 'graveler-alola.png'),
+(114, 76, 'Golem de Alola', 'Pedra', 'Elétrico', 'Pokémon Megatonelada', 'Como não consegue disparar pedras em ritmo rápido, é conhecido por agarrar Geodude que estejam por perto e dispará-los pelas costas.', 1.7, 'golem-alola.png'),
+(115, 88, 'Grimer de Alola', 'Venenoso', 'Sombrio', 'Pokémon Lodo', 'Os cristais no corpo de Grimer são aglomerados de toxinas. Se um deles cair, venenos mortais vazam.', 0.7, 'grimer-alola.png'),
+(116, 89, 'Muk de Alola', 'Venenoso', 'Sombrio', 'Pokémon Lodo', 'Embora seja surpreendentemente quieto e amigável, se ficar um tempo sem comer lixo, quebra os móveis do seu Treinador e come os pedaços.', 1, 'muk-alola.png'),
+(117, 103, 'Exeggutor de Alola', 'Grama', 'Dragão', 'Pokémon Coco', 'À medida que ficava cada vez mais alto, deixou de depender dos poderes psíquicos, e dentro dele despertou o poder do dragão adormecido.', 10.9, 'exeggutor-alola.png'),
+(118, 105, 'Marowak de Alola', 'Fogo', 'Fantasma', 'Pokémon Guardião de Ossos', 'Tem o costume de chorar pelos companheiros perdidos. Montes de terra à beira da estrada marcam os túmulos dos Marowak.', 1, 'marowak-alola.png');
