@@ -1,47 +1,23 @@
-var database = require("../database/config");
+let database = require("../database/config");
 
-function executar(sql, valores) {
-    return database.executar(sql, valores);
+function registrarTentativa(idTreinador, acertos, erros, pontos) {
+    let instrucaoSql = "INSERT INTO tentativa (fk_treinador, acertos, erros, pontos) VALUES (?, ?, ?, ?)";
+    return database.executar(instrucaoSql, [idTreinador, acertos, erros, pontos]);
 }
 
-function listarPerguntas() {
-    return executar(
-        `SELECT q.id, q.enunciado AS prompt, q.modo AS mode, q.opcoes AS options,
-                p.slug AS silhouetteKey
-         FROM pokemon_pergunta q
-         JOIN pokemon_catalogo p ON p.id = q.pokemon_id
-         WHERE q.ativa = 1 ORDER BY q.id LIMIT 8`
-    );
+// Os ids dos Pokémon que o treinador já tem.
+function buscarIdsDaColecao(idTreinador) {
+    let instrucaoSql = "SELECT fk_pokemon FROM colecao WHERE fk_treinador = ?";
+    return database.executar(instrucaoSql, [idTreinador]);
 }
 
-function buscarPerguntas(ids) {
-    var marcadores = ids.map(function () { return "?"; }).join(", ");
-    return executar(
-        `SELECT id, pokemon_id, opcoes, resposta_correta
-         FROM pokemon_pergunta WHERE ativa = 1 AND id IN (${marcadores})`,
-        ids
-    );
-}
-
-function registrarTentativa(treinadorId, pontos, acertos, erros, total, precisao, resultado, desbloqueados) {
-    var instrucoes = desbloqueados.map(function (pokemonId) {
-        return {
-            sql: "INSERT IGNORE INTO pokemon_colecao (treinador_id, pokemon_id) VALUES (?, ?)",
-            valores: [treinadorId, pokemonId]
-        };
-    });
-    instrucoes.push({
-        sql: `INSERT INTO pokemon_tentativa
-              (treinador_id, pontos, acertos, erros, total, precisao, resultado)
-              VALUES (?, ?, ?, ?, ?, ?, ?)`,
-        valores: [treinadorId, pontos, acertos, erros, total, precisao, resultado]
-    });
-
-    return database.executarTransacao(instrucoes);
+function desbloquearPokemon(idTreinador, idPokemon) {
+    let instrucaoSql = "INSERT INTO colecao (fk_treinador, fk_pokemon) VALUES (?, ?)";
+    return database.executar(instrucaoSql, [idTreinador, idPokemon]);
 }
 
 module.exports = {
-    listarPerguntas,
-    buscarPerguntas,
-    registrarTentativa
+    registrarTentativa,
+    buscarIdsDaColecao,
+    desbloquearPokemon
 };

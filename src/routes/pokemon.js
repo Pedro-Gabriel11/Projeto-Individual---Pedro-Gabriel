@@ -1,7 +1,9 @@
-var express = require("express");
-var router = express.Router();
-var pokemonController = require("../controllers/pokemonController");
+let express = require("express");
+let router = express.Router();
+let pokemonController = require("../controllers/pokemonController");
 
-router.get("/", pokemonController.listarPokemon);
+router.get("/", function (req, res) {
+    pokemonController.listarPokemon(req, res);
+});
 
 module.exports = router;

@@ -1,112 +1,75 @@
-var quizModel = require("../models/quizModel");
-var pokemonModel = require("../models/pokemonModel");
+let quizModel = require("../models/quizModel");
 
-function tratarErroBanco(erro, res, mensagem) {
-    console.error(mensagem, erro);
-    return res.status(500).json({ mensagem: "Não foi possível concluir a operação. Tente novamente." });
-}
-
-function parseJson(value) {
-    if (Array.isArray(value)) return value;
-    if (typeof value !== "string") throw new Error("Dados JSON inválidos no banco.");
-    var parsed = JSON.parse(value);
-    if (!Array.isArray(parsed)) throw new Error("Dados JSON inválidos no banco.");
-    return parsed;
-}
-
-function listarPerguntas(req, res) {
-    return quizModel.listarPerguntas()
-        .then(function (perguntas) {
-            res.json(perguntas.map(function (pergunta) {
-                return {
-                    id: pergunta.id,
-                    prompt: pergunta.prompt,
-                    mode: pergunta.mode,
-                    silhouetteKey: pergunta.silhouetteKey,
-                    options: parseJson(pergunta.options)
-                };
-            }));
-        })
-        .catch(function (erro) {
-            tratarErroBanco(erro, res, "Erro ao consultar perguntas do quiz:");
-        });
+// Recebe os ids que o treinador acertou no quiz e os ids que ele já tem.
+// Devolve só os ids novos, sem repetir nenhum.
+// Exemplo: separarIdsNovos([3, 5, 5, 8], [5]) → [3, 8]
+function separarIdsNovos(idsAcertados, idsDaColecao) {
+    let novos = [];
+    for (let i = 0; i < idsAcertados.length; i++) {
+        let id = idsAcertados[i];
+        let jaTem = idsDaColecao.indexOf(id) != -1;
+        let jaSeparado = novos.indexOf(id) != -1;
+        if (!jaTem && !jaSeparado) {
+            novos.push(id);
+        }
+    }
+    return novos;
 }
 
 function registrarTentativa(req, res) {
-    var envios = req.body && req.body.submissions;
-    if (!Array.isArray(envios) || envios.length < 1 || envios.length > 8) {
-        return res.status(400).json({ mensagem: "A partida deve conter de 1 a 8 respostas." });
+    let idTreinador = Number(req.body.idTreinador);
+    let acertos = Number(req.body.acertos);
+    let erros = Number(req.body.erros);
+    let idsAcertados = req.body.idsAcertados;
+
+    if (isNaN(idTreinador) || idTreinador < 1) {
+        return res.status(400).json({ mensagem: "Treinador inválido." });
+    }
+    if (isNaN(acertos) || isNaN(erros) || acertos < 0 || erros < 0 || acertos + erros == 0) {
+        return res.status(400).json({ mensagem: "Resultado da partida inválido." });
+    }
+    if (!Array.isArray(idsAcertados)) {
+        return res.status(400).json({ mensagem: "Lista de Pokémon acertados inválida." });
     }
 
-    var ids = [];
-    for (var i = 0; i < envios.length; i++) {
-        var id = Number(envios[i] && envios[i].questionID);
-        if (!Number.isInteger(id) || id < 1 || ids.indexOf(id) !== -1 ||
-            typeof envios[i].answer !== "string" || !envios[i].answer.trim()) {
-            return res.status(400).json({ mensagem: "As respostas enviadas são inválidas." });
-        }
-        ids.push(id);
-    }
+    let pontos = acertos * 100;
+    let novos = [];
 
-    return quizModel.buscarPerguntas(ids)
-        .then(function (perguntas) {
-            if (perguntas.length !== ids.length) {
-                return res.status(400).json({ mensagem: "A partida contém perguntas inválidas ou indisponíveis." });
+    // 1) Grava a partida
+    return quizModel.registrarTentativa(idTreinador, acertos, erros, pontos)
+        .then(function () {
+            // 2) Busca o que o treinador já tem
+            return quizModel.buscarIdsDaColecao(idTreinador);
+        })
+        .then(function (resultado) {
+            // O banco devolve [{ fk_pokemon: 5 }, ...]; transformamos em [5, ...]
+            let idsDaColecao = [];
+            for (let i = 0; i < resultado.length; i++) {
+                idsDaColecao.push(resultado[i].fk_pokemon);
             }
+            novos = separarIdsNovos(idsAcertados, idsDaColecao);
 
-            var porId = new Map(perguntas.map(function (pergunta) { return [Number(pergunta.id), pergunta]; }));
-            var pokemonCorretos = new Set();
-            var acertos = 0;
-
-            for (var j = 0; j < envios.length; j++) {
-                var pergunta = porId.get(ids[j]);
-                var opcoes = parseJson(pergunta.opcoes);
-                if (!opcoes.includes(envios[j].answer)) {
-                    return res.status(400).json({ mensagem: "Uma resposta não pertence às opções da pergunta." });
-                }
-                if (envios[j].answer === pergunta.resposta_correta) {
-                    acertos += 1;
-                    pokemonCorretos.add(Number(pergunta.pokemon_id));
-                }
-            }
-
-            var total = envios.length;
-            var erros = total - acertos;
-            var precisao = Math.round((acertos / total) * 100);
-            var resultado = precisao >= 80 ? "expert" : precisao >= 50 ? "explorer" : "beginner";
-            var desbloqueados = Array.from(pokemonCorretos);
-
-            return quizModel.registrarTentativa(
-                req.treinador.id,
-                acertos * 100,
-                acertos,
-                erros,
-                total,
-                precisao,
-                resultado,
-                desbloqueados
-            ).then(function (resultados) {
-                var novosIds = desbloqueados.filter(function (pokemonId, indice) {
-                    return resultados[indice] && resultados[indice].affectedRows === 1;
+            // 3) Desbloqueia os novos, um de cada vez, como uma fila:
+            //    cada .then espera o INSERT anterior terminar.
+            let fila = Promise.resolve();
+            for (let i = 0; i < novos.length; i++) {
+                let idPokemon = novos[i];
+                fila = fila.then(function () {
+                    return quizModel.desbloquearPokemon(idTreinador, idPokemon);
                 });
-                return pokemonModel.listarPokemonDesbloqueados(novosIds)
-                    .then(function (novosPokemon) {
-                        res.json({
-                            score: acertos * 100,
-                            correct: acertos,
-                            wrong: erros,
-                            accuracy: precisao,
-                            newlyUnlocked: novosPokemon
-                        });
-                    });
-            });
+            }
+            return fila;
+        })
+        .then(function () {
+            res.status(200).json({ pontos: pontos, novos: novos });
         })
         .catch(function (erro) {
-            tratarErroBanco(erro, res, "Erro ao salvar tentativa do quiz:");
+            console.log("Erro no banco:", erro);
+            res.status(500).json({ mensagem: "Não foi possível salvar a partida. Tente novamente." });
         });
 }
 
 module.exports = {
-    listarPerguntas,
+    separarIdsNovos,
     registrarTentativa
 };
