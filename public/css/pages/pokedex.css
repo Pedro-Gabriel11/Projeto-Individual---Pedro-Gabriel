@@ -28,7 +28,6 @@
 .card-abrir { width: 100%; padding: 0; border: 0; background: transparent; text-align: left; cursor: pointer; font: inherit; color: inherit; }
 .pokemon-art img { width: 78%; height: 78%; object-fit: contain; }
 .card-status { margin: 4px 0 0; font-size: 12px; }
-.silhueta { filter: brightness(0); opacity: .85; }
 #detalhes-pokemon { width: min(520px, calc(100% - 30px)); border: 0; }
 .detalhe-imagem { display: block; width: 180px; height: 180px; margin: 0 auto 8px; object-fit: contain; }
 .detalhe-fonte { font-size: 12px; }

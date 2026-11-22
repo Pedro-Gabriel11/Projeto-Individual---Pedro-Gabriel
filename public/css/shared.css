@@ -116,3 +116,7 @@ h2 { font-size: clamp(25px, 4vw, 36px); }
   .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
   .footer-inner { flex-direction: column; }
 }
+
+/* Silhueta: brilho zero deixa a imagem toda preta */
+.silhueta { filter: brightness(0); opacity: .85; }
+.mini-pokemon img { display: block; width: 64px; height: 64px; margin: auto; object-fit: contain; }

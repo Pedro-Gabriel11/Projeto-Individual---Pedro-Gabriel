@@ -29,3 +29,12 @@
   .quiz-art .pokemon-art { max-width: 190px; }
   .quiz-question { padding: 21px; }
 }
+
+/* Imagem real, curiosidade e cores de certo/errado (o visual final vem na Etapa 5) */
+.imagem-pergunta { width: 85%; max-width: 280px; transition: filter .4s ease; }
+/* Ao virar silhueta (próxima pergunta), escurece na hora; a transição suave fica só para revelar */
+.imagem-pergunta.silhueta { transition: none; }
+.simbolo-curiosidade { color: var(--green); font-size: 120px; font-weight: 900; }
+.quiz-option.certa { border-color: #3c9a5f; background: #e3f5e8; }
+.quiz-option.errada { border-color: #d9534f; background: #fbe7e6; }
+.botoes-resultado { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin: 22px 0 0; }

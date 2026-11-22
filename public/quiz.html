@@ -6,7 +6,6 @@
   <title>Quiz Pokémon | Pokémon Trainer Hub</title>
   <link rel="stylesheet" href="css/shared.css">
   <link rel="stylesheet" href="css/pages/quiz.css">
-  <script src="js/pages/quiz.js" defer></script>
 </head>
 <body>
   <header class="site-header">
@@ -23,12 +22,85 @@
       </nav>
     </div>
   </header>
+
   <main class="page-wrap">
-    <div class="text-center"><p class="eyebrow">Desafio das ilhas</p><h1>Quiz Pokémon</h1><p class="lead" style="margin-right:auto;margin-left:auto">Acerte as respostas para pontuar e desbloquear novos Pokémon automaticamente.</p></div>
-    <p class="form-note text-center" id="quiz-message" role="status"></p>
-    <section class="quiz-card" id="quiz-card"><div class="empty-state">Preparando seu desafio...</div></section>
+    <div class="text-center">
+      <p class="eyebrow">Desafio das ilhas</p>
+      <h1>Quiz Pokémon</h1>
+      <p class="lead" style="margin-right:auto;margin-left:auto">Cada resposta certa desbloqueia o Pokémon na sua Pokédex. São 10 perguntas por partida.</p>
+    </div>
+
+    <section class="quiz-card">
+      <!-- Aparece enquanto o catálogo carrega -->
+      <div id="tela-carregando" class="empty-state">Preparando seu desafio...</div>
+
+      <!-- Tela da pergunta -->
+      <div id="tela-pergunta" style="display:none">
+        <div class="quiz-progress">
+          <div class="quiz-progress-row"><span id="progresso-texto"></span><span id="pontos-parciais"></span></div>
+          <div class="progress-track"><div class="progress-fill" id="progresso-barra"></div></div>
+        </div>
+        <div class="quiz-content">
+          <div class="quiz-art">
+            <img id="imagem-pergunta" class="imagem-pergunta" alt="">
+            <span id="simbolo-curiosidade" class="simbolo-curiosidade">?</span>
+          </div>
+          <div class="quiz-question">
+            <p class="eyebrow" id="tipo-pergunta"></p>
+            <h2 id="enunciado"></h2>
+            <div class="quiz-options">
+              <button class="quiz-option" id="alternativa-0" onclick="escolherAlternativa(0)"><span class="quiz-option-letter">A</span><span class="texto-alternativa"></span></button>
+              <button class="quiz-option" id="alternativa-1" onclick="escolherAlternativa(1)"><span class="quiz-option-letter">B</span><span class="texto-alternativa"></span></button>
+              <button class="quiz-option" id="alternativa-2" onclick="escolherAlternativa(2)"><span class="quiz-option-letter">C</span><span class="texto-alternativa"></span></button>
+              <button class="quiz-option" id="alternativa-3" onclick="escolherAlternativa(3)"><span class="quiz-option-letter">D</span><span class="texto-alternativa"></span></button>
+            </div>
+            <p class="form-note" id="mensagem-resposta"></p>
+            <div class="quiz-actions">
+              <button class="btn btn-dark" id="botao-confirmar" onclick="confirmarResposta()" disabled>Confirmar resposta</button>
+              <button class="btn btn-yellow" id="botao-proxima" onclick="proximaPergunta()" style="display:none">Próxima pergunta</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tela do resultado -->
+      <div id="tela-resultado" style="display:none">
+        <div class="result-banner">
+          <p class="eyebrow">Partida concluída</p>
+          <h2><span id="resultado-pontos"></span> pontos</h2>
+          <p>Seu resultado foi registrado no painel.</p>
+        </div>
+        <div class="result-stats">
+          <div><strong id="resultado-acertos"></strong><small>Acertos</small></div>
+          <div><strong id="resultado-erros"></strong><small>Erros</small></div>
+          <div><strong id="resultado-precisao"></strong><small>Precisão</small></div>
+        </div>
+        <div class="result-content">
+          <p class="eyebrow">Novas descobertas</p>
+          <p class="muted" id="sem-novos">Nenhum Pokémon novo desta vez. Continue jogando!</p>
+          <div class="recent-grid" id="lista-novos"></div>
+          <p class="botoes-resultado">
+            <a class="btn btn-dark" href="/pokedex.html">Ver minha Pokédex</a>
+            <button class="btn btn-yellow" onclick="jogarNovamente()">Jogar novamente</button>
+          </p>
+        </div>
+      </div>
+
+      <p class="form-note text-center" id="mensagem-quiz"></p>
+    </section>
   </main>
+
+  <!-- Molde de um Pokémon desbloqueado no resultado -->
+  <template id="molde-novo">
+    <div class="mini-pokemon">
+      <img class="novo-imagem" alt="">
+      <strong class="novo-nome"></strong>
+    </div>
+  </template>
+
   <footer class="site-footer"><div class="footer-inner"><strong>Pokémon Trainer Hub</strong><span>Cada partida concluída entra no seu painel.</span></div></footer>
+
   <script src="js/sessao.js"></script>
+  <script src="js/pages/quiz.js"></script>
 </body>
 </html>
