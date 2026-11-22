@@ -3,15 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#eef7f1">
   <title>Entrar | Pokémon Trainer Hub</title>
   <link rel="stylesheet" href="css/shared.css">
   <link rel="stylesheet" href="css/pages/auth.css">
-  <script src="js/shared/core.js" defer></script>
-  <script src="js/pages/login.js" defer></script>
 </head>
-<body data-page="login">
-  <header class="site-header" data-site-header></header>
+<body>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <a class="brand" href="/"><span class="brand-mark"></span><span class="brand-name"><small>Pokémon</small><strong>Trainer Hub</strong></span></a>
+      <nav class="site-nav">
+        <a href="/">Início</a>
+        <a href="/historia.html">Minha história</a>
+        <a href="/painel.html">Painel</a>
+        <a href="/pokedex.html">Pokédex</a>
+        <a href="/quiz.html">Quiz</a>
+        <span id="menu-visitante"><a href="/login.html" aria-current="page">Entrar</a> <a class="nav-cta" href="/cadastro.html">Começar</a></span>
+        <span id="menu-treinador" style="display:none"><span class="nav-user" id="menu-usuario"></span> <button class="nav-logout" onclick="sair()">Sair</button></span>
+      </nav>
+    </div>
+  </header>
   <main class="auth-shell">
     <div class="auth-layout">
       <section class="auth-copy">
@@ -19,25 +29,29 @@
         <h1>Alola sentiu sua falta, treinador.</h1>
         <p class="lead">Entre para continuar sua coleção, rever conquistas e encarar um novo desafio.</p>
       </section>
-      <section class="form-card" aria-labelledby="login-title">
-        <h2 id="login-title">Entrar na conta</h2>
+      <section class="form-card">
+        <h2>Entrar na conta</h2>
         <p>Sua jornada continua de onde parou.</p>
-        <form id="login-form">
-          <label class="field">
-            <span>E-mail ou nome de usuário</span>
-            <input name="conta" type="text" placeholder="treinador@alola.com" autocomplete="username" required>
-          </label>
-          <label class="field" style="margin-top:15px">
-            <span>Senha</span>
-            <input name="senha" type="password" placeholder="Sua senha secreta" autocomplete="current-password" required>
-          </label>
-          <p class="form-note" id="login-message" role="status" aria-live="polite"></p>
-          <button class="btn" type="submit">Entrar na jornada</button>
-        </form>
+
+        <label class="field">
+          <span>E-mail ou nome de treinador</span>
+          <input id="input-conta" type="text" placeholder="treinador@alola.com">
+        </label>
+        <label class="field" style="margin-top:15px">
+          <span>Senha</span>
+          <input id="input-senha" type="password" placeholder="Sua senha secreta">
+        </label>
+
+        <p class="form-note" id="mensagem-login"></p>
+        <button class="btn" onclick="entrar()">Entrar na jornada</button>
+
         <p class="form-foot">Ainda não é treinador? <a href="/cadastro.html">Crie sua conta</a></p>
       </section>
     </div>
   </main>
   <footer class="site-footer"><div class="footer-inner"><strong>Pokémon Trainer Hub</strong><span>Uma experiência independente inspirada na região de Alola.</span></div></footer>
+
+  <script src="js/sessao.js"></script>
+  <script src="js/pages/login.js"></script>
 </body>
 </html>

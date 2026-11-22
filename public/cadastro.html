@@ -7,11 +7,22 @@
   <title>Cadastro | Pokémon Trainer Hub</title>
   <link rel="stylesheet" href="css/shared.css">
   <link rel="stylesheet" href="css/pages/auth.css">
-  <script src="js/shared/core.js" defer></script>
   <script src="js/pages/cadastro.js" defer></script>
 </head>
-<body data-page="cadastro">
-  <header class="site-header" data-site-header></header>
+<body>  <header class="site-header">
+    <div class="site-header-inner">
+      <a class="brand" href="/"><span class="brand-mark"></span><span class="brand-name"><small>Pokémon</small><strong>Trainer Hub</strong></span></a>
+      <nav class="site-nav">
+        <a href="/">Início</a>
+        <a href="/historia.html">Minha história</a>
+        <a href="/painel.html">Painel</a>
+        <a href="/pokedex.html">Pokédex</a>
+        <a href="/quiz.html">Quiz</a>
+        <span id="menu-visitante"><a href="/login.html">Entrar</a> <a class="nav-cta" href="/cadastro.html" aria-current="page">Começar</a></span>
+        <span id="menu-treinador" style="display:none"><span class="nav-user" id="menu-usuario"></span> <button class="nav-logout" onclick="sair()">Sair</button></span>
+      </nav>
+    </div>
+  </header>
   <main class="auth-shell">
     <div class="auth-layout">
       <section class="auth-copy">
@@ -51,5 +62,6 @@
     </div>
   </main>
   <footer class="site-footer"><div class="footer-inner"><strong>Pokémon Trainer Hub</strong><span>Uma experiência independente inspirada na região de Alola.</span></div></footer>
+  <script src="js/sessao.js"></script>
 </body>
 </html>

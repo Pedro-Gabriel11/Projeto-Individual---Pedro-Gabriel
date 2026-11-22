@@ -1,30 +1,39 @@
-(function () {
-  "use strict";
+// Login: chamado pelo botão "Entrar na jornada" (onclick="entrar()" no login.html).
+function entrar() {
+    let conta = document.getElementById("input-conta").value;
+    let senha = document.getElementById("input-senha").value;
+    let mensagem = document.getElementById("mensagem-login");
 
-  var app = window.PokemonApp;
-  var form = document.getElementById("login-form");
-  if (!form) return;
-
-  form.addEventListener("submit", async function (event) {
-    event.preventDefault();
-    if (!form.reportValidity()) return;
-    var button = form.querySelector('[type="submit"]');
-    button.disabled = true;
-    app.setMessage("login-message", "");
-    try {
-      var data = await app.request("/treinadores/autenticar", {
-        method: "POST",
-        body: JSON.stringify({
-          conta: form.elements.conta.value.trim(),
-          senha: form.elements.senha.value
-        })
-      });
-      app.saveSession(data);
-      window.location.href = app.getPostLoginTarget();
-    } catch (error) {
-      app.setMessage("login-message", error.message);
-    } finally {
-      button.disabled = false;
+    if (conta == "" || senha == "") {
+        mensagem.textContent = "Informe seu e-mail ou nome de treinador e sua senha.";
+        return;
     }
-  });
-}());
+
+    mensagem.textContent = "Entrando...";
+
+    fetch("/api/treinadores/autenticar", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ conta: conta, senha: senha })
+    })
+        .then(function (resposta) {
+            if (resposta.ok) {
+                return resposta.json().then(function (treinador) {
+                    // Guarda os dados do treinador para as outras páginas usarem
+                    sessionStorage.ID_TREINADOR = treinador.id;
+                    sessionStorage.NOME_TREINADOR = treinador.nome;
+                    sessionStorage.USUARIO_TREINADOR = treinador.usuario;
+                    sessionStorage.EMAIL_TREINADOR = treinador.email;
+                    window.location = "painel.html";
+                });
+            } else {
+                // O servidor manda a mensagem do erro, ex.: "E-mail/usuário ou senha inválidos."
+                return resposta.json().then(function (erro) {
+                    mensagem.textContent = erro.mensagem;
+                });
+            }
+        })
+        .catch(function () {
+            mensagem.textContent = "Não foi possível conectar ao servidor.";
+        });
+}

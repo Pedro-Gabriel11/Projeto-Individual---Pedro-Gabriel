@@ -6,16 +6,28 @@
   <title>Quiz Pokémon | Pokémon Trainer Hub</title>
   <link rel="stylesheet" href="css/shared.css">
   <link rel="stylesheet" href="css/pages/quiz.css">
-  <script src="js/shared/core.js" defer></script>
   <script src="js/pages/quiz.js" defer></script>
 </head>
-<body data-page="quiz">
-  <header class="site-header" data-site-header></header>
+<body>  <header class="site-header">
+    <div class="site-header-inner">
+      <a class="brand" href="/"><span class="brand-mark"></span><span class="brand-name"><small>Pokémon</small><strong>Trainer Hub</strong></span></a>
+      <nav class="site-nav">
+        <a href="/">Início</a>
+        <a href="/historia.html">Minha história</a>
+        <a href="/painel.html">Painel</a>
+        <a href="/pokedex.html">Pokédex</a>
+        <a href="/quiz.html" aria-current="page">Quiz</a>
+        <span id="menu-visitante"><a href="/login.html">Entrar</a> <a class="nav-cta" href="/cadastro.html">Começar</a></span>
+        <span id="menu-treinador" style="display:none"><span class="nav-user" id="menu-usuario"></span> <button class="nav-logout" onclick="sair()">Sair</button></span>
+      </nav>
+    </div>
+  </header>
   <main class="page-wrap">
     <div class="text-center"><p class="eyebrow">Desafio das ilhas</p><h1>Quiz Pokémon</h1><p class="lead" style="margin-right:auto;margin-left:auto">Acerte as respostas para pontuar e desbloquear novos Pokémon automaticamente.</p></div>
     <p class="form-note text-center" id="quiz-message" role="status"></p>
     <section class="quiz-card" id="quiz-card"><div class="empty-state">Preparando seu desafio...</div></section>
   </main>
   <footer class="site-footer"><div class="footer-inner"><strong>Pokémon Trainer Hub</strong><span>Cada partida concluída entra no seu painel.</span></div></footer>
+  <script src="js/sessao.js"></script>
 </body>
 </html>
