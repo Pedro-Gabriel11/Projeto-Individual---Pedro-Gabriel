@@ -1,107 +1,73 @@
--- Inicializa o banco e as tabelas usados pelo Pokémon Trainer Hub.
+-- Script do banco do Pokémon Trainer Hub.
+-- ATENÇÃO: este script APAGA o banco e cria tudo de novo.
+-- Execute o arquivo inteiro no MySQL Workbench.
 
-CREATE DATABASE IF NOT EXISTS pokemon_trainer_hub
-    CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+DROP DATABASE IF EXISTS pokemon_trainer_hub;
+CREATE DATABASE pokemon_trainer_hub;
 USE pokemon_trainer_hub;
 
-CREATE TABLE IF NOT EXISTS pokemon_treinador (
+-- Cada pessoa que cria uma conta no site.
+-- "usuario" é o nome de treinador (o @) e não pode se repetir.
+CREATE TABLE treinador (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(80) NOT NULL,
-    usuario VARCHAR(24) NOT NULL,
-    email VARCHAR(254) NOT NULL,
-    senha_hash VARCHAR(255) NOT NULL,
-    criado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    UNIQUE KEY uq_pokemon_treinador_usuario (usuario),
-    UNIQUE KEY uq_pokemon_treinador_email (email)
+    usuario VARCHAR(30) NOT NULL UNIQUE,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    senha VARCHAR(50) NOT NULL,
+    dt_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE IF NOT EXISTS pokemon_sessao (
-    id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    treinador_id INT NOT NULL,
-    token_hash CHAR(64) NOT NULL,
-    expira_em DATETIME NOT NULL,
-    criado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    UNIQUE KEY uq_pokemon_sessao_token (token_hash),
-    KEY ix_pokemon_sessao_expira (expira_em),
-    CONSTRAINT fk_pokemon_sessao_treinador
-        FOREIGN KEY (treinador_id) REFERENCES pokemon_treinador(id) ON DELETE CASCADE
-);
-
-CREATE TABLE IF NOT EXISTS pokemon_catalogo (
+-- O catálogo da Pokédex: os 106 Pokémon do site.
+-- tipo2 fica NULL quando o Pokémon tem um tipo só.
+-- altura em metros. imagem = nome do arquivo em public/images/pokemon/.
+CREATE TABLE pokemon (
     id INT PRIMARY KEY,
-    numero_pokedex SMALLINT NOT NULL,
-    numero_nacional SMALLINT NOT NULL,
-    nome VARCHAR(80) NOT NULL,
-    slug VARCHAR(80) NOT NULL,
-    tipos JSON NOT NULL,
-    categoria VARCHAR(80) NOT NULL,
-    descricao TEXT NOT NULL,
-    altura VARCHAR(20) NULL,
-    imagem_url VARCHAR(500) NULL,
-    UNIQUE KEY uq_pokemon_catalogo_numero (numero_pokedex),
-    UNIQUE KEY uq_pokemon_catalogo_slug (slug)
+    numero INT NOT NULL,
+    nome VARCHAR(50) NOT NULL,
+    tipo1 VARCHAR(20) NOT NULL,
+    tipo2 VARCHAR(20) NULL,
+    categoria VARCHAR(60),
+    descricao VARCHAR(400),
+    altura DECIMAL(4,1),
+    imagem VARCHAR(60)
 );
 
-CREATE TABLE IF NOT EXISTS pokemon_pergunta (
+-- Quais Pokémon cada treinador já desbloqueou (tabela associativa).
+-- A chave primária composta impede o mesmo Pokémon duas vezes para o mesmo treinador.
+-- favorito: 0 = não, 1 = sim.
+CREATE TABLE colecao (
+    fk_treinador INT,
+    fk_pokemon INT,
+    favorito INT DEFAULT 0,
+    dt_desbloqueio DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (fk_treinador, fk_pokemon),
+    FOREIGN KEY (fk_treinador) REFERENCES treinador(id),
+    FOREIGN KEY (fk_pokemon) REFERENCES pokemon(id)
+);
+
+-- Cada partida de quiz jogada. A precisão é calculada: acertos / (acertos + erros).
+CREATE TABLE tentativa (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    enunciado VARCHAR(500) NOT NULL,
-    modo ENUM('silhouette', 'image', 'trivia') NOT NULL,
-    pokemon_id INT NOT NULL,
-    opcoes JSON NOT NULL,
-    resposta_correta VARCHAR(80) NOT NULL,
-    ativa TINYINT(1) NOT NULL DEFAULT 1,
-    CONSTRAINT fk_pokemon_pergunta_pokemon
-        FOREIGN KEY (pokemon_id) REFERENCES pokemon_catalogo(id)
-);
-
-CREATE TABLE IF NOT EXISTS pokemon_colecao (
-    id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    treinador_id INT NOT NULL,
-    pokemon_id INT NOT NULL,
-    favorito TINYINT(1) NOT NULL DEFAULT 0,
-    criado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    UNIQUE KEY uq_pokemon_colecao_treinador_pokemon (treinador_id, pokemon_id),
-    CONSTRAINT fk_pokemon_colecao_treinador
-        FOREIGN KEY (treinador_id) REFERENCES pokemon_treinador(id) ON DELETE CASCADE,
-    CONSTRAINT fk_pokemon_colecao_pokemon
-        FOREIGN KEY (pokemon_id) REFERENCES pokemon_catalogo(id)
-);
-
-CREATE TABLE IF NOT EXISTS pokemon_tentativa (
-    id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    treinador_id INT NOT NULL,
+    fk_treinador INT,
+    acertos INT NOT NULL,
+    erros INT NOT NULL,
     pontos INT NOT NULL,
-    acertos TINYINT UNSIGNED NOT NULL,
-    erros TINYINT UNSIGNED NOT NULL,
-    total TINYINT UNSIGNED NOT NULL,
-    precisao TINYINT UNSIGNED NOT NULL,
-    resultado ENUM('beginner', 'explorer', 'expert') NOT NULL,
-    criado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    KEY ix_pokemon_tentativa_treinador_criado (treinador_id, criado_em),
-    CONSTRAINT fk_pokemon_tentativa_treinador
-        FOREIGN KEY (treinador_id) REFERENCES pokemon_treinador(id) ON DELETE CASCADE
+    dt_tentativa DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (fk_treinador) REFERENCES treinador(id)
 );
 
-INSERT IGNORE INTO pokemon_catalogo
-    (id, numero_pokedex, numero_nacional, nome, slug, tipos, categoria, descricao, altura, imagem_url)
-VALUES
-    (1, 1, 722, 'Rowlet', 'rowlet', JSON_ARRAY('Grama', 'Voador'), 'Pokémon Pena',
-     'Um companheiro atento que voa silenciosamente e se orienta pela luz da lua.', '0,3 m', NULL),
-    (2, 4, 725, 'Litten', 'litten', JSON_ARRAY('Fogo'), 'Pokémon Gato-Fogo',
-     'Um Pokémon reservado que reúne energia antes de lançar suas chamas.', '0,4 m', NULL),
-    (3, 7, 728, 'Popplio', 'popplio', JSON_ARRAY('Água'), 'Pokémon Leão-marinho',
-     'Um acrobata aquático que transforma bolhas em parte de suas apresentações.', '0,4 m', NULL),
-    (4, 25, 25, 'Pikachu', 'pikachu', JSON_ARRAY('Elétrico'), 'Pokémon Rato',
-     'Um Pokémon elétrico conhecido por sua curiosidade e por guardar energia nas bochechas.', '0,4 m', NULL);
+-- =====================================================================
+-- CATÁLOGO: LOTE 1 (ids 1 a 27)
+-- =====================================================================
 
-INSERT INTO pokemon_pergunta (id, enunciado, modo, pokemon_id, opcoes, resposta_correta)
-VALUES
-    (1, 'Qual Pokémon da região de Alola está representado por esta silhueta?', 'silhouette', 1,
-     JSON_ARRAY('Rowlet', 'Litten', 'Popplio', 'Pikachu'), 'Rowlet'),
-    (2, 'Qual Pokémon da região de Alola está representado por esta silhueta?', 'silhouette', 2,
-     JSON_ARRAY('Popplio', 'Pikachu', 'Litten', 'Rowlet'), 'Litten'),
-    (3, 'Qual Pokémon da região de Alola está representado por esta silhueta?', 'silhouette', 3,
-     JSON_ARRAY('Litten', 'Popplio', 'Rowlet', 'Pikachu'), 'Popplio'),
-    (4, 'Qual Pokémon é conhecido por armazenar eletricidade nas bochechas?', 'trivia', 4,
-     JSON_ARRAY('Pikachu', 'Rowlet', 'Litten', 'Popplio'), 'Pikachu')
-ON DUPLICATE KEY UPDATE enunciado = VALUES(enunciado);
+-- =====================================================================
+-- CATÁLOGO: LOTE 2 (ids 28 a 54)
+-- =====================================================================
+
+-- =====================================================================
+-- CATÁLOGO: LOTE 3 (ids 55 a 88)
+-- =====================================================================
+
+-- =====================================================================
+-- CATÁLOGO: LOTE 4 (ids 89 a 106 — formas de Alola)
+-- =====================================================================
