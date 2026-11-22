@@ -72,7 +72,7 @@ Escolhida a **A**, pelo prazo e por manter o projeto sempre apresentável.
 - **Login:** `SELECT id, nome, usuario, email FROM treinador WHERE (email = ? OR usuario = ?) AND senha = ?`.
   Se voltar 1 linha → devolve os dados; senão → "E-mail/usuário ou senha inválidos".
 - **Senha guardada em texto puro**, como no template. Escolha consciente do Pedro.
-- **Navegador** guarda em `sessionStorage`: `ID_TREINADOR`, `NOME_TREINADOR`, `USUARIO_TREINADOR`, `EMAIL_TREINADOR`.
+- **Navegador** guarda em `sessionStorage`: `ID_TREINADOR`, `NOME_TREINADOR`, `USUARIO_TREINADOR` (o e-mail não é guardado nem mostrado no Painel — pedido do Pedro).
 - **Páginas protegidas** (Painel, Pokédex, Quiz): se não houver `ID_TREINADOR`, redireciona para o login.
 - **Sair:** `sessionStorage.clear()` e volta ao início.
 - **Consultas com `?`** (parametrizadas), não com `'${valor}'` como o template — mesma
@@ -208,8 +208,8 @@ Como cada parte fica:
 - **Gráfico de pizza (`type: 'pie'`):** Acertos x Erros, somando todas as partidas
   (`SUM(acertos)` e `SUM(erros)` da tabela `tentativa`).
 - Os vetores `labels` e `data` são montados com `for` a partir da resposta da API.
-- O arquivo `chart.umd.min.js` é **baixado para `public/js/`** e carregado com `<script src>`,
-  sem `npm install` e sem depender de internet no dia. As cores dos gráficos seguem a paleta
+- Chart.js carregado **pela CDN** (`<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js">`), como no exemplo da faculdade — decisão do Pedro. Consequência: o Painel precisa de internet para mostrar os gráficos.
+  As cores dos gráficos seguem a paleta
   praiana.
 - O AGENTS.md diz "sem bibliotecas sem autorização". Esta tem autorização do Pedro;
   registrar isso no AGENTS.md.

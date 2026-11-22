@@ -5,8 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Painel do treinador | Pokémon Trainer Hub</title>
   <link rel="stylesheet" href="css/shared.css">
-  <link rel="stylesheet" href="css/pages/dashboard.css">
-  <script src="js/pages/dashboard.js" defer></script>
+  <link rel="stylesheet" href="css/pages/painel.css">
 </head>
 <body>
   <header class="site-header">
@@ -23,8 +22,82 @@
       </nav>
     </div>
   </header>
-  <main class="page-wrap" id="dashboard-content"><div class="empty-state">Carregando seu painel...</div></main>
+
+  <main class="page-wrap">
+    <!-- Dados do treinador -->
+    <section class="page-intro">
+      <div>
+        <p class="eyebrow">Painel do treinador</p>
+        <h1>Aloha, <span id="painel-nome"></span>!</h1>
+        <p class="muted" id="painel-usuario"></p>
+      </div>
+      <div class="acoes-painel">
+        <a class="btn" href="/quiz.html">Iniciar novo quiz</a>
+        <button class="btn btn-outline btn-small" onclick="sair()">Encerrar sessão</button>
+      </div>
+    </section>
+
+    <p class="form-note" id="mensagem-painel"></p>
+
+    <!-- Números -->
+    <section class="stats-grid">
+      <article class="stat-card"><small>Desbloqueados</small><strong id="numero-desbloqueados">0</strong><small id="numero-total-catalogo"></small></article>
+      <article class="stat-card"><small>Progresso da Pokédex</small><strong id="numero-progresso">0%</strong></article>
+      <article class="stat-card"><small>Favoritos</small><strong id="numero-favoritos">0</strong></article>
+      <article class="stat-card"><small>Quizzes jogados</small><strong id="numero-quizzes">0</strong></article>
+      <article class="stat-card"><small>Precisão geral</small><strong id="numero-precisao">0%</strong></article>
+      <article class="stat-card"><small>Melhor pontuação</small><strong id="numero-melhor">0</strong></article>
+    </section>
+
+    <!-- Gráficos -->
+    <div class="dashboard-grid">
+      <section class="panel">
+        <h2>Pontos nas últimas partidas</h2>
+        <p>Até 8 partidas, da mais antiga para a mais recente</p>
+        <div class="area-grafico"><canvas id="grafico-pontos"></canvas></div>
+        <p class="grafico-vazio" id="vazio-pontos">Jogue seu primeiro quiz para ver sua evolução.</p>
+      </section>
+      <section class="panel">
+        <h2>Acertos x Erros</h2>
+        <p>Somando todas as partidas</p>
+        <div class="area-grafico"><canvas id="grafico-acertos"></canvas></div>
+        <p class="grafico-vazio" id="vazio-acertos">Ainda não há respostas registradas.</p>
+      </section>
+      <section class="panel painel-largo">
+        <h2>Pokémon por tipo</h2>
+        <p>Quantos Pokémon de cada tipo você já desbloqueou</p>
+        <div class="area-grafico"><canvas id="grafico-tipos"></canvas></div>
+        <p class="grafico-vazio" id="vazio-tipos">Os tipos aparecem quando você desbloquear Pokémon.</p>
+      </section>
+
+      <!-- Listas -->
+      <section class="panel">
+        <h2>Últimos desbloqueios</h2>
+        <div class="recent-grid" id="lista-ultimos"></div>
+        <p class="grafico-vazio" id="vazio-ultimos">Seus novos companheiros aparecerão aqui.</p>
+        <p><a class="btn btn-small btn-dark" href="/pokedex.html">Ver Pokédex</a></p>
+      </section>
+      <section class="panel">
+        <h2>Favoritos</h2>
+        <div class="recent-grid" id="lista-favoritos"></div>
+        <p class="grafico-vazio" id="vazio-favoritos">Marque Pokémon como favoritos na sua Pokédex.</p>
+      </section>
+    </div>
+  </main>
+
+  <!-- Molde de um Pokémon pequeno (últimos desbloqueios e favoritos) -->
+  <template id="molde-mini">
+    <div class="mini-pokemon">
+      <img class="mini-imagem" alt="">
+      <strong class="mini-nome"></strong>
+    </div>
+  </template>
+
   <footer class="site-footer"><div class="footer-inner"><strong>Pokémon Trainer Hub</strong><span>Seus dados são atualizados a cada atividade.</span></div></footer>
+
+  <!-- Chart.js carregado pela internet (CDN), como no exemplo da faculdade -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <script src="js/sessao.js"></script>
+  <script src="js/pages/painel.js"></script>
 </body>
 </html>

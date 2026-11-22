@@ -23,7 +23,6 @@ function entrar() {
                     sessionStorage.ID_TREINADOR = treinador.id;
                     sessionStorage.NOME_TREINADOR = treinador.nome;
                     sessionStorage.USUARIO_TREINADOR = treinador.usuario;
-                    sessionStorage.EMAIL_TREINADOR = treinador.email;
                     window.location = "painel.html";
                 });
             } else {

@@ -32,7 +32,7 @@ No navegador, a estrutura fica no HTML. O JS só preenche valores, e as listas u
 - **Não fazer commit.** Ao fim de cada tarefa: listar o que mudou e por quê, em linguagem
   simples, sugerir a mensagem de commit e aguardar o Pedro. Os passos "Commit" deste plano
   significam "o Pedro faz o commit".
-- Sem dependências npm novas. Chart.js entra como arquivo em `public/js/`.
+- Sem dependências npm novas. Chart.js pela CDN (jsDelivr, versão 4.4.1), não baixado para o projeto.
 - Não afirmar que funciona só porque o teste passou. Dizer o que foi verificado e o que falta
   testar no navegador com o banco rodando.
 - Não escrever o conteúdo pessoal da história. Não inventar dados de Pokémon. Na dúvida,
@@ -67,7 +67,6 @@ src/routes/{index,treinadores,pokemon,quiz}.js
 tests/treinadorController.test.js          novo (substitui treinadorAuth.test.js)
 tests/quizController.test.js               novo (substitui pokemonController.test.js)
 public/images/pokemon/*.png                118 imagens
-public/js/chart.umd.min.js                 Chart.js baixado
 public/js/sessao.js                        substitui js/shared/core.js
 public/js/pages/{login,cadastro,pokedex,quiz,painel}.js
 public/{index,historia,login,cadastro,pokedex,quiz,painel}.html   (painel.html substitui dashboard.html)
@@ -294,7 +293,7 @@ Modify `<header>` de `index.html`, `historia.html`, `cadastro.html`, `pokedex.ht
 `public/js/shared/core.js`.
 
 **Interfaces (Produces):**
-- `sessionStorage.ID_TREINADOR`, `NOME_TREINADOR`, `USUARIO_TREINADOR`, `EMAIL_TREINADOR`
+- `sessionStorage.ID_TREINADOR`, `NOME_TREINADOR`, `USUARIO_TREINADOR`
 - `atualizarMenu()`: chamado no fim do `sessao.js`. Se houver `ID_TREINADOR`, esconde
   `#menu-visitante`, mostra `#menu-treinador` e escreve `@usuario`.
 - `validarSessao()`: chamado no topo do JS das páginas protegidas. Sem `ID_TREINADOR` →
@@ -379,13 +378,13 @@ mostra "Cadastro feito! Indo para o login..." e redireciona com `setTimeout` de 
 
 ### Task 14: Painel com Chart.js + remover Perfil
 
-**Files:** Create `public/js/chart.umd.min.js` (baixar de
+**Files:** Chart.js pela CDN em `painel.html` (
 `https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js`); Rewrite
 `public/painel.html`, Create `public/js/pages/painel.js`, `public/css/pages/painel.css`
 (partindo do dashboard.css); Delete os arquivos de perfil e dashboard da lista de remoção.
 
 **Interfaces:**
-- HTML: topo com `#painel-nome`, `#painel-usuario`, `#painel-email` e botão Sair; 6 cards com
+- HTML: topo com `#painel-nome`, `#painel-usuario` (sem e-mail) e botão Sair; 6 cards com
   `#numero-desbloqueados`, `#numero-progresso`, `#numero-favoritos`, `#numero-quizzes`,
   `#numero-precisao`, `#numero-melhor`; `<canvas id="grafico-pontos">`,
   `<canvas id="grafico-tipos">`, `<canvas id="grafico-acertos">`, cada um com um
@@ -465,5 +464,5 @@ do Chart.js iguais à paleta (definidas em `painel.js`).
   e status. AGENTS.md: seções 3, 5, 6 e 7 conforme a spec (modelo do template, `let`, Chart.js
   autorizado, elementos no HTML, tabelas novas).
 - [ ] **Step 3:** `npm test` final + `grep -rn "var \|async \|=>\|innerHTML" src public/js tests app.js`
-  (esperado nenhuma linha, exceto dentro de `chart.umd.min.js`).
+  (esperado nenhuma linha).
 - [ ] **Step 4:** Resumo + commit sugerido: `guia de explicação e documentação atualizada`.
