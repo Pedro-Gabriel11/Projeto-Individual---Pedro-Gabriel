@@ -3,13 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#fbf8ed">
   <title>Cadastro | Pokémon Trainer Hub</title>
   <link rel="stylesheet" href="css/shared.css">
   <link rel="stylesheet" href="css/pages/auth.css">
-  <script src="js/pages/cadastro.js" defer></script>
 </head>
-<body>  <header class="site-header">
+<body>
+  <header class="site-header">
     <div class="site-header-inner">
       <a class="brand" href="/"><span class="brand-mark"></span><span class="brand-name"><small>Pokémon</small><strong>Trainer Hub</strong></span></a>
       <nav class="site-nav">
@@ -23,6 +22,7 @@
       </nav>
     </div>
   </header>
+
   <main class="auth-shell">
     <div class="auth-layout">
       <section class="auth-copy">
@@ -30,38 +30,43 @@
         <h1>Sua aventura começa agora.</h1>
         <p class="lead">Crie seu perfil, explore Alola e registre cada descoberta na sua Pokédex.</p>
       </section>
-      <section class="form-card" aria-labelledby="signup-title">
-        <h2 id="signup-title">Criar conta</h2>
+      <section class="form-card">
+        <h2>Criar conta</h2>
         <p>Prepare-se para explorar todos os caminhos de Alola.</p>
-        <form id="signup-form" class="form-grid">
+
+        <div class="form-grid">
           <label class="field field-full">
-            <span>Nome do treinador</span>
-            <input name="nome" type="text" minlength="2" maxlength="80" placeholder="Como devemos chamar você?" autocomplete="name" required>
+            <span>Seu nome</span>
+            <input id="input-nome" type="text" maxlength="80" placeholder="Como devemos chamar você?">
           </label>
           <label class="field">
-            <span>Nome de usuário</span>
-            <input name="usuario" type="text" minlength="3" maxlength="24" pattern="[A-Za-z0-9_]{3,24}" placeholder="treinador_alola" autocomplete="username" required>
+            <span>Nome de treinador</span>
+            <input id="input-usuario" type="text" maxlength="30" placeholder="treinador_alola">
           </label>
           <label class="field">
             <span>E-mail</span>
-            <input name="email" type="email" maxlength="254" placeholder="voce@email.com" autocomplete="email" required>
+            <input id="input-email" type="text" maxlength="100" placeholder="voce@email.com">
           </label>
           <label class="field">
             <span>Senha</span>
-            <input name="senha" type="password" minlength="8" pattern="(?=.*[A-Za-z])(?=.*[0-9]).{8,}" placeholder="Letras e números" autocomplete="new-password" required>
+            <input id="input-senha" type="password" maxlength="50" placeholder="Ex.: Rowlet@722">
           </label>
           <label class="field">
             <span>Confirmar senha</span>
-            <input name="confirmacao" type="password" minlength="8" placeholder="Repita sua senha" autocomplete="new-password" required>
+            <input id="input-confirmacao" type="password" maxlength="50" placeholder="Repita sua senha">
           </label>
-          <p class="form-note field-full" id="signup-message" role="status" aria-live="polite"></p>
-          <button class="btn field-full" type="submit">Criar conta de treinador</button>
-        </form>
+          <p class="form-note field-full">A senha precisa ter pelo menos 8 caracteres, com letra maiúscula, letra minúscula, número e caractere especial (ex.: ! @ #).</p>
+          <p class="form-note field-full" id="mensagem-cadastro"></p>
+          <button class="btn field-full" onclick="cadastrar()">Criar conta de treinador</button>
+        </div>
+
         <p class="form-foot">Já possui uma conta? <a href="/login.html">Entre aqui</a></p>
       </section>
     </div>
   </main>
   <footer class="site-footer"><div class="footer-inner"><strong>Pokémon Trainer Hub</strong><span>Uma experiência independente inspirada na região de Alola.</span></div></footer>
+
   <script src="js/sessao.js"></script>
+  <script src="js/pages/cadastro.js"></script>
 </body>
 </html>
