@@ -1,9 +1,10 @@
-var express = require("express");
-var router = express.Router();
-var quizController = require("../controllers/quizController");
-var treinadorController = require("../controllers/treinadorController");
+let express = require("express");
+let router = express.Router();
+let quizController = require("../controllers/quizController");
 
-router.get("/perguntas", treinadorController.autenticarTreinador, quizController.listarPerguntas);
-router.post("/tentativas", treinadorController.autenticarTreinador, quizController.registrarTentativa);
+// Provisório até a Tarefa 5 (que reescreve o quiz).
+router.post("/tentativas", function (req, res) {
+    quizController.registrarTentativa(req, res);
+});
 
 module.exports = router;
