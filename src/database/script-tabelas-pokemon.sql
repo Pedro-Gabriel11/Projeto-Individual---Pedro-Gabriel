@@ -131,8 +131,51 @@ INSERT INTO pokemon (id, numero, nome, tipo1, tipo2, categoria, descricao, altur
 (61, 775, 'Komala', 'Normal', NULL, 'Pokémon Sonolento', 'O tronco que carrega foi dado por seus pais quando nasceu. Também é conhecido por se agarrar ao braço de Treinadores amigáveis.', 0.4, 'komala.png');
 
 -- =====================================================================
--- CATÁLOGO: LOTE 3 (ids 55 a 88)
+-- CATÁLOGO: LOTE 3 (ids 62 a 100: #776 Turtonator a #809 Melmetal, com formas de Mimikyu, Necrozma e Magearna)
+-- Poipole, Naganadel, Stakataka, Blacephalon, Zeraora e as formas de Necrozma: Ultra Moon.
+-- Meltan e Melmetal: Pokémon Let's Go (não aparecem em Moon nem Ultra Moon).
+-- Dados: PokeAPI e PokémonDB. Descrições e categorias: tradução livre de Pokémon Moon.
 -- =====================================================================
+INSERT INTO pokemon (id, numero, nome, tipo1, tipo2, categoria, descricao, altura, imagem) VALUES
+(62, 776, 'Turtonator', 'Fogo', 'Dragão', 'Pokémon Tartaruga Explosiva', 'Solta fogo e gases venenosos pelas narinas. Seu esterco é uma substância explosiva e pode ser usado de várias formas.', 2, 'turtonator.png'),
+(63, 777, 'Togedemaru', 'Elétrico', 'Aço', 'Pokémon Bolinha', 'Os pelos longos das costas funcionam como para-raios. Os raios que atrai ficam armazenados como energia em sua bolsa elétrica.', 0.3, 'togedemaru.png'),
+(64, 778, 'Mimikyu Disfarçado', 'Fantasma', 'Fada', 'Pokémon Disfarce', 'Um Pokémon solitário que esconde sua aparência assustadora debaixo de um pano velho para poder se aproximar de pessoas e de outros Pokémon.', 0.2, 'mimikyu.png'),
+(65, 778, 'Mimikyu Desmascarado', 'Fantasma', 'Fada', 'Pokémon Disfarce', 'Se o pescoço quebrar ou o pano rasgar durante um ataque, passa a noite inteira consertando.', 0.2, 'mimikyu-busted.png'),
+(66, 779, 'Bruxish', 'Água', 'Psíquico', 'Pokémon Range-Dentes', 'Atordoa suas presas com psicocinese e depois as tritura com seus dentes fortes. Nem a concha de Shellder resiste a ele.', 0.9, 'bruxish.png'),
+(67, 780, 'Drampa', 'Normal', 'Dragão', 'Pokémon Plácido', 'Este Pokémon é amigável com as pessoas e adora, acima de tudo, as crianças. Desce do alto das montanhas para brincar na cidade com as crianças de que gosta.', 3, 'drampa.png'),
+(68, 781, 'Dhelmise', 'Fantasma', 'Grama', 'Pokémon Trepadeira do Mar', 'A alma de uma alga que vagava pelas ondas renasceu como este Pokémon. Mantém-se absorvendo detritos do fundo do mar e algas novas.', 3.9, 'dhelmise.png'),
+(69, 782, 'Jangmo-o', 'Dragão', NULL, 'Pokémon Escamoso', 'Vivem em montanhas onde não há nenhum sinal de seres humanos. Os Jangmo-o crescem pouco a pouco enquanto batalham entre si.', 0.6, 'jangmo-o.png'),
+(70, 783, 'Hakamo-o', 'Dragão', 'Lutador', 'Pokémon Escamoso', 'Troca e regenera suas escamas sem parar. Cada vez que crescem de novo, as escamas ficam mais duras e afiadas.', 1.2, 'hakamo-o.png'),
+(71, 784, 'Kommo-o', 'Dragão', 'Lutador', 'Pokémon Escamoso', 'Suas escamas rígidas servem para ataque e defesa. No passado, elas eram processadas e usadas para fazer armas e outros produtos.', 1.6, 'kommo-o.png'),
+(72, 785, 'Tapu Koko', 'Elétrico', 'Fada', 'Pokémon Espírito da Terra', 'Confunde os inimigos voando rápido demais para os olhos acompanharem. Irrita-se com muita facilidade, mas um instante depois já esqueceu o motivo.', 1.8, 'tapu-koko.png'),
+(73, 786, 'Tapu Lele', 'Psíquico', 'Fada', 'Pokémon Espírito da Terra', 'Enquanto esvoaça, espalha suas escamas de brilho estranho. Dizem que tocá-las restaura a saúde na mesma hora.', 1.2, 'tapu-lele.png'),
+(74, 787, 'Tapu Bulu', 'Grama', 'Fada', 'Pokémon Espírito da Terra', 'A divindade guardiã de Ula''ula é um Pokémon preguiçoso. Ordena que as plantas imobilizem seus inimigos e depois os acerta com um golpe selvagem de seus chifres.', 1.9, 'tapu-bulu.png'),
+(75, 788, 'Tapu Fini', 'Água', 'Fada', 'Pokémon Espírito da Terra', 'Divindade guardiã de Poni, consegue controlar a água. Dizem que cria uma água pura capaz de lavar qualquer impureza.', 1.3, 'tapu-fini.png'),
+(76, 789, 'Cosmog', 'Psíquico', NULL, 'Pokémon Nebulosa', 'Em tempos antigos, era chamado de filho das estrelas. Dizem que é um Pokémon de outro mundo, mas nenhum detalhe concreto é conhecido.', 0.2, 'cosmog.png'),
+(77, 790, 'Cosmoem', 'Psíquico', NULL, 'Pokémon Protoestrela', 'Há algo se acumulando em volta do núcleo negro dentro de sua casca dura. As pessoas acreditam que este Pokémon pode ter vindo de outro mundo.', 0.1, 'cosmoem.png'),
+(78, 791, 'Solgaleo', 'Psíquico', 'Aço', 'Pokémon Sol', 'Dizem que este Pokémon é uma evolução macho de Cosmog. Quando seu terceiro olho é ativado, ele parte para outro mundo.', 3.4, 'solgaleo.png'),
+(79, 792, 'Lunala', 'Psíquico', 'Fantasma', 'Pokémon Lua', 'Dizem que vive em outro mundo. Este Pokémon devora a luz, cobrindo o brilho do dia com o véu escuro de uma noite sem lua.', 4, 'lunala.png'),
+(80, 793, 'Nihilego', 'Pedra', 'Venenoso', 'Pokémon Parasita', 'Uma das Ultracriaturas. Não se sabe se este Pokémon tem consciência, mas às vezes é visto se comportando como uma menina.', 1.2, 'nihilego.png'),
+(81, 794, 'Buzzwole', 'Inseto', 'Lutador', 'Pokémon Inchado', 'Uma forma de vida misteriosa chamada Ultracriatura. Testemunhas o viram pulverizar um caminhão de lixo com um único soco.', 2.4, 'buzzwole.png'),
+(82, 795, 'Pheromosa', 'Inseto', 'Lutador', 'Pokémon Esbelto', 'Uma das Ultracriaturas. Recusa-se a tocar em qualquer coisa, talvez porque sinta alguma impureza neste mundo.', 1.8, 'pheromosa.png'),
+(83, 796, 'Xurkitree', 'Elétrico', NULL, 'Pokémon Brilhante', 'Surgiu de uma passagem para outro mundo. Atacou uma usina de energia, por isso as pessoas acreditam que ele se alimenta de eletricidade.', 3.8, 'xurkitree.png'),
+(84, 797, 'Celesteela', 'Aço', 'Voador', 'Pokémon Lançamento', 'Um tipo de Ultracriatura. Testemunhas já o viram incendiar uma floresta expelindo gás pelos dois braços.', 9.2, 'celesteela.png'),
+(85, 798, 'Kartana', 'Grama', 'Aço', 'Pokémon Espada Desembainhada', 'Uma das formas de vida chamadas Ultracriaturas. Foi visto derrubando uma gigantesca torre de aço com um só golpe de sua lâmina.', 0.3, 'kartana.png'),
+(86, 799, 'Guzzlord', 'Sombrio', 'Dragão', 'Pokémon Come-Tudo', 'Uma Ultracriatura perigosa. Parece comer sem parar, mas, por algum motivo, suas fezes nunca foram encontradas.', 5.5, 'guzzlord.png'),
+(87, 800, 'Necrozma', 'Psíquico', NULL, 'Pokémon Prisma', 'Aparentemente, a luz é sua fonte de energia. Tem um temperamento extremamente cruel e vive disparando raios laser.', 2.4, 'necrozma.png'),
+(88, 800, 'Necrozma Juba Crepuscular', 'Psíquico', 'Aço', 'Pokémon Prisma', 'Esta é a forma de Necrozma enquanto absorve o poder de Solgaleo, o que o deixa extremamente feroz e impossível de controlar.', 3.8, 'necrozma-dusk-mane.png'),
+(89, 800, 'Necrozma Asas da Alvorada', 'Psíquico', 'Fantasma', 'Pokémon Prisma', 'Esta é a sua forma enquanto devora a luz de Lunala.', 4.2, 'necrozma-dawn-wings.png'),
+(90, 800, 'Ultra Necrozma', 'Psíquico', 'Dragão', 'Pokémon Prisma', 'A luz que jorra de todo o seu corpo afeta os seres vivos e a natureza, influenciando-os de várias maneiras.', 7.5, 'necrozma-ultra.png'),
+(91, 801, 'Magearna', 'Aço', 'Fada', 'Pokémon Artificial', 'Seu corpo mecânico é apenas um recipiente. Seu verdadeiro eu é o Coração-Alma, uma alma artificial.', 1, 'magearna.png'),
+(92, 801, 'Magearna Cor Original', 'Aço', 'Fada', 'Pokémon Artificial', 'Este belíssimo Magearna tem a aparência da época em que foi inventado. Sua decoração luxuosa agradou a filha do rei.', 1, 'magearna-original.png'),
+(93, 802, 'Marshadow', 'Lutador', 'Fantasma', 'Pokémon Habitante das Sombras', 'Espreita nas sombras dos outros, copiando seus movimentos e poderes. Este Pokémon é covarde e medroso.', 0.7, 'marshadow.png'),
+(94, 803, 'Poipole', 'Venenoso', NULL, 'Pokémon Ferrão Venenoso', 'Uma Ultracriatura que vive em outro mundo. Gargalha sem parar enquanto borrifa veneno nos adversários com as agulhas da cabeça.', 0.6, 'poipole.png'),
+(95, 804, 'Naganadel', 'Venenoso', 'Dragão', 'Pokémon Ferrão Venenoso', 'Um tipo de Ultracriatura. Dispara de suas agulhas um líquido venenoso e brilhante, que também é extremamente grudento.', 3.6, 'naganadel.png'),
+(96, 805, 'Stakataka', 'Pedra', 'Aço', 'Pokémon Muralha', 'Quando muros de pedra começaram a se mover e atacar, a verdadeira identidade do agressor era esta forma de vida misteriosa, que lembra uma Ultracriatura.', 5.5, 'stakataka.png'),
+(97, 806, 'Blacephalon', 'Fogo', 'Fantasma', 'Pokémon Fogos de Artifício', 'Uma Ultracriatura que surgiu de uma passagem para outro mundo. Causa explosões e aproveita a surpresa dos adversários para roubar sua energia vital.', 1.8, 'blacephalon.png'),
+(98, 807, 'Zeraora', 'Elétrico', NULL, 'Pokémon Trovão', 'Aproxima-se dos inimigos na velocidade de um raio e os despedaça com suas garras afiadas.', 1.5, 'zeraora.png'),
+(99, 808, 'Meltan', 'Aço', NULL, 'Pokémon Porca Sextavada', 'Derrete partículas de ferro e de outros metais encontrados no subsolo para absorvê-las em seu corpo de aço derretido.', 0.2, 'meltan.png'),
+(100, 809, 'Melmetal', 'Aço', NULL, 'Pokémon Porca Sextavada', 'Venerado há muito tempo por sua capacidade de criar ferro do nada, por algum motivo voltou à vida depois de 3.000 anos.', 2.5, 'melmetal.png');
 
 -- =====================================================================
 -- CATÁLOGO: LOTE 4 (ids 89 a 106 — formas de Alola)
