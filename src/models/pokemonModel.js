@@ -1,25 +1,14 @@
-var database = require("../database/config");
+let database = require("../database/config");
 
+// Devolve o catálogo inteiro, na ordem da Pokédex do site.
 function listarPokemon() {
-    return database.executar(
-        `SELECT id, numero_pokedex AS dexNumber, numero_nacional AS nationalNumber,
-                nome AS name, tipos AS types, categoria AS category,
-                descricao AS description, altura AS height, imagem_url AS imageURL
-         FROM pokemon_catalogo ORDER BY numero_pokedex`
-    );
-}
-
-function listarPokemonDesbloqueados(ids) {
-    if (!ids.length) return Promise.resolve([]);
-    var marcadores = ids.map(function () { return "?"; }).join(", ");
-    return database.executar(
-        `SELECT id, nome AS name, imagem_url AS imageURL
-         FROM pokemon_catalogo WHERE id IN (${marcadores})`,
-        ids
-    );
+    let instrucaoSql = `
+        SELECT id, numero, nome, tipo1, tipo2, categoria, descricao, altura, imagem
+        FROM pokemon ORDER BY id
+    `;
+    return database.executar(instrucaoSql, []);
 }
 
 module.exports = {
-    listarPokemon,
-    listarPokemonDesbloqueados
+    listarPokemon
 };

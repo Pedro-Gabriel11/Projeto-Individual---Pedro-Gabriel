@@ -5,17 +5,25 @@
 let test = require("node:test");
 let assert = require("node:assert/strict");
 let treinadorModel = require("../src/models/treinadorModel");
+let pokemonModel = require("../src/models/pokemonModel");
 let treinadorController = require("../src/controllers/treinadorController");
 
-// Guarda as funções originais do model para restaurar depois de cada teste.
-let funcoesOriginais = {};
+// Guarda as funções originais dos models para restaurar depois de cada teste.
+let originaisTreinador = {};
 for (let nome in treinadorModel) {
-    funcoesOriginais[nome] = treinadorModel[nome];
+    originaisTreinador[nome] = treinadorModel[nome];
+}
+let originaisPokemon = {};
+for (let nome in pokemonModel) {
+    originaisPokemon[nome] = pokemonModel[nome];
 }
 
 test.afterEach(function () {
-    for (let nome in funcoesOriginais) {
-        treinadorModel[nome] = funcoesOriginais[nome];
+    for (let nome in originaisTreinador) {
+        treinadorModel[nome] = originaisTreinador[nome];
+    }
+    for (let nome in originaisPokemon) {
+        pokemonModel[nome] = originaisPokemon[nome];
     }
 });
 
@@ -155,4 +163,93 @@ test("login normaliza a conta", function () {
     return treinadorController.autenticar({ body: { conta: " Ash@X.com ", senha: "Pikachu@25" } }, res).then(function () {
         assert.equal(contaConsultada, "ash@x.com");
     });
+});
+
+// ---------------- PAINEL ----------------
+
+test("painel de treinador sem partidas mostra zeros", function () {
+    treinadorModel.contarCatalogo = function () { return Promise.resolve([{ total: 106 }]); };
+    treinadorModel.buscarResumoColecao = function () { return Promise.resolve([{ desbloqueados: 0, favoritos: null }]); };
+    treinadorModel.buscarResumoTentativas = function () {
+        return Promise.resolve([{ quizzes: 0, totalAcertos: null, totalErros: null, melhorPontuacao: null }]);
+    };
+    treinadorModel.buscarTentativas = function () { return Promise.resolve([]); };
+    treinadorModel.buscarColecao = function () { return Promise.resolve([]); };
+
+    let res = respostaFalsa();
+    return treinadorController.painel({ params: { idTreinador: "1" } }, res).then(function () {
+        assert.equal(res.statusCode, 200);
+        assert.deepEqual(res.corpo.estatisticas, {
+            totalCatalogo: 106,
+            desbloqueados: 0,
+            favoritos: 0,
+            quizzes: 0,
+            totalAcertos: 0,
+            totalErros: 0,
+            melhorPontuacao: 0
+        });
+        assert.deepEqual(res.corpo.tentativas, []);
+        assert.deepEqual(res.corpo.colecao, []);
+    });
+});
+
+test("painel com id inválido responde 400", function () {
+    let res = respostaFalsa();
+    treinadorController.painel({ params: { idTreinador: "abc" } }, res);
+    assert.equal(res.statusCode, 400);
+});
+
+// ---------------- POKÉDEX ----------------
+
+test("pokedex marca desbloqueados e favoritos", function () {
+    pokemonModel.listarPokemon = function () {
+        return Promise.resolve([{ id: 1, nome: "Rowlet" }, { id: 2, nome: "Dartrix" }, { id: 3, nome: "Decidueye" }]);
+    };
+    treinadorModel.buscarColecao = function () { return Promise.resolve([{ id: 2, favorito: 1 }]); };
+
+    let res = respostaFalsa();
+    return treinadorController.pokedex({ params: { idTreinador: "1" } }, res).then(function () {
+        assert.equal(res.corpo.length, 3);
+        assert.equal(res.corpo[0].desbloqueado, 0);
+        assert.equal(res.corpo[0].favorito, 0);
+        assert.equal(res.corpo[1].desbloqueado, 1);
+        assert.equal(res.corpo[1].favorito, 1);
+        assert.equal(res.corpo[2].desbloqueado, 0);
+        assert.equal(res.corpo[2].favorito, 0);
+    });
+});
+
+// ---------------- FAVORITO ----------------
+
+test("favorito com valor inválido responde 400", function () {
+    let res = respostaFalsa();
+    treinadorController.alterarFavorito({ params: { idTreinador: "1", idPokemon: "2" }, body: { favorito: "sim" } }, res);
+    assert.equal(res.statusCode, 400);
+});
+
+test("favorito em Pokémon bloqueado responde 404", function () {
+    treinadorModel.alterarFavorito = function () { return Promise.resolve({ affectedRows: 0 }); };
+
+    let res = respostaFalsa();
+    return treinadorController.alterarFavorito({ params: { idTreinador: "1", idPokemon: "2" }, body: { favorito: 1 } }, res)
+        .then(function () {
+            assert.equal(res.statusCode, 404);
+            assert.equal(res.corpo.mensagem, "Esse Pokémon ainda não foi desbloqueado.");
+        });
+});
+
+test("favorito em Pokémon desbloqueado responde com o novo valor", function () {
+    let valoresRecebidos;
+    treinadorModel.alterarFavorito = function (idTreinador, idPokemon, favorito) {
+        valoresRecebidos = [idTreinador, idPokemon, favorito];
+        return Promise.resolve({ affectedRows: 1 });
+    };
+
+    let res = respostaFalsa();
+    return treinadorController.alterarFavorito({ params: { idTreinador: "1", idPokemon: "2" }, body: { favorito: 1 } }, res)
+        .then(function () {
+            assert.deepEqual(valoresRecebidos, [1, 2, 1]);
+            assert.equal(res.statusCode, 200);
+            assert.deepEqual(res.corpo, { favorito: 1 });
+        });
 });
