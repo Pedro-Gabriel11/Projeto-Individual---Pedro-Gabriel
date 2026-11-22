@@ -1,24 +1,31 @@
-.auth-shell { min-height: calc(100vh - 76px); padding: 50px 20px; background: radial-gradient(ellipse at 10% 12%,rgba(169,223,192,.38),transparent 34%),radial-gradient(ellipse at 90% 90%,rgba(248,207,73,.23),transparent 38%),#eef7f1; }
-.auth-layout { display: grid; width: min(1000px,100%); min-height: 520px; grid-template-columns: 1fr minmax(320px,.82fr); align-items: center; gap: 45px; margin: auto; }
-.auth-copy h1 { margin-top: 18px; font-size: clamp(40px,6vw,61px); }
-.form-card { padding: clamp(24px,4vw,38px); }
-.form-card h2 { margin-bottom: 6px; font-size: 30px; }
-.form-card > p { margin-bottom: 24px; color: var(--muted); }
-.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-.field { display: block; }
-.field-full { grid-column: 1 / -1; }
-.field span { display: block; margin-bottom: 7px; color: #234c4c; font-size: 13px; font-weight: 900; }
-.field input, .search-input { width: 100%; min-height: 48px; padding: 12px 14px; border: 1px solid #d7e4dc; border-radius: 14px; background: white; color: var(--ink); }
-.field input::placeholder, .search-input::placeholder { color: #96aaa6; }
-.field input:focus, .search-input:focus { border-color: var(--green); outline: 3px solid rgba(45,132,121,.12); }
-.form-foot { margin: 18px 0 0 !important; color: var(--muted); font-size: 13px; text-align: center; }
-.form-foot a { color: var(--green); font-weight: 900; }
-.form-card .btn { width: 100%; }
+/* =====================================================================
+   LOGIN E CADASTRO
+   ===================================================================== */
 
-@media (max-width: 650px) {
-  .auth-shell { min-height: calc(100vh - 68px); padding: 28px 14px; }
-  .auth-layout { min-height: auto; grid-template-columns: 1fr; }
-  .auth-copy { display: none; }
-  .form-grid { grid-template-columns: 1fr; }
-  .field-full { grid-column: auto; }
+.auth-shell { padding: 50px 20px; }
+.auth-layout { display: flex; width: min(1000px, 100%); align-items: center; gap: 45px; margin: 0 auto; }
+.auth-copy { flex: 1; }
+.auth-copy h1 { font-size: clamp(36px, 5vw, 54px); }
+
+/* O formulário também é um cartão-postal, com a linha tracejada por dentro */
+.form-card { flex: 1; padding: 38px; border: 10px solid var(--branco); border-radius: 0; background: var(--creme); outline: 2px dashed #c9a96a; outline-offset: -18px; box-shadow: 0 14px 34px rgba(29, 78, 95, .14); }
+.form-card h2 { margin-bottom: 4px; }
+.form-card > p { margin-bottom: 22px; color: var(--texto-suave); }
+.form-card .btn { width: 100%; margin-top: 4px; }
+
+/* No cadastro, os campos ficam em duas colunas */
+.form-grid { display: flex; flex-wrap: wrap; gap: 14px; }
+.form-grid .field { width: calc(50% - 7px); }
+.form-grid .field-full { width: 100%; }
+
+.form-foot { margin: 18px 0 0; color: var(--texto-suave); font-size: 14px; text-align: center; }
+.form-foot a { color: var(--coral); font-weight: 800; }
+
+@media (max-width: 760px) {
+  .auth-layout { flex-direction: column; align-items: stretch; }
+  .form-card { padding: 30px 22px; }
+  .form-grid .field { width: 100%; }
 }
+
+/* Dica fixa com as regras da senha (não é mensagem de erro, por isso fica cinza) */
+.dica-senha { margin: 0; color: var(--texto-suave); font-size: 13px; }

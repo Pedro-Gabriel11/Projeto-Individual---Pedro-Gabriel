@@ -31,3 +31,8 @@
 #detalhes-pokemon { width: min(520px, calc(100% - 30px)); border: 0; }
 .detalhe-imagem { display: block; width: 180px; height: 180px; margin: 0 auto 8px; object-fit: contain; }
 .detalhe-fonte { font-size: 12px; }
+
+/* Regras que antes ficavam no shared.css (a Tarefa 16 refaz o visual desta página) */
+.pokemon-grid { display: grid; gap: 17px; }
+.pokemon-card { border: 1px solid var(--linha); border-radius: 14px; background: var(--branco); }
+.pokemon-art { position: relative; display: flex; width: 100%; aspect-ratio: 1.1; align-items: center; justify-content: center; border-radius: 12px; background: #e3f4f1; }

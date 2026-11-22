@@ -1,122 +1,130 @@
+/* =====================================================================
+   ESTILOS COMUNS A TODAS AS PÁGINAS — visual "cartão-postal praiano"
+   ===================================================================== */
+
+/* Paleta de cores (variáveis): mudar aqui muda o site inteiro */
 :root {
-  color-scheme: light;
-  --ink: #163b3c;
-  --muted: #647d79;
-  --green: #2d8479;
-  --green-soft: #e8f4eb;
-  --coral: #ef6a4d;
-  --yellow: #f8cf49;
-  --paper: #fbf8ed;
-  --line: #dce8df;
-  font-family: "Trebuchet MS", Arial, sans-serif;
+  --creme: #f3e6c8;
+  --areia: #fbf5e6;
+  --petroleo: #1d4e5f;
+  --petroleo-escuro: #143a47;
+  --coral: #d9534f;
+  --coral-escuro: #b13f3b;
+  --mostarda: #e9b44c;
+  --turquesa: #2ec4b6;
+  --turquesa-escuro: #1f9286;
+  --branco: #ffffff;
+  --texto-suave: #5b7a83;
+  --linha: #e6d7b5;
+  --verde-certo: #2f8f5b;
+
+  /* Nomes antigos, mantidos só até as páginas Pokédex, Quiz e Painel
+     ganharem o visual novo (Tarefa 16) */
+  --ink: var(--petroleo);
+  --muted: var(--texto-suave);
+  --green: var(--turquesa-escuro);
+  --green-soft: #e3f4f1;
+  --yellow: var(--mostarda);
+  --paper: var(--areia);
+  --line: var(--linha);
 }
 
+/* Fontes: Nunito no texto, Pacifico nos títulos, Bungee nas etiquetas,
+   Fredoka nos nomes dos Pokémon. Se a internet falhar, usa a fonte reserva. */
 * { box-sizing: border-box; }
-body { margin: 0; min-width: 320px; background: var(--paper); color: var(--ink); }
+body { margin: 0; min-width: 320px; background: var(--areia); color: var(--petroleo); font-family: "Nunito", Arial, sans-serif; }
 a { color: inherit; text-decoration: none; }
 button, input { font: inherit; }
-button, a { -webkit-tap-highlight-color: transparent; }
-button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid #e9b72a; outline-offset: 3px; }
+button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid var(--mostarda); outline-offset: 3px; }
 h1, h2, h3, p { margin-top: 0; }
-h1, h2, h3 { font-family: "Trebuchet MS", Arial, sans-serif; letter-spacing: -.035em; }
-h1 { margin-bottom: 12px; font-size: clamp(36px, 6vw, 58px); line-height: 1.02; }
-h2 { font-size: clamp(25px, 4vw, 36px); }
-.eyebrow { color: #df6147; font-size: 11px; font-weight: 900; letter-spacing: .22em; text-transform: uppercase; }
-.lead { max-width: 620px; color: var(--muted); font-size: 17px; line-height: 1.7; }
-.muted { color: var(--muted); }
-.text-center { text-align: center; }
-.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; clip-path: inset(50%); }
+h1 { margin-bottom: 12px; color: var(--coral); font-family: "Pacifico", cursive; font-size: clamp(34px, 5vw, 52px); font-weight: 400; line-height: 1.25; }
+h2 { font-family: "Fredoka", Arial, sans-serif; font-size: clamp(23px, 3.5vw, 32px); font-weight: 600; }
+h3 { font-family: "Fredoka", Arial, sans-serif; font-weight: 600; }
 
-.site-header { position: relative; z-index: 3; min-height: 76px; border-bottom: 1px solid rgba(220,232,223,.9); background: rgba(251,248,237,.95); }
+/* Etiqueta pequena acima dos títulos */
+.eyebrow { margin-bottom: 8px; color: var(--coral); font-family: "Bungee", Arial, sans-serif; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+.lead { max-width: 620px; color: var(--texto-suave); font-size: 17px; line-height: 1.7; }
+.muted { color: var(--texto-suave); }
+.text-center { text-align: center; }
+
+/* ---------------- CABEÇALHO E MENU ---------------- */
+.site-header { border-bottom: 2px dashed var(--linha); background: var(--areia); }
 .site-header-inner, .page-wrap, .footer-inner { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
 .site-header-inner { display: flex; min-height: 76px; align-items: center; justify-content: space-between; gap: 20px; }
-.brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 900; }
-.brand-mark { position: relative; display: grid; width: 38px; height: 38px; place-items: center; overflow: hidden; border: 3px solid var(--ink); border-radius: 50%; background: linear-gradient(#fff 0 46%,var(--ink) 46% 54%,#fff 54%); box-shadow: 0 3px 0 var(--ink); }
-.brand-mark::after { width: 11px; height: 11px; border: 3px solid var(--ink); border-radius: 50%; background: var(--yellow); content: ""; }
-.brand-name small { display: block; color: var(--green); font-size: 9px; letter-spacing: .2em; text-transform: uppercase; }
-.brand-name strong { font-size: 17px; }
-.site-nav { display: flex; align-items: center; justify-content: flex-end; gap: 6px; flex-wrap: wrap; }
-.site-nav a, .nav-user { padding: 10px 13px; border-radius: 999px; color: #466361; font-size: 13px; font-weight: 800; }
-.site-nav a:hover { background: white; color: var(--ink); }
-.site-nav a[aria-current="page"] { background: var(--green-soft); color: var(--ink); }
-.site-nav .nav-cta { background: var(--ink); color: white; }
-.site-nav .nav-cta:hover { background: #245959; }
-.site-nav .nav-cta[aria-current="page"] { background: #245959; color: white; }
-.nav-user { display: inline-flex; align-items: center; gap: 8px; background: white; }
-.nav-avatar { display: grid; width: 28px; height: 28px; place-items: center; border-radius: 50%; background: var(--yellow); color: var(--ink); }
-.nav-logout { padding: 9px 13px; border: 1px solid var(--line); border-radius: 999px; background: white; color: #a33e2e; cursor: pointer; font-size: 13px; font-weight: 900; }
-.nav-logout:hover { border-color: #efc3b9; background: #fff0ec; }
-.nav-logout:disabled { cursor: wait; opacity: .6; }
-.nav-message { color: #a33e2e; font-size: 12px; }
-.mobile-nav { display: none; }
+.brand { display: flex; align-items: center; gap: 10px; }
+/* Pokébola desenhada só com CSS: metade coral, faixa e metade branca */
+.brand-mark { display: flex; width: 38px; height: 38px; align-items: center; justify-content: center; border: 3px solid var(--petroleo); border-radius: 50%; background: linear-gradient(var(--coral) 0 44%, var(--petroleo) 44% 56%, var(--branco) 56%); }
+.brand-mark::after { width: 10px; height: 10px; border: 3px solid var(--petroleo); border-radius: 50%; background: var(--branco); content: ""; }
+.brand-name small { display: block; color: var(--coral); font-family: "Bungee", Arial, sans-serif; font-size: 9px; letter-spacing: .1em; }
+.brand-name strong { font-family: "Fredoka", Arial, sans-serif; font-size: 18px; font-weight: 600; }
+.site-nav { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 4px; }
+.site-nav a, .nav-user { display: inline-block; padding: 9px 13px; border-radius: 6px; font-size: 14px; font-weight: 800; }
+.site-nav a:hover { background: var(--creme); }
+.site-nav a[aria-current="page"] { background: var(--petroleo); color: var(--creme); }
+.site-nav .nav-cta { background: var(--coral); color: var(--branco); }
+.nav-user { color: var(--turquesa-escuro); }
+.nav-logout { padding: 8px 13px; border: 2px solid var(--petroleo); border-radius: 6px; background: transparent; color: var(--petroleo); cursor: pointer; font-size: 13px; font-weight: 800; }
+.nav-logout:hover { background: var(--petroleo); color: var(--creme); }
 
+/* ---------------- ESTRUTURA DAS PÁGINAS ---------------- */
 .page-wrap { padding: 42px 0 70px; }
-.page-intro { display: flex; align-items: end; justify-content: space-between; gap: 20px; }
-.page-intro h1 { margin: 8px 0; }
-.btn { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; gap: 9px; padding: 13px 22px; border: 0; border-radius: 999px; background: var(--coral); box-shadow: 0 5px 0 #b94331; color: white; cursor: pointer; font-weight: 900; transition: transform .18s ease,filter .18s ease; }
-.btn:hover { filter: brightness(1.03); transform: translateY(-2px); }
-.btn:disabled { cursor: wait; opacity: .6; transform: none; }
-.btn-dark { background: var(--ink); box-shadow: 0 5px 0 #091f20; }
-.btn-yellow { background: var(--yellow); box-shadow: 0 5px 0 #c99d19; color: var(--ink); }
-.btn-outline { border: 2px solid var(--ink); background: transparent; box-shadow: none; color: var(--ink); }
-.btn-small { min-height: 38px; padding: 9px 15px; font-size: 13px; }
+.page-intro { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; }
+.page-intro h1 { margin: 4px 0 8px; }
 
-.site-footer { padding: 28px 0; background: #102f31; color: rgba(255,255,255,.67); font-size: 13px; }
-.footer-inner { display: flex; justify-content: space-between; gap: 14px; }
-.footer-inner strong { color: white; }
-.form-note { min-height: 22px; margin: 14px 0; color: #aa3f2f; font-size: 13px; font-weight: 800; }
-.empty-state { margin-top: 15px; padding: 28px 17px; border: 1px dashed #ceddd3; border-radius: 17px; background: #f8faf6; color: #7b908c; font-size: 13px; font-weight: 800; text-align: center; }
+/* ---------------- BOTÕES ---------------- */
+.btn { display: inline-flex; min-height: 46px; align-items: center; justify-content: center; padding: 12px 22px; border: 0; border-radius: 6px; background: var(--coral); box-shadow: 0 4px 0 var(--coral-escuro); color: var(--branco); cursor: pointer; font-weight: 800; transition: transform .15s ease; }
+.btn:hover { transform: translateY(-2px); }
+.btn:disabled { cursor: not-allowed; opacity: .55; transform: none; }
+.btn-dark { background: var(--petroleo); box-shadow: 0 4px 0 var(--petroleo-escuro); color: var(--creme); }
+.btn-yellow { background: var(--mostarda); box-shadow: 0 4px 0 #b98a2c; color: var(--petroleo); }
+.btn-outline { border: 2px solid var(--petroleo); background: transparent; box-shadow: none; color: var(--petroleo); }
+.btn-small { min-height: 38px; padding: 8px 15px; font-size: 13px; }
 
-.stat-card, .panel, .form-card, .pokemon-card { border: 1px solid var(--line); border-radius: 24px; background: white; box-shadow: 0 12px 35px rgba(28,67,64,.05); }
-.stats-grid, .profile-grid, .pokemon-grid { display: grid; gap: 17px; }
-.stats-grid { grid-template-columns: repeat(3, 1fr); margin: 28px 0 18px; }
-.stat-card { min-height: 132px; padding: 20px; }
-.stat-icon { display: grid; width: 38px; height: 38px; place-items: center; border-radius: 13px; background: var(--green-soft); }
-.stat-card small { display: block; margin-top: 13px; color: #718783; font-size: 12px; font-weight: 800; }
-.stat-card strong { display: block; margin-top: 2px; font-size: 28px; }
-.panel { padding: 25px; }
-.panel h2 { margin-bottom: 5px; font-size: 22px; }
-.panel > p { color: #718783; font-size: 13px; }
-.recent-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 9px; margin-top: 15px; }
-.mini-pokemon { padding: 11px 5px; border-radius: 15px; background: var(--green-soft); text-align: center; }
-.mini-pokemon .pokemon-art { width: 60px; height: 60px; margin: auto; }
-.mini-pokemon strong { display: block; margin-top: 6px; font-size: 12px; }
+/* ---------------- CAIXAS (cards, painéis, formulários) ---------------- */
+.panel, .form-card, .stat-card { border: 1px solid var(--linha); border-radius: 14px; background: var(--branco); }
+.panel { padding: 24px; }
+.panel h2 { margin-bottom: 4px; font-size: 22px; }
+.panel > p { color: var(--texto-suave); font-size: 14px; }
 
-.pokemon-art { position: relative; display: grid; width: 100%; aspect-ratio: 1.1; place-items: center; overflow: hidden; border-radius: 17px; background: radial-gradient(circle at 50% 42%,rgba(255,255,255,.75) 0 25%,transparent 26%),linear-gradient(135deg,#dff2e6,#edf6ef); color: var(--green); font-size: 39px; font-weight: 900; }
-.pokemon-art.locked { background: linear-gradient(135deg,#e8e8e1,#f3f2eb); color: #9da69f; filter: grayscale(1); }
-.pokemon-art.silhouette { background: linear-gradient(140deg,#dcefe4,#eff7ee); }
-.pokemon-art.silhouette::before { width: 42%; height: 54%; border-radius: 46% 46% 37% 37%; background: #132d2e; box-shadow: -20px 10px 0 -11px #132d2e,21px 13px 0 -12px #132d2e; content: ""; }
-.pokemon-art.silhouette::after { position: absolute; width: 18%; height: 18%; border: 6px solid #132d2e; border-radius: 50%; background: #eff7ee; content: ""; }
-.pokemon-art.silhouette-rowlet::before { width: 45%; height: 50%; border-radius: 48% 48% 42% 42%; clip-path: polygon(50% 0,100% 23%,87% 100%,13% 100%,0 23%); }
-.pokemon-art.silhouette-rowlet::after { width: 28%; height: 12%; border-width: 4px; border-radius: 10% 10% 50% 50%; }
-.pokemon-art.silhouette-litten::before { width: 45%; height: 47%; border-radius: 40% 40% 45% 45%; clip-path: polygon(0 0,35% 20%,50% 0,65% 20%,100% 0,92% 78%,75% 100%,25% 100%,8% 78%); }
-.pokemon-art.silhouette-litten::after { width: 9%; height: 9%; border: 0; border-radius: 50%; background: #eff7ee; box-shadow: -24px 0 #eff7ee,24px 0 #eff7ee; }
-.pokemon-art.silhouette-popplio::before { width: 44%; height: 42%; border-radius: 48% 48% 40% 40%; box-shadow: -22px 18px 0 -7px #132d2e,22px 18px 0 -7px #132d2e; }
-.pokemon-art.silhouette-popplio::after { width: 15%; height: 15%; border: 5px solid #132d2e; border-radius: 50%; background: #eff7ee; box-shadow: 0 27px 0 -8px #132d2e; }
+/* Mensagens de aviso dos formulários */
+.form-note { min-height: 22px; margin: 12px 0; color: var(--coral-escuro); font-size: 14px; font-weight: 800; }
+.empty-state { padding: 28px 17px; border: 2px dashed var(--linha); border-radius: 14px; color: var(--texto-suave); font-weight: 800; text-align: center; }
 
-@media (max-width: 850px) {
-  .stats-grid { grid-template-columns: repeat(3, 1fr); }
-}
+/* Campo de texto (formulários e busca da Pokédex) */
+.field { display: block; }
+.field span { display: block; margin-bottom: 7px; font-size: 14px; font-weight: 800; }
+.field input, .search-input { width: 100%; min-height: 46px; padding: 11px 14px; border: 2px solid var(--linha); border-radius: 8px; background: var(--branco); color: var(--petroleo); }
+.field input:focus, .search-input:focus { border-color: var(--turquesa); outline: none; }
 
-@media (max-width: 850px) {
-  .site-nav { justify-content: flex-start; flex-wrap: nowrap; overflow-x: auto; }
-  .site-header-inner { flex-direction: column; align-items: flex-start; padding: 10px 0; }
-  .mobile-nav { display: flex; justify-content: flex-start; gap: 6px; overflow-x: auto; border-top: 1px solid var(--line); padding: 7px 14px; }
-  .mobile-nav a { flex: 0 0 auto; padding: 5px 8px; border-radius: 99px; color: #466361; font-size: 11px; font-weight: 900; }
-  .mobile-nav a[aria-current="page"] { background: var(--green-soft); color: var(--ink); }
-  .mobile-nav .nav-cta { background: var(--ink); color: white; }
-  .mobile-nav .nav-logout { flex: 0 0 auto; padding: 5px 8px; font-size: 11px; }
-}
+/* Etiqueta de tipo do Pokémon */
+.type-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+.type-tag { padding: 3px 9px; border-radius: 99px; background: #fde9e8; color: var(--coral-escuro); font-size: 12px; font-weight: 800; }
 
-@media (max-width: 650px) {
-  .site-header-inner, .page-wrap, .footer-inner { width: min(100% - 28px,1120px); }
-  .site-header-inner { min-height: 68px; flex-wrap: wrap; padding: 9px 0; }
-  .page-wrap { padding-top: 30px; }
-  .page-intro { align-items: stretch; flex-direction: column; }
-  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-  .footer-inner { flex-direction: column; }
-}
+/* Pokémon pequeno (resultado do quiz, últimos desbloqueios, favoritos) */
+.recent-grid { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
+.mini-pokemon { width: 110px; padding: 10px 6px; border-radius: 12px; background: var(--branco); box-shadow: 0 4px 0 var(--turquesa); text-align: center; }
+.mini-pokemon img { display: block; width: 64px; height: 64px; margin: auto; object-fit: contain; }
+.mini-pokemon strong { display: block; margin-top: 6px; font-family: "Fredoka", Arial, sans-serif; font-size: 13px; font-weight: 600; }
 
 /* Silhueta: brilho zero deixa a imagem toda preta */
 .silhueta { filter: brightness(0); opacity: .85; }
-.mini-pokemon img { display: block; width: 64px; height: 64px; margin: auto; object-fit: contain; }
+
+/* ---------------- RODAPÉ ---------------- */
+.site-footer { padding: 26px 0; background: var(--petroleo-escuro); color: var(--creme); font-size: 13px; }
+.footer-inner { display: flex; justify-content: space-between; gap: 14px; }
+.footer-inner strong { font-family: "Fredoka", Arial, sans-serif; font-size: 15px; }
+.creditos { width: min(1120px, calc(100% - 40px)); margin: 12px auto 0; opacity: .7; font-size: 12px; }
+
+/* ---------------- CELULAR E TABLET ---------------- */
+@media (max-width: 850px) {
+  .site-header-inner { flex-direction: column; align-items: flex-start; padding: 10px 0; }
+  .site-nav { flex-wrap: nowrap; overflow-x: auto; width: 100%; justify-content: flex-start; }
+  .site-nav a, .nav-user { white-space: nowrap; }
+}
+
+@media (max-width: 650px) {
+  .site-header-inner, .page-wrap, .footer-inner, .creditos { width: calc(100% - 28px); }
+  .page-wrap { padding-top: 28px; }
+  .page-intro { flex-direction: column; align-items: stretch; }
+  .footer-inner { flex-direction: column; }
+}

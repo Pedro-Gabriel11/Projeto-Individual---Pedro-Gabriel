@@ -20,3 +20,9 @@
 .painel-largo { grid-column: 1 / -1; }
 .area-grafico { position: relative; height: 260px; margin-top: 14px; }
 .grafico-vazio { display: none; margin-top: 15px; padding: 28px 17px; border: 1px dashed #ceddd3; border-radius: 17px; background: #f8faf6; color: #7b908c; font-size: 13px; font-weight: 800; text-align: center; }
+
+/* Regras que antes ficavam no shared.css (a Tarefa 16 refaz o visual desta página) */
+.stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 17px; margin: 28px 0 18px; }
+.stat-card { min-height: 120px; padding: 20px; }
+.stat-card small { display: block; margin-top: 10px; color: var(--texto-suave); font-size: 13px; font-weight: 800; }
+.stat-card strong { display: block; font-size: 28px; }
