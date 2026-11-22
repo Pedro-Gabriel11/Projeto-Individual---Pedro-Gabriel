@@ -18,12 +18,15 @@ function cadastrar(nome, usuario, email, senha) {
 }
 
 // "conta" pode ser o e-mail ou o nome de treinador (usuario).
-function autenticar(conta, senha) {
+// A senha NÃO é comparada aqui: o MySQL compara textos ignorando maiúsculas e
+// minúsculas, então "rowlet@722" passaria por "Rowlet@722". A comparação é feita
+// no controller, em JavaScript, onde o == diferencia maiúsculas de minúsculas.
+function buscarPorConta(conta) {
     let instrucaoSql = `
-        SELECT id, nome, usuario, email FROM treinador
-        WHERE (email = ? OR usuario = ?) AND senha = ?
+        SELECT id, nome, usuario, email, senha FROM treinador
+        WHERE email = ? OR usuario = ?
     `;
-    return database.executar(instrucaoSql, [conta, conta, senha]);
+    return database.executar(instrucaoSql, [conta, conta]);
 }
 
 // ---------------- PAINEL ----------------
@@ -82,7 +85,7 @@ module.exports = {
     buscarPorUsuario,
     buscarPorEmail,
     cadastrar,
-    autenticar,
+    buscarPorConta,
     contarCatalogo,
     buscarResumoColecao,
     buscarResumoTentativas,

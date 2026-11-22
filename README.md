@@ -2,10 +2,10 @@
 
 # Pokémon Trainer Hub
 
-**Uma plataforma onde cada visitante vira um treinador: cria sua conta, responde quizzes, desbloqueia Pokémon na própria Pokédex e acompanha o progresso em uma dashboard.**
+**Uma plataforma onde cada visitante vira um treinador: cria sua conta, responde quizzes, desbloqueia Pokémon na própria Pokédex e acompanha o progresso em um painel com gráficos.**
 
-![Status](https://img.shields.io/badge/status-em%20desenvolvimento-FFCB05?style=for-the-badge)
-![SPTech](https://img.shields.io/badge/SPTech-ADS-3B4CCA?style=for-the-badge)
+![Status](https://img.shields.io/badge/status-pronto%20para%20apresentação-2ec4b6?style=for-the-badge)
+![SPTech](https://img.shields.io/badge/SPTech-ADS-1d4e5f?style=for-the-badge)
 
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white)
@@ -13,10 +13,10 @@
 ![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white)
 ![Express](https://img.shields.io/badge/Express-000000?style=flat-square&logo=express&logoColor=white)
 ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white)
+![Chart.js](https://img.shields.io/badge/Chart.js-FF6384?style=flat-square&logo=chartdotjs&logoColor=white)
 
 [Sobre](#sobre-o-projeto) •
-[Status](#status-do-projeto) •
-[Telas](#telas) •
+[Funcionalidades](#funcionalidades) •
 [Arquitetura](#arquitetura) •
 [Banco de dados](#banco-de-dados) •
 [Como executar](#como-executar) •
@@ -39,123 +39,95 @@
 
 ### O tema
 
-O projeto é ambientado no universo Pokémon, com foco na região de Alola e na Geração VII.
+O projeto é ambientado no universo Pokémon, na região de **Alola** (Geração VII), inspirada no Havaí —
+por isso o visual de "cartão-postal praiano".
 
 ### A proposta
 
-Em vez de um site apenas informativo, o Pokémon Trainer Hub coloca o visitante
-para interagir: ele se cadastra como treinador, responde a quizzes de silhueta e
-trivia, e cada acerto desbloqueia um Pokémon na sua Pokédex pessoal. Esse uso gera
-os dados que alimentam a dashboard de progresso.
+Em vez de um site apenas informativo, o Pokémon Trainer Hub coloca o visitante para interagir: ele se
+cadastra como treinador, responde a um quiz de silhuetas e curiosidades, e cada acerto desbloqueia um
+Pokémon na sua Pokédex pessoal. Esse uso gera os dados que alimentam os gráficos do painel.
 
-> Projeto individual do curso de Análise e Desenvolvimento de Sistemas da
-> **São Paulo Tech School**, desenvolvido a partir do template `web-data-viz`
-> fornecido pela instituição e refatorado para este tema.
+> Projeto individual do curso de Análise e Desenvolvimento de Sistemas da **São Paulo Tech School**,
+> desenvolvido a partir do template `web-data-viz` fornecido pela instituição e adaptado para este tema.
 
 ---
 
-## Status do projeto
+## Funcionalidades
 
-O projeto está **em desenvolvimento**. O fluxo principal — cadastro, login, quiz,
-desbloqueio de Pokémon e dashboard — já foi validado de ponta a ponta com o banco
-em execução. O que falta é conteúdo: a história pessoal, o catálogo completo e as
-imagens.
-
-| Funcionalidade | Descrição | Status |
-|---|---|---|
-| **Cadastro de treinador** | Conta com nome, usuário, e-mail e senha, validando duplicidade | Implementado |
-| **Login e sessão** | Autenticação por e-mail ou usuário, sessão de 7 dias e logout | Implementado |
-| **Quiz** | Perguntas de silhueta e trivia, com pontuação calculada no servidor | Implementado |
-| **Desbloqueio na Pokédex** | Cada acerto no quiz adiciona o Pokémon à coleção do treinador | Implementado |
-| **Favoritos** | Marcar e desmarcar Pokémon já desbloqueados | Implementado |
-| **Dashboard** | Histórico de tentativas, precisão e tipos mais coletados | Implementado |
-| **Perfil** | Dados do treinador e resumo do progresso | Implementado |
-| **Minha história** | Página que conecta a franquia à trajetória pessoal do autor | Conteúdo pendente |
-| **Catálogo completo** | 106 entradas (Geração VII + formas de Alola) | 4 entradas de demonstração |
-| **Imagens dos Pokémon** | Artes e silhuetas do catálogo | Pendente (ilustrações em CSS) |
-| **Validação ponta a ponta** | Teste manual do fluxo principal com o banco ativo | Concluída |
-
-### Páginas
-
-`index.html` · `historia.html` · `cadastro.html` · `login.html` ·
-`quiz.html` · `pokedex.html` · `dashboard.html` · `perfil.html`
-
----
-
-## Telas
-
-<!-- PEDRO: rode o projeto, tire prints e salve em docs/prints/.
-     Depois troque os comentários abaixo pelas imagens. Exemplo:
-     ![Home](docs/prints/home.png) -->
-
-| Home | Quiz |
+| Página | O que faz |
 |---|---|
-| _print pendente_ | _print pendente_ |
+| **Início** (`index.html`) | Apresenta o site em um "cartão-postal" e leva ao quiz, à Pokédex e ao painel |
+| **Minha história** (`historia.html`) | Fases da minha vida com Pokémon, em fotos estilo polaroid |
+| **Cadastro** (`cadastro.html`) | Cria a conta, com validação de e-mail e de senha (maiúscula, minúscula, número e caractere especial) e verificação de nome de treinador e e-mail repetidos |
+| **Login** (`login.html`) | Entrada por e-mail ou nome de treinador |
+| **Quiz** (`quiz.html`) | 10 perguntas por partida: 7 de silhueta e 3 de curiosidade. Cada acerto desbloqueia o Pokémon |
+| **Pokédex** (`pokedex.html`) | Os 118 Pokémon com busca, filtro por tipo, silhuetas dos não descobertos, detalhes e favoritos |
+| **Painel** (`painel.html`) | Números do treinador e 3 gráficos (Chart.js): pontos por partida (linha), acertos x erros (pizza) e Pokémon por tipo (barras) |
 
-| Pokédex | Dashboard |
-|---|---|
-| _print pendente_ | _print pendente_ |
+**Catálogo:** 118 entradas — as 88 espécies da Geração VII (#722 a #809), 12 formas alternativas da
+própria geração (Oricorio, Lycanroc, Wishiwashi, Minior, Mimikyu, Necrozma, Magearna) e as 18 formas de Alola.
+
+Explicação detalhada de cada página, campo e função: [`docs/guia-de-explicacao.md`](docs/guia-de-explicacao.md).
 
 ---
 
 ## Arquitetura
 
-Uma única aplicação Express serve o front-end estático e a API, com a separação
-clássica em três camadas:
+Uma única aplicação Express serve o front-end estático e a API, separada em três camadas:
 
 ```
-app.js                    servidor Express, carrega as variáveis de ambiente
+app.js                    servidor Express e variáveis de ambiente
 │
 ├── src/
-│   ├── routes/           define os endereços da API (o "o quê")
-│   ├── controllers/      recebe a requisição, valida e responde (o "como")
-│   ├── models/           conversa com o MySQL (o "onde")
-│   └── database/         conexão e script de criação das tabelas
+│   ├── routes/           quais endereços existem
+│   ├── controllers/      recebe a requisição, valida com if e responde
+│   ├── models/           únicos arquivos que escrevem SQL (sempre com ?)
+│   └── database/         conexão (config.js) e script do banco
 │
 ├── public/               tudo que o navegador recebe
-│   ├── *.html            as oito páginas
-│   ├── css/shared.css    estilos comuns
+│   ├── *.html            as 7 páginas (os elementos ficam escritos no HTML)
+│   ├── css/shared.css    paleta de cores e estilos comuns
 │   ├── css/pages/        um arquivo por página
-│   ├── js/shared/        funções compartilhadas (core.js)
-│   └── js/pages/         um script por página
+│   ├── js/sessao.js      menu e controle de sessão (sessionStorage)
+│   ├── js/pages/         um script por página
+│   └── images/           imagens dos Pokémon e fotos da história
 │
-└── tests/                testes unitários
+└── tests/                testes unitários (node:test)
 ```
 
-**Por que separar assim:** a rota só diz qual endereço existe, o controller cuida
-das regras e da resposta, e o model é o único que escreve SQL. Quando algo quebra,
-a camada aponta onde procurar.
+**Por que separar assim:** a rota só diz qual endereço existe, o controller cuida das regras e da
+resposta, e o model é o único que escreve SQL. Quando algo quebra, a camada aponta onde procurar.
 
-As rotas privadas passam antes pelo middleware `autenticarTreinador`, que confere
-o token de sessão enviado no cabeçalho `Authorization: Bearer <token>`.
+**Front-end:** a estrutura de cada página fica no `.html`; o JavaScript só preenche os valores
+(`textContent`, `src`) e mostra ou esconde partes. Listas de tamanho variável (cards da Pokédex,
+histórico) usam um molde `<template>` copiado com `cloneNode`.
+
+**Sessão:** no modelo do template da faculdade — depois do login, o navegador guarda o id, o nome e o
+usuário do treinador no `sessionStorage`. As páginas Painel, Pokédex e Quiz conferem isso com
+`validarSessao()` e mandam para o login se não houver ninguém.
 
 ---
 
 ## Banco de dados
 
-Banco próprio: `pokemon_trainer_hub`.
+Banco próprio: `pokemon_trainer_hub`, com 4 tabelas.
 
 | Tabela | Guarda |
 |---|---|
-| `pokemon_treinador` | Contas dos treinadores (com `senha_hash`) |
-| `pokemon_sessao` | Sessões ativas, com hash do token e data de expiração |
-| `pokemon_catalogo` | As entradas da Pokédex (nome, tipos, categoria, descrição) |
-| `pokemon_pergunta` | Perguntas do quiz, suas alternativas e a resposta correta |
-| `pokemon_colecao` | Quais Pokémon cada treinador desbloqueou e favoritou |
-| `pokemon_tentativa` | Histórico de cada partida: pontos, acertos, erros e precisão |
+| `treinador` | as contas (`usuario` e `email` com `UNIQUE`) |
+| `pokemon` | o catálogo de 118 Pokémon (`tipo2` pode ser `NULL`) |
+| `colecao` | quais Pokémon cada treinador desbloqueou e favoritou (chave primária composta `fk_treinador` + `fk_pokemon`) |
+| `tentativa` | cada partida do quiz: acertos, erros, pontos e data |
 
-As tabelas usam chaves estrangeiras com `ON DELETE CASCADE`, de forma que apagar
-um treinador remove junto suas sessões, sua coleção e seu histórico.
-
-**Segurança:** senhas são guardadas com `scrypt`, nunca em texto puro. O token de
-sessão é aleatório e só o seu hash fica no banco — mesmo quem lesse a tabela não
-conseguiria se passar pelo treinador.
+As perguntas do quiz não ficam no banco: as de silhueta são montadas a partir do catálogo, e as de
+curiosidade ficam em um vetor no `quiz.js`.
 
 ---
 
 ## Como executar
 
-**Pré-requisitos:** Node.js 18 ou superior e MySQL instalados.
+**Pré-requisitos:** Node.js 18 ou superior e MySQL.
 
 ```bash
 # 1. Clonar o repositório
@@ -166,7 +138,7 @@ cd Projeto-Individual---Pedro-Gabriel
 npm install
 ```
 
-**3. Criar o arquivo de ambiente.** Na raiz do projeto, crie um `.env.dev` com:
+**3. Criar o arquivo de ambiente.** Na raiz do projeto, crie um `.env.dev`:
 
 ```env
 AMBIENTE_PROCESSO=desenvolvimento
@@ -183,72 +155,76 @@ APP_PORT=3333
 
 > Os arquivos `.env` não vão para o repositório — eles contêm a senha do banco.
 
-**4. Criar as tabelas.** Execute o script `src/database/script-tabelas-pokemon.sql`
-no MySQL. Ele cria o banco, as tabelas e insere dados de demonstração.
+**4. Criar o banco.** Execute o arquivo inteiro `src/database/script-tabelas-pokemon.sql` no MySQL
+Workbench. Ele **apaga e recria** o banco, as tabelas e os 118 Pokémon.
 
 ```bash
 # 5. Iniciar o servidor
 npm start
 ```
 
-Acesse o endereço configurado em `APP_HOST` e `APP_PORT`.
+Acesse `http://localhost:3333`. O painel usa o Chart.js pela internet (CDN), então é preciso estar online.
 
 ---
 
 ## API
 
-Todos os endpoints usam o prefixo `/api`. Os marcados com 🔒 exigem o cabeçalho
-`Authorization: Bearer <token>`.
+Todos os endereços começam com `/api`.
 
 ### Treinadores
 
 | Método | Rota | O que faz |
 |---|---|---|
-| `POST` | `/api/treinadores/cadastrar` | Cria a conta do treinador |
-| `POST` | `/api/treinadores/autenticar` | Faz login e devolve o token de sessão |
-| `POST` | `/api/treinadores/sair` | 🔒 Encerra a sessão |
-| `GET` | `/api/treinadores/visao-geral` | 🔒 Progresso e histórico do treinador |
-| `GET` | `/api/treinadores/pokedex` | 🔒 Coleção de Pokémon do treinador |
-| `PATCH` | `/api/treinadores/pokedex/:pokemonId/favorito` | 🔒 Marca ou desmarca favorito |
+| `POST` | `/api/treinadores/cadastrar` | Cria a conta (`{ nome, usuario, email, senha }`) |
+| `POST` | `/api/treinadores/autenticar` | Faz login (`{ conta, senha }`) e devolve `{ id, nome, usuario, email }` |
+| `GET` | `/api/treinadores/painel/:idTreinador` | Estatísticas, últimas partidas e coleção |
+| `GET` | `/api/treinadores/pokedex/:idTreinador` | Os 118 Pokémon com `desbloqueado` e `favorito` |
+| `PUT` | `/api/treinadores/favorito/:idTreinador/:idPokemon` | Marca (`{ favorito: 1 }`) ou desmarca (`0`) um favorito |
 
-### Quiz e catálogo
+### Catálogo e quiz
 
 | Método | Rota | O que faz |
 |---|---|---|
-| `GET` | `/api/quiz/perguntas` | 🔒 Lista as perguntas disponíveis |
-| `POST` | `/api/quiz/tentativas` | 🔒 Registra o resultado de uma partida |
-| `GET` | `/api/pokemon` | Lista o catálogo de Pokémon |
+| `GET` | `/api/pokemon` | Lista o catálogo |
+| `POST` | `/api/quiz/tentativa` | Salva a partida (`{ idTreinador, acertos, erros, idsAcertados }`) e devolve `{ pontos, novos }` |
 
-A pontuação das tentativas é calculada no servidor, não no navegador — assim o
-resultado não pode ser alterado pelo usuário.
+Os pontos (100 por acerto) são calculados no servidor.
 
 ---
 
 ## Testes
 
-O projeto tem testes unitários escritos com o módulo nativo `node:test`,
-sem bibliotecas externas.
+Testes unitários com o módulo nativo `node:test`, sem bibliotecas externas:
 
 ```bash
 npm test
 ```
 
-Cobrem o cadastro e o hash de senha, o fluxo de autenticação, o cálculo de
-pontuação do quiz e a marcação de favoritos.
+Cobrem as validações do cadastro e do login (campos vazios, usuário e e-mail repetidos, normalização
+de maiúsculas), o painel de um treinador sem partidas, a marcação de desbloqueados na Pokédex, os
+favoritos e o registro de partidas do quiz. Os testes **não usam o banco**: as funções do model são
+substituídas por versões falsas. Por isso, o fluxo completo também foi testado no navegador com o
+banco ligado.
 
 ---
 
 ## Uso de IA
 
-<!-- PEDRO: confira se a disciplina exige esse registro e em que formato.
-     Se exigir um diário de prompts detalhado, vale criar docs/diario-de-prompts.md
-     e linkar aqui. -->
+<!-- PEDRO: confira se a disciplina exige esse registro e em que formato. -->
 
-O desenvolvimento contou com apoio de ferramentas de IA (OpenCode e Claude Code)
-para estruturação do código e revisão. As decisões de escopo, o tema, o conteúdo
-pessoal e a validação do que foi implementado são de autoria própria.
+O desenvolvimento contou com apoio de ferramentas de IA (OpenCode e Claude Code) para estruturação do
+código, tradução das descrições dos Pokémon e revisão. As decisões de escopo, o tema, o visual, o
+conteúdo pessoal e a validação do que foi implementado são de autoria própria.
 
-As diretrizes dadas aos agentes estão documentadas em [`AGENTS.md`](AGENTS.md).
+As diretrizes dadas aos agentes estão em [`AGENTS.md`](AGENTS.md).
+
+---
+
+## Créditos
+
+- Imagens dos Pokémon: [PokeAPI](https://github.com/PokeAPI/sprites) (artes oficiais).
+- Descrições: tradução livre das Pokédex oficiais de Pokémon Moon (quando a entrada não existe nesse
+  jogo, Ultra Moon ou Let's Go). Descrições das formas: [PokémonDB](https://pokemondb.net).
 
 ---
 

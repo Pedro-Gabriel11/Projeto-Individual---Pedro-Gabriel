@@ -130,9 +130,9 @@ test("cadastro normaliza e-mail e usuário antes de consultar", function () {
 
 // ---------------- LOGIN ----------------
 
-test("login com dados certos devolve o treinador", function () {
-    treinadorModel.autenticar = function () {
-        return Promise.resolve([{ id: 7, nome: "Ash Ketchum", usuario: "ash_k", email: "ash@x.com" }]);
+test("login com dados certos devolve o treinador (sem a senha)", function () {
+    treinadorModel.buscarPorConta = function () {
+        return Promise.resolve([{ id: 7, nome: "Ash Ketchum", usuario: "ash_k", email: "ash@x.com", senha: "Pikachu@25" }]);
     };
 
     let res = respostaFalsa();
@@ -142,8 +142,8 @@ test("login com dados certos devolve o treinador", function () {
     });
 });
 
-test("login errado responde 403", function () {
-    treinadorModel.autenticar = function () { return Promise.resolve([]); };
+test("login com conta inexistente responde 403", function () {
+    treinadorModel.buscarPorConta = function () { return Promise.resolve([]); };
 
     let res = respostaFalsa();
     return treinadorController.autenticar({ body: { conta: "ash_k", senha: "errada" } }, res).then(function () {
@@ -154,7 +154,7 @@ test("login errado responde 403", function () {
 
 test("login normaliza a conta", function () {
     let contaConsultada;
-    treinadorModel.autenticar = function (conta) {
+    treinadorModel.buscarPorConta = function (conta) {
         contaConsultada = conta;
         return Promise.resolve([]);
     };
@@ -162,6 +162,18 @@ test("login normaliza a conta", function () {
     let res = respostaFalsa();
     return treinadorController.autenticar({ body: { conta: " Ash@X.com ", senha: "Pikachu@25" } }, res).then(function () {
         assert.equal(contaConsultada, "ash@x.com");
+    });
+});
+
+test("login diferencia maiúsculas e minúsculas na senha", function () {
+    treinadorModel.buscarPorConta = function () {
+        return Promise.resolve([{ id: 7, nome: "Ash Ketchum", usuario: "ash_k", email: "ash@x.com", senha: "Pikachu@25" }]);
+    };
+
+    let res = respostaFalsa();
+    return treinadorController.autenticar({ body: { conta: "ash_k", senha: "pikachu@25" } }, res).then(function () {
+        assert.equal(res.statusCode, 403);
+        assert.equal(res.corpo.mensagem, "E-mail/usuário ou senha inválidos.");
     });
 });
 

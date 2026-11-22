@@ -83,9 +83,11 @@ function autenticar(req, res) {
 
     conta = conta.trim().toLowerCase();
 
-    return treinadorModel.autenticar(conta, senha)
+    return treinadorModel.buscarPorConta(conta)
         .then(function (resultado) {
-            if (resultado.length == 1) {
+            // Achou a conta E a senha é exatamente igual (maiúsculas contam)?
+            if (resultado.length == 1 && resultado[0].senha == senha) {
+                // A senha não é enviada de volta ao navegador
                 res.status(200).json({
                     id: resultado[0].id,
                     nome: resultado[0].nome,

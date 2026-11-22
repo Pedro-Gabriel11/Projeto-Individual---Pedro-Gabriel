@@ -19,6 +19,7 @@ Como trabalhar comigo:
 - Quando houver mais de uma forma de resolver, mostre a mais direta primeiro.
 - Vou precisar **explicar este código para um professor**. Se eu não conseguir
   entender uma solução, ela não serve, mesmo que funcione.
+- Ao terminar uma tarefa, faça 1 ou 2 perguntas curtas para eu fixar o que foi feito.
 
 ### Escopo de cada tarefa
 
@@ -36,13 +37,16 @@ Como trabalhar comigo:
 O Pokémon Trainer Hub é uma aplicação web ambientada no universo Pokémon, com
 foco na região de Alola e na Geração VII.
 
-O visitante cria uma conta como treinador, responde quizzes de silhueta e trivia,
-desbloqueia Pokémon na própria Pokédex a cada acerto, e acompanha o progresso em
-uma dashboard.
+O visitante cria uma conta como treinador, responde um quiz de silhuetas e
+curiosidades, desbloqueia Pokémon na própria Pokédex a cada acerto, e acompanha
+o progresso em um painel com gráficos.
 
 ### Tecnologias
 
 - **Front-end:** HTML, CSS e JavaScript puro — sem frameworks.
+- **Gráficos:** Chart.js 4.4.1, carregado pela CDN do jsDelivr no `painel.html`
+  (autorizado; mesmo formato do exemplo da faculdade).
+- **Fontes:** Google Fonts por `<link>` (Pacifico, Bungee, Nunito, Fredoka).
 - **Back-end:** Node.js com Express.
 - **Banco:** MySQL, base `pokemon_trainer_hub`.
 - **Testes:** módulo nativo `node:test`.
@@ -50,37 +54,46 @@ uma dashboard.
 Não introduzir React, Next.js, TypeScript, bibliotecas de CSS ou qualquer
 tecnologia adicional sem autorização.
 
+### Regras de código JavaScript (front e back)
+
+- Variáveis sempre com **`let`** — nunca `var` nem `const`.
+- Nomes de funções, variáveis, campos da API e colunas em **português**.
+- Usar a lógica do 1º semestre: `if / else if / else`, `for`, `while`, vetores,
+  objetos, funções e `fetch().then()`.
+- **Não usar:** `async/await`, `Map`, `Set`, `reduce`, `Promise.all`, regex,
+  arrow functions (`=>`), IIFE, `"use strict"`, `Object.assign`.
+
 ---
 
 ## 3. Estado atual
 
-**Funciona e está validado de ponta a ponta:** cadastro, login, sessão, quiz,
-desbloqueio de Pokémon, favoritos, dashboard e perfil.
+**Tudo funciona e foi testado no navegador com o banco ligado:** cadastro com
+validações, login, menu de sessão, quiz, desbloqueio, Pokédex com 118 Pokémon
+(imagens e silhuetas), favoritos, painel com 3 gráficos e o visual praiano.
 
-**Pendente:**
+**Pendente (do autor):**
 
 | Item | Situação |
 |---|---|
-| Conteúdo da página `historia.html` | A ser escrito pelo autor — não gerar |
-| Catálogo de Pokémon | 4 registros de demonstração; meta é 106 |
-| Imagens | Nenhuma no projeto; hoje tudo é ilustração em CSS |
-| Identidade visual | Paleta ainda é a genérica do template |
-| HTML dentro de JavaScript | Precisa ser extraído (ver seção 6) |
+| Fotos e textos de `historia.html` | Estrutura pronta com 5 fases; conteúdo a ser escrito pelo autor — **não gerar** |
+| Seção "Sobre o projeto" do README | A ser escrita pelo autor |
+
+Documentação do projeto:
+- `docs/guia-de-explicacao.md` — explicação de cada página, campo e função.
+- `docs/superpowers/specs/` e `docs/superpowers/plans/` — decisões e plano da refatoração.
 
 ---
 
 ## 4. Aquatech: referência técnica, fora do projeto
 
 O Aquatech (`web-data-viz`) é o template fornecido pela faculdade. Ele **não está
-dentro deste repositório** — fica numa pasta irmã, fora do projeto, e normalmente
-não estará acessível durante o trabalho.
+dentro deste repositório**.
 
-Dele vale a **organização**: Express servindo front e API, separação em
-routes/controllers/models, conexão via `dotenv`.
+Dele vale a **organização** (Express servindo front e API, routes/controllers/models,
+conexão via `dotenv`) e o **modelo de sessão** (dados do usuário no `sessionStorage`).
 
 Dele **não** vale nada de negócio: empresas, aquários, sensores, medidas, avisos,
-códigos de ativação. Não criar tabelas, rotas, entidades ou arquivos com esses
-nomes. O Pokémon Trainer Hub tem domínio, banco e API próprios.
+códigos de ativação. Não criar tabelas, rotas, entidades ou arquivos com esses nomes.
 
 ---
 
@@ -89,119 +102,110 @@ nomes. O Pokémon Trainer Hub tem domínio, banco e API próprios.
 Base própria: `pokemon_trainer_hub`. Credenciais sempre por variáveis de ambiente,
 nunca no código.
 
-### Tabelas existentes
+### Tabelas
 
 | Tabela | Guarda |
 |---|---|
-| `pokemon_treinador` | Contas (`senha_hash` em VARCHAR(255)) |
-| `pokemon_sessao` | Sessões ativas, com hash do token e expiração |
-| `pokemon_catalogo` | Entradas da Pokédex |
-| `pokemon_pergunta` | Perguntas do quiz, alternativas e resposta correta |
-| `pokemon_colecao` | Pokémon desbloqueados e favoritados por treinador |
-| `pokemon_tentativa` | Histórico de partidas: pontos, acertos, erros, precisão |
+| `treinador` | Contas (`usuario` e `email` com `UNIQUE`; `senha` em texto, como no template) |
+| `pokemon` | O catálogo de 118 entradas (`tipo1`, `tipo2` pode ser `NULL`) |
+| `colecao` | Pokémon desbloqueados e favoritados (PK composta `fk_treinador` + `fk_pokemon`) |
+| `tentativa` | Partidas do quiz: acertos, erros, pontos e data |
 
-Não criar tabela nova sem antes verificar se uma existente atende.
+As perguntas do quiz **não** ficam no banco (vetor `perguntasCuriosidade` em `quiz.js`
+e silhuetas montadas a partir do catálogo).
 
-### Alterações no banco
+### Regras
 
-- `CREATE TABLE IF NOT EXISTS` **não atualiza** tabela já existente. Mudanças
-  estruturais exigem um `ALTER TABLE`, e ele deve ser informado explicitamente.
-- Atualizar o script `src/database/script-tabelas-pokemon.sql` junto, para que
-  uma instalação nova já saia correta.
-- Preservar dados existentes. Nada de `DROP` sem autorização explícita.
-- Sempre usar **consultas parametrizadas** (`?`), nunca concatenar valores vindos
-  do usuário dentro do SQL.
+- Usar apenas tipos e comandos vistos em aula: `INT`, `VARCHAR`, `DATETIME`, `DECIMAL`,
+  `PRIMARY KEY`, `FOREIGN KEY`, `AUTO_INCREMENT`, `DEFAULT`, `UNIQUE`, `NULL`.
+  **Não usar** BIGINT, SMALLINT, TINYINT, JSON, ENUM, CHARACTER SET, `INSERT IGNORE`,
+  `ON DUPLICATE KEY`, `COALESCE`.
+- O script `src/database/script-tabelas-pokemon.sql` **apaga e recria** o banco
+  (`DROP DATABASE IF EXISTS`). Mudanças na estrutura vão nele.
+- Sempre usar **consultas parametrizadas** (`?`), nunca concatenar valores no SQL.
+- Não criar tabela nova sem antes verificar se uma existente atende.
 
 ---
 
 ## 6. Organização do código
 
-Uma única aplicação Express serve o front estático e a API sob o prefixo `/api`.
-
 ```
 app.js              servidor e variáveis de ambiente
 src/routes/         quais endereços existem
-src/controllers/    recebe a requisição, valida, responde
+src/controllers/    recebe a requisição, valida com if, responde
 src/models/         únicos arquivos que escrevem SQL
 src/database/       conexão e script das tabelas
-public/             HTML, CSS e JS do navegador
+public/             HTML, CSS, JS e imagens
 tests/              testes unitários
 ```
 
-### Endpoints atuais
+### Endpoints
 
 ```
 POST   /api/treinadores/cadastrar
 POST   /api/treinadores/autenticar
-POST   /api/treinadores/sair                              🔒
-GET    /api/treinadores/visao-geral                       🔒
-GET    /api/treinadores/pokedex                           🔒
-PATCH  /api/treinadores/pokedex/:pokemonId/favorito       🔒
-GET    /api/quiz/perguntas                                🔒
-POST   /api/quiz/tentativas                               🔒
+GET    /api/treinadores/painel/:idTreinador
+GET    /api/treinadores/pokedex/:idTreinador
+PUT    /api/treinadores/favorito/:idTreinador/:idPokemon
 GET    /api/pokemon
+POST   /api/quiz/tentativa
 ```
 
-🔒 = exige `Authorization: Bearer <token>`.
+Antes de alterar um endpoint: verificar quem o consome em `public/js/` e
+atualizar os consumidores junto.
 
-Antes de alterar um endpoint: verificar quem o consome em `public/js/`, avaliar
-se a mudança é necessária, e atualizar os consumidores junto.
+### Regra de front-end
 
-### Regra de front-end a seguir daqui em diante
+**Os elementos ficam escritos no próprio `.html`, não gerados pelo JavaScript.**
+O JS só preenche valores (`textContent`, `src`), troca classes e mostra/esconde
+blocos (`style.display`). Nunca usar `innerHTML` com HTML em texto.
 
-Hoje várias páginas montam HTML dentro de strings no JavaScript. **Isso deve ser
-corrigido página por página**, quando solicitado: a estrutura vai para o arquivo
-`.html`, e o JavaScript apenas preenche os valores com `textContent`.
+Para listas de tamanho variável, o desenho de um item fica num `<template>` no HTML
+e o JS copia com `cloneNode(true)` dentro de um `for`.
 
-Não criar código novo que gere HTML por concatenação de strings.
+Eventos no HTML com `onclick="funcao()"`, como no template da faculdade.
+
+### CSS
+
+- Paleta em variáveis no `:root` de `css/shared.css` (`--creme`, `--petroleo`,
+  `--coral`, `--mostarda`, `--turquesa`...). Usar sempre as variáveis.
+- Preferir `display: flex`; `grid` só nas grades de cards (`repeat(n, 1fr)`).
+- Evitar seletores avançados (`:nth-child`, `:has` etc.). Usar classes com nomes claros.
 
 ---
 
-## 7. Autenticação e segurança
+## 7. Sessão e segurança
 
-Já implementado e funcionando: senha com `scrypt` (sal + hash), token de sessão
-aleatório do qual só o hash fica no banco, expiração de 7 dias, e middleware
-`autenticarTreinador` protegendo as rotas privadas.
+O projeto segue **o modelo do template da faculdade**, por escolha do autor:
 
-**Analisar antes de alterar.** Essa parte funciona; mudanças aqui exigem
-justificativa e explicação.
+- No login, o model busca a conta por e-mail/usuário (`SELECT ... WHERE email = ? OR usuario = ?`)
+  e o **controller compara a senha em JavaScript** — o MySQL (colação `_ci`) ignora
+  maiúsculas/minúsculas, então a senha **não** deve ser comparada no SQL.
+- O navegador guarda `ID_TREINADOR`, `NOME_TREINADOR` e `USUARIO_TREINADOR` no
+  `sessionStorage`.
+- As páginas Painel, Pokédex e Quiz chamam `validarSessao()` e mandam para o login
+  se não houver sessão.
+- As rotas recebem o id do treinador na URL ou no corpo.
 
-Regras permanentes:
+Limitações conhecidas e aceitas: a senha fica em texto puro e o id pode ser trocado
+no navegador. Não "corrigir" isso sem o autor pedir — a simplicidade é proposital.
 
-- Nunca armazenar senha em texto puro.
-- Nunca enviar ao front dados que o treinador não deveria ver.
-- Cada treinador acessa somente os próprios dados.
-- As regras de acesso valem no **back-end**. Esconder algo com CSS ou JavaScript
-  não é proteção.
-
-### Pokémon bloqueados
-
-A API não deve enviar ao navegador nome, tipos, descrição, categoria, slug ou
-caminho de imagem de um Pokémon que o treinador ainda não desbloqueou — só o
-necessário para mostrar a silhueta ou o estado bloqueado.
+Regras que continuam valendo: consultas sempre com `?`; validar os dados no
+controller com `if`; usuário e e-mail repetidos são verificados no servidor.
 
 ---
 
 ## 8. Catálogo de Pokémon
 
-Escopo: Geração VII (nacional #722 a #809, 88 espécies) mais as 18 formas
-regionais de Alola. Total de 106 entradas.
+118 entradas: Geração VII (#722 a #809), 12 formas alternativas da Geração VII
+(cada uma logo depois da sua espécie) e as 18 formas de Alola (ids 101 a 118).
 
-- Formas de Alola são entradas separadas, ligadas à espécie original.
-- Não incluir espécies de gerações anteriores só porque aparecem na Pokédex
-  regional de Alola.
-- O número nacional pertence à espécie; não confundir com a ordem do catálogo.
+- `numero` = número nacional (pode repetir entre formas); `id` = chave única.
+- Descrições: tradução livre de **Pokémon Moon**; se a entrada não existe no Moon,
+  Ultra Moon ou Let's Go. Formas de Alola usam a entrada da **forma de Alola**.
+- Imagens em `public/images/pokemon/`, vindas da PokeAPI (artes oficiais).
 
-**Não inventar dados.** Nome, tipos, categoria, descrição e altura precisam ser
-corretos. Em caso de dúvida sobre qualquer campo, deixar `NULL` e avisar.
-
-Inserir em lotes pequenos, para que eu consiga conferir antes do próximo.
-
-### Imagens
-
-Usar apenas imagens de origem identificável e com uso compatível com um trabalho
-acadêmico. Não referenciar arquivos que não existem. Enquanto não houver imagem
-definitiva, manter a ilustração em CSS como alternativa.
+**Não inventar dados.** Em caso de dúvida sobre qualquer campo, deixar `NULL` e avisar.
 
 ---
 
@@ -210,10 +214,7 @@ definitiva, manter a ilustração em CSS como alternativa.
 O projeto tem testes unitários em `tests/`, rodados com `npm test`. Devem ser
 preservados e ampliados conforme o código evoluir.
 
-**Atenção:** os testes unitários não tocam no banco. Já aconteceu de todos
-passarem com um erro real de banco no caminho — a coluna `senha_hash` era pequena
-demais para o hash gerado, e isso só apareceu no primeiro cadastro de verdade.
-
-Por isso: **não afirmar que algo funciona só porque o teste unitário passou.**
-Diga o que foi verificado e o que ainda precisa ser testado no navegador com o
-banco rodando.
+**Atenção:** os testes unitários não tocam no banco (as funções do model são
+substituídas por versões falsas). Por isso: **não afirmar que algo funciona só
+porque o teste passou.** Dizer o que foi verificado e o que ainda precisa ser
+testado no navegador com o banco rodando.
