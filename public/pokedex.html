@@ -6,7 +6,6 @@
   <title>Minha Pokédex | Pokémon Trainer Hub</title>
   <link rel="stylesheet" href="css/shared.css">
   <link rel="stylesheet" href="css/pages/pokedex.css">
-  <script src="js/pages/pokedex.js" defer></script>
 </head>
 <body>
   <header class="site-header">
@@ -23,21 +22,88 @@
       </nav>
     </div>
   </header>
+
   <main class="page-wrap">
     <p class="eyebrow">Catálogo regional</p>
-    <div class="page-intro"><div><h1>Minha Pokédex</h1><p class="muted">Encontre, descubra e favorite os Pokémon que cruzaram seu caminho.</p></div><strong class="panel" id="pokedex-count">Carregando coleção...</strong></div>
-    <div class="toolbar">
-      <label class="field" style="width:min(100%,400px)"><span class="sr-only">Buscar por Pokémon</span><input class="search-input" id="pokedex-search" type="search" placeholder="Buscar Pokémon pelo nome..."></label>
-      <div class="filter-list" id="type-filters" aria-label="Filtrar por tipo"></div>
+    <div class="page-intro">
+      <div>
+        <h1>Minha Pokédex</h1>
+        <p class="muted">Acerte perguntas no quiz para descobrir cada Pokémon de Alola.</p>
+      </div>
+      <strong class="panel" id="contador-pokedex">Carregando...</strong>
     </div>
-    <p class="form-note" id="pokedex-message" role="status"></p>
-    <section class="pokemon-grid" id="pokemon-grid" aria-live="polite"><div class="empty-state">Carregando Pokédex...</div></section>
+
+    <div class="toolbar">
+      <input class="search-input" id="busca-pokemon" type="text" placeholder="Buscar Pokémon descoberto pelo nome..." oninput="mostrarPokedex()">
+    </div>
+
+    <!-- Filtros: um botão para cada tipo -->
+    <div class="filter-list">
+      <button class="filter-chip active" onclick="filtrarPorTipo('Todos')">Todos</button>
+      <button class="filter-chip" onclick="filtrarPorTipo('Normal')">Normal</button>
+      <button class="filter-chip" onclick="filtrarPorTipo('Fogo')">Fogo</button>
+      <button class="filter-chip" onclick="filtrarPorTipo('Água')">Água</button>
+      <button class="filter-chip" onclick="filtrarPorTipo('Grama')">Grama</button>
+      <button class="filter-chip" onclick="filtrarPorTipo('Elétrico')">Elétrico</button>
+      <button class="filter-chip" onclick="filtrarPorTipo('Gelo')">Gelo</button>
+      <button class="filter-chip" onclick="filtrarPorTipo('Lutador')">Lutador</button>
+      <button class="filter-chip" onclick="filtrarPorTipo('Venenoso')">Venenoso</button>
+      <button class="filter-chip" onclick="filtrarPorTipo('Terra')">Terra</button>
+      <button class="filter-chip" onclick="filtrarPorTipo('Voador')">Voador</button>
+      <button class="filter-chip" onclick="filtrarPorTipo('Psíquico')">Psíquico</button>
+      <button class="filter-chip" onclick="filtrarPorTipo('Inseto')">Inseto</button>
+      <button class="filter-chip" onclick="filtrarPorTipo('Pedra')">Pedra</button>
+      <button class="filter-chip" onclick="filtrarPorTipo('Fantasma')">Fantasma</button>
+      <button class="filter-chip" onclick="filtrarPorTipo('Dragão')">Dragão</button>
+      <button class="filter-chip" onclick="filtrarPorTipo('Sombrio')">Sombrio</button>
+      <button class="filter-chip" onclick="filtrarPorTipo('Aço')">Aço</button>
+      <button class="filter-chip" onclick="filtrarPorTipo('Fada')">Fada</button>
+    </div>
+
+    <p class="form-note" id="mensagem-pokedex"></p>
+    <section class="pokemon-grid" id="grade-pokemon"></section>
   </main>
-  <dialog id="pokemon-dialog" class="form-card" style="width:min(560px,calc(100% - 30px));border:0">
-    <div id="pokemon-dialog-content"></div>
-    <button class="btn btn-dark btn-small" id="pokemon-dialog-close" type="button">Fechar</button>
+
+  <!-- Molde de UM card. O JavaScript copia este molde para cada Pokémon. -->
+  <template id="molde-card">
+    <article class="pokemon-card">
+      <button class="card-abrir">
+        <div class="pokemon-art">
+          <span class="pokemon-number card-numero"></span>
+          <img class="card-imagem" alt="">
+        </div>
+        <h2 class="card-nome"></h2>
+        <div class="type-tags">
+          <span class="type-tag card-tipo1"></span>
+          <span class="type-tag card-tipo2"></span>
+        </div>
+        <p class="card-status muted">Não descoberto</p>
+      </button>
+      <button class="favorite-btn card-favorito">♡</button>
+    </article>
+  </template>
+
+  <!-- Janela de detalhes de um Pokémon -->
+  <dialog id="detalhes-pokemon" class="form-card">
+    <p class="eyebrow" id="detalhe-numero"></p>
+    <img id="detalhe-imagem" class="detalhe-imagem" alt="">
+    <h2 id="detalhe-nome"></h2>
+    <div id="detalhe-conteudo">
+      <div class="type-tags">
+        <span class="type-tag" id="detalhe-tipo1"></span>
+        <span class="type-tag" id="detalhe-tipo2"></span>
+      </div>
+      <p><strong id="detalhe-categoria"></strong> · Altura: <span id="detalhe-altura"></span></p>
+      <p id="detalhe-descricao"></p>
+      <p class="muted detalhe-fonte">Descrição: tradução livre da Pokédex oficial (Pokémon Moon; quando não existe, Ultra Moon ou Let's Go).</p>
+    </div>
+    <p class="muted" id="detalhe-bloqueado">Acerte este Pokémon no quiz para descobri-lo.</p>
+    <button class="btn btn-dark btn-small" onclick="fecharDetalhes()">Fechar</button>
   </dialog>
+
   <footer class="site-footer"><div class="footer-inner"><strong>Pokémon Trainer Hub</strong><span>Descubra cada Pokémon jogando o quiz.</span></div></footer>
+
   <script src="js/sessao.js"></script>
+  <script src="js/pages/pokedex.js"></script>
 </body>
 </html>

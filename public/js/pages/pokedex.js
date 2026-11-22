@@ -1,122 +1,210 @@
-(function () {
-  "use strict";
+// Pokédex do treinador.
+// listaPokemon guarda os 118 Pokémon que vêm do servidor, cada um com
+// desbloqueado (0 ou 1) e favorito (0 ou 1).
+let listaPokemon = [];
+let tipoSelecionado = "Todos";
 
-  var app = window.PokemonApp;
-  var items = [];
-  var activeType = "Todos";
-  var searchTerm = "";
-  var grid = document.getElementById("pokemon-grid");
-
-  function renderTypeTags(types) {
-    return (types || []).map(function (type) {
-      return '<span class="type-tag">' + app.escapeHtml(type) + '</span>';
-    }).join("");
-  }
-
-  function renderPokedex() {
-    if (!grid) return;
-    var filtered = items.filter(function (item) {
-      return (!searchTerm || item.name.toLocaleLowerCase("pt-BR").includes(searchTerm)) &&
-        (activeType === "Todos" || item.types.includes(activeType));
-    });
-    grid.innerHTML = filtered.length ? filtered.map(function (item) {
-      var label = item.unlocked ? item.name : "???";
-      return '<article class="pokemon-card"><button class="pokemon-detail-trigger" data-pokemon-id="' +
-        item.id + '" style="width:100%;padding:0;border:0;background:transparent;text-align:left;cursor:pointer">' +
-        '<div class="pokemon-art ' + (item.unlocked ? "" : "locked") + '">' +
-        '<span class="pokemon-number">#' + String(item.dexNumber).padStart(3, "0") + '</span>' +
-        app.escapeHtml(item.unlocked ? app.typeSymbol(item.types) : "?") + '</div>' +
-        '<h2>' + app.escapeHtml(label) + '</h2><div class="type-tags">' + renderTypeTags(item.types) +
-        '</div></button>' +
-        (item.unlocked ? '<button class="favorite-btn ' + (item.favorite ? "selected" : "") +
-          '" data-favorite-id="' + item.id + '" aria-label="' +
-          (item.favorite ? "Remover dos favoritos" : "Favoritar") + ' ' + app.escapeHtml(item.name) +
-          '">' + (item.favorite ? "♥" : "♡") + '</button>' :
-          '<span class="pokemon-number" style="top:auto;bottom:15px;left:50%">Não descoberto</span>') +
-        '</article>';
-    }).join("") : '<div class="empty-state" style="grid-column:1/-1">Nenhum Pokémon encontrado. Tente outro nome ou tipo.</div>';
-
-    grid.querySelectorAll("[data-favorite-id]").forEach(function (button) {
-      button.addEventListener("click", changeFavorite);
-    });
-    grid.querySelectorAll("[data-pokemon-id]").forEach(function (button) {
-      button.addEventListener("click", showPokemonDetails);
-    });
-    var count = document.getElementById("pokedex-count");
-    if (count) count.textContent = items.filter(function (item) { return item.unlocked; }).length +
-      " / " + items.length + " descobertos";
-  }
-
-  async function changeFavorite(event) {
-    event.preventDefault();
-    event.stopPropagation();
-    var button = event.currentTarget;
-    var item = items.find(function (pokemon) {
-      return Number(pokemon.id) === Number(button.dataset.favoriteId);
-    });
-    if (!item) return;
-    button.disabled = true;
-    try {
-      var result = await app.request("/treinadores/pokedex/" + item.id + "/favorito", {
-        method: "PATCH",
-        body: JSON.stringify({ favorite: !item.favorite })
-      });
-      item.favorite = result.favorite;
-      renderPokedex();
-    } catch (error) {
-      app.setMessage("pokedex-message", error.message);
-      button.disabled = false;
+// Transforma 7 em "#007" e 37 em "#037".
+function formatarNumero(numero) {
+    if (numero < 10) {
+        return "#00" + numero;
+    } else if (numero < 100) {
+        return "#0" + numero;
     }
-  }
+    return "#" + numero;
+}
 
-  function showPokemonDetails(event) {
-    var item = items.find(function (pokemon) {
-      return Number(pokemon.id) === Number(event.currentTarget.dataset.pokemonId);
-    });
-    if (!item) return;
-    document.getElementById("pokemon-dialog-content").innerHTML =
-      '<p class="eyebrow">Pokédex de Alola #' + String(item.dexNumber).padStart(3, "0") +
-      '</p><h2>' + app.escapeHtml(item.unlocked ? item.name : "Pokémon não descoberto") + '</h2>' +
-      (item.unlocked
-        ? '<p class="muted">' + app.escapeHtml(item.category) + (item.height ? " · " + app.escapeHtml(item.height) : "") +
-          '</p><p class="muted">' + app.escapeHtml(item.description) + '</p>'
-        : '<p class="muted">Acerte uma pergunta sobre este Pokémon no quiz para revelá-lo e adicioná-lo à sua coleção.</p>');
-    document.getElementById("pokemon-dialog").showModal();
-  }
+// O banco manda a altura como "0.3"; mostramos "0,3 m".
+function formatarAltura(altura) {
+    return Number(altura).toFixed(1).replace(".", ",") + " m";
+}
 
-  async function init() {
-    if (!app.requireSession()) return;
-    try {
-      items = await app.request("/treinadores/pokedex");
-      var types = Array.from(new Set(items.reduce(function (all, item) {
-        return all.concat(item.types);
-      }, [])));
-      var filters = document.getElementById("type-filters");
-      filters.innerHTML = ["Todos"].concat(types).map(function (type) {
-        return '<button class="filter-chip ' + (type === activeType ? "active" : "") +
-          '" data-type="' + app.escapeHtml(type) + '">' + app.escapeHtml(type) + '</button>';
-      }).join("");
-      filters.querySelectorAll("[data-type]").forEach(function (button) {
-        button.addEventListener("click", function () {
-          activeType = button.dataset.type;
-          filters.querySelectorAll(".filter-chip").forEach(function (chip) {
-            chip.classList.toggle("active", chip.dataset.type === activeType);
-          });
-          renderPokedex();
+function carregarPokedex() {
+    let idTreinador = sessionStorage.ID_TREINADOR;
+
+    fetch("/api/treinadores/pokedex/" + idTreinador)
+        .then(function (resposta) {
+            if (!resposta.ok) {
+                throw new Error("erro no servidor");
+            }
+            return resposta.json();
+        })
+        .then(function (dados) {
+            listaPokemon = dados;
+            mostrarPokedex();
+        })
+        .catch(function () {
+            document.getElementById("mensagem-pokedex").textContent = "Não foi possível carregar a Pokédex.";
         });
-      });
-      document.getElementById("pokedex-search").addEventListener("input", function (event) {
-        searchTerm = event.target.value.trim().toLocaleLowerCase("pt-BR");
-        renderPokedex();
-      });
-      document.getElementById("pokemon-dialog-close").addEventListener("click", function () {
-        document.getElementById("pokemon-dialog").close();
-      });
-      renderPokedex();
-    } catch (error) {
-      app.setMessage("pokedex-message", error.message);
-    }
-  }
+}
 
-  if (grid) init();
-}());
+// Desenha os cards de acordo com a busca e o tipo escolhido.
+function mostrarPokedex() {
+    let grade = document.getElementById("grade-pokemon");
+    let molde = document.getElementById("molde-card");
+    let busca = document.getElementById("busca-pokemon").value.trim().toLowerCase();
+    let quantidadeMostrada = 0;
+    let quantidadeDescobertos = 0;
+
+    grade.textContent = ""; // apaga os cards anteriores
+
+    for (let i = 0; i < listaPokemon.length; i++) {
+        let pokemon = listaPokemon[i];
+
+        if (pokemon.desbloqueado == 1) {
+            quantidadeDescobertos++;
+        }
+
+        // Com busca ou filtro ativos, só aparecem os já descobertos
+        // (assim a busca não revela onde está um Pokémon bloqueado).
+        if (pokemon.desbloqueado == 0 && (busca != "" || tipoSelecionado != "Todos")) {
+            continue;
+        }
+        if (busca != "" && pokemon.nome.toLowerCase().indexOf(busca) == -1) {
+            continue;
+        }
+        if (tipoSelecionado != "Todos" && pokemon.tipo1 != tipoSelecionado && pokemon.tipo2 != tipoSelecionado) {
+            continue;
+        }
+
+        // Copia o molde e preenche a cópia
+        let card = molde.content.cloneNode(true);
+        let imagem = card.querySelector(".card-imagem");
+        let tipo2 = card.querySelector(".card-tipo2");
+        let botaoFavorito = card.querySelector(".card-favorito");
+
+        card.querySelector(".card-numero").textContent = formatarNumero(pokemon.numero);
+        imagem.src = "images/pokemon/" + pokemon.imagem;
+
+        if (pokemon.desbloqueado == 1) {
+            card.querySelector(".card-nome").textContent = pokemon.nome;
+            card.querySelector(".card-tipo1").textContent = pokemon.tipo1;
+            if (pokemon.tipo2 != null) {
+                tipo2.textContent = pokemon.tipo2;
+            } else {
+                tipo2.style.display = "none";
+            }
+            card.querySelector(".card-status").style.display = "none";
+
+            if (pokemon.favorito == 1) {
+                botaoFavorito.textContent = "♥";
+                botaoFavorito.classList.add("selected");
+            }
+            botaoFavorito.onclick = function () {
+                alternarFavorito(pokemon.id);
+            };
+        } else {
+            imagem.classList.add("silhueta");
+            card.querySelector(".card-nome").textContent = "???";
+            card.querySelector(".type-tags").style.display = "none";
+            botaoFavorito.style.display = "none";
+        }
+
+        card.querySelector(".card-abrir").onclick = function () {
+            abrirDetalhes(pokemon.id);
+        };
+
+        grade.appendChild(card);
+        quantidadeMostrada++;
+    }
+
+    document.getElementById("contador-pokedex").textContent =
+        quantidadeDescobertos + " / " + listaPokemon.length + " descobertos";
+
+    if (quantidadeMostrada == 0) {
+        document.getElementById("mensagem-pokedex").textContent = "Nenhum Pokémon descoberto com esse nome ou tipo.";
+    } else {
+        document.getElementById("mensagem-pokedex").textContent = "";
+    }
+}
+
+// Chamado pelos botões de tipo. Marca o botão escolhido e redesenha.
+function filtrarPorTipo(tipo) {
+    tipoSelecionado = tipo;
+
+    let botoes = document.querySelectorAll(".filter-chip");
+    for (let i = 0; i < botoes.length; i++) {
+        if (botoes[i].textContent == tipo) {
+            botoes[i].classList.add("active");
+        } else {
+            botoes[i].classList.remove("active");
+        }
+    }
+
+    mostrarPokedex();
+}
+
+// Procura um Pokémon da lista pelo id.
+function buscarPokemonPorId(idPokemon) {
+    for (let i = 0; i < listaPokemon.length; i++) {
+        if (listaPokemon[i].id == idPokemon) {
+            return listaPokemon[i];
+        }
+    }
+    return null;
+}
+
+function alternarFavorito(idPokemon) {
+    let pokemon = buscarPokemonPorId(idPokemon);
+    let novoValor = 1;
+    if (pokemon.favorito == 1) {
+        novoValor = 0;
+    }
+
+    fetch("/api/treinadores/favorito/" + sessionStorage.ID_TREINADOR + "/" + idPokemon, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ favorito: novoValor })
+    })
+        .then(function (resposta) {
+            if (resposta.ok) {
+                pokemon.favorito = novoValor;
+                mostrarPokedex();
+            } else {
+                document.getElementById("mensagem-pokedex").textContent = "Não foi possível alterar o favorito.";
+            }
+        })
+        .catch(function () {
+            document.getElementById("mensagem-pokedex").textContent = "Não foi possível conectar ao servidor.";
+        });
+}
+
+function abrirDetalhes(idPokemon) {
+    let pokemon = buscarPokemonPorId(idPokemon);
+    let imagem = document.getElementById("detalhe-imagem");
+
+    document.getElementById("detalhe-numero").textContent = "Pokédex " + formatarNumero(pokemon.numero);
+    imagem.src = "images/pokemon/" + pokemon.imagem;
+
+    if (pokemon.desbloqueado == 1) {
+        imagem.classList.remove("silhueta");
+        document.getElementById("detalhe-nome").textContent = pokemon.nome;
+        document.getElementById("detalhe-tipo1").textContent = pokemon.tipo1;
+        if (pokemon.tipo2 != null) {
+            document.getElementById("detalhe-tipo2").textContent = pokemon.tipo2;
+            document.getElementById("detalhe-tipo2").style.display = "inline";
+        } else {
+            document.getElementById("detalhe-tipo2").style.display = "none";
+        }
+        document.getElementById("detalhe-categoria").textContent = pokemon.categoria;
+        document.getElementById("detalhe-altura").textContent = formatarAltura(pokemon.altura);
+        document.getElementById("detalhe-descricao").textContent = pokemon.descricao;
+        document.getElementById("detalhe-conteudo").style.display = "block";
+        document.getElementById("detalhe-bloqueado").style.display = "none";
+    } else {
+        imagem.classList.add("silhueta");
+        document.getElementById("detalhe-nome").textContent = "Pokémon não descoberto";
+        document.getElementById("detalhe-conteudo").style.display = "none";
+        document.getElementById("detalhe-bloqueado").style.display = "block";
+    }
+
+    document.getElementById("detalhes-pokemon").showModal();
+}
+
+function fecharDetalhes() {
+    document.getElementById("detalhes-pokemon").close();
+}
+
+if (validarSessao()) {
+    carregarPokedex();
+}
