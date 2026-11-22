@@ -24,16 +24,89 @@
     </div>
   </header>
   <main class="page-wrap">
-    <p class="eyebrow">Minha jornada</p>
-    <h1>Pokémon e a minha história</h1>
-    <p class="lead">Uma franquia pode acompanhar diferentes fases da vida. Aqui, cada etapa pode ser preenchida com uma lembrança pessoal e verdadeira.</p>
-    <p class="notice"><strong>Personalize esta seção:</strong> o material do Figma não inclui fatos sobre a sua vida. Substitua os textos abaixo pelas suas próprias memórias para que a história represente você.</p>
-    <section class="story-timeline" aria-label="Etapas da minha história">
-      <article class="timeline-card"><span>Primeiras lembranças</span><h2>Quando tudo começou</h2><p>Conte quando conheceu Pokémon, com quem estava e qual foi a primeira lembrança que ficou marcada.</p></article>
-      <article class="timeline-card"><span>Uma nova fase</span><h2>O que mudou com o tempo</h2><p>Descreva como jogos, episódios ou personagens acompanharam uma fase importante da sua vida.</p></article>
-      <article class="timeline-card"><span>Hoje</span><h2>O que continua com você</h2><p>Explique o que ainda gosta na franquia e por que decidiu criar este projeto para compartilhar essa conexão.</p></article>
+    <section class="abertura">
+      <p class="eyebrow">Minha jornada</p>
+      <h1>Pokémon e a minha história</h1>
+      <!-- PEDRO: escreva aqui o seu parágrafo de abertura -->
+      <p class="lead">Texto de abertura: o que Pokémon representa para você, em duas ou três frases.</p>
     </section>
-    <p style="margin-top:28px"><a class="btn btn-dark" href="/">Voltar ao início</a></p>
+
+    <!-- Cada fase é uma polaroid (foto) ao lado de um texto.
+         As fases com a classe "invertida" mostram a foto do lado direito. -->
+    <section class="fases">
+      <!-- FASE 1 -->
+      <article class="fase">
+        <div class="polaroid inclinada-esquerda">
+          <!-- PEDRO: troque a div abaixo por <img class="foto" src="images/historia/fase1.jpg" alt="descrição da foto"> -->
+          <div class="foto foto-vazia">Foto em breve</div>
+          <p class="legenda">o começo</p>
+        </div>
+        <div class="texto-fase">
+          <span class="ano">ANO</span>
+          <!-- PEDRO: escreva aqui o título e o texto desta fase -->
+          <h2>Fase 1 — Quando tudo começou</h2>
+          <p>Seu primeiro contato com Pokémon: jogo, desenho ou cartas, e com quem você estava.</p>
+        </div>
+      </article>
+      <!-- FASE 2 -->
+      <article class="fase invertida">
+        <div class="polaroid inclinada-direita">
+          <!-- PEDRO: troque a div abaixo por <img class="foto" src="images/historia/fase2.jpg" alt="descrição da foto"> -->
+          <div class="foto foto-vazia">Foto em breve</div>
+          <p class="legenda">fase 2</p>
+        </div>
+        <div class="texto-fase">
+          <span class="ano">ANO</span>
+          <!-- PEDRO: escreva aqui o título e o texto desta fase -->
+          <h2>Fase 2 — Título a definir</h2>
+          <p>Texto desta fase.</p>
+        </div>
+      </article>
+      <!-- FASE 3 -->
+      <article class="fase">
+        <div class="polaroid inclinada-esquerda">
+          <!-- PEDRO: troque a div abaixo por <img class="foto" src="images/historia/fase3.jpg" alt="descrição da foto"> -->
+          <div class="foto foto-vazia">Foto em breve</div>
+          <p class="legenda">fase 3</p>
+        </div>
+        <div class="texto-fase">
+          <span class="ano">ANO</span>
+          <!-- PEDRO: escreva aqui o título e o texto desta fase -->
+          <h2>Fase 3 — Título a definir</h2>
+          <p>Texto desta fase.</p>
+        </div>
+      </article>
+      <!-- FASE 4 -->
+      <article class="fase invertida">
+        <div class="polaroid inclinada-direita">
+          <!-- PEDRO: troque a div abaixo por <img class="foto" src="images/historia/fase4.jpg" alt="descrição da foto"> -->
+          <div class="foto foto-vazia">Foto em breve</div>
+          <p class="legenda">fase 4</p>
+        </div>
+        <div class="texto-fase">
+          <span class="ano">ANO</span>
+          <!-- PEDRO: escreva aqui o título e o texto desta fase -->
+          <h2>Fase 4 — Título a definir</h2>
+          <p>Texto desta fase.</p>
+        </div>
+      </article>
+      <!-- FASE 5 -->
+      <article class="fase">
+        <div class="polaroid inclinada-esquerda">
+          <!-- PEDRO: troque a div abaixo por <img class="foto" src="images/historia/fase5.jpg" alt="descrição da foto"> -->
+          <div class="foto foto-vazia">Foto em breve</div>
+          <p class="legenda">hoje</p>
+        </div>
+        <div class="texto-fase">
+          <span class="ano">HOJE</span>
+          <!-- PEDRO: escreva aqui o título e o texto desta fase -->
+          <h2>Fase 5 — Por que este projeto</h2>
+          <p>O que continua com você e por que escolheu Pokémon como tema deste projeto.</p>
+        </div>
+      </article>
+    </section>
+
+    <p class="text-center"><a class="btn btn-dark" href="/">Voltar ao início</a></p>
   </main>
   <footer class="site-footer"><div class="footer-inner"><strong>Pokémon Trainer Hub</strong><span>Uma experiência independente inspirada na região de Alola.</span></div><p class="creditos">Imagens: PokeAPI. Pokémon © Nintendo / Game Freak / The Pokémon Company. Projeto acadêmico sem fins comerciais.</p></footer>
   <script src="js/sessao.js"></script>
