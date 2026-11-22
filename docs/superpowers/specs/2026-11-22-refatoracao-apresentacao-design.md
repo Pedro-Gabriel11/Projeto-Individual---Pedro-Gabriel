@@ -16,7 +16,7 @@ e precisa **explicar cada linha** com segurança. Hoje o projeto funciona, mas:
 - o visual ainda tem cara de Figma/template; a página "Minha história" está com texto de rascunho;
 - o catálogo tem 4 Pokémon (um deles, Pikachu, fora do escopo), sem imagens.
 
-**Sucesso =** site funcionando de ponta a ponta, com visual próprio "praiano", 106 Pokémon
+**Sucesso =** site funcionando de ponta a ponta, com visual próprio "praiano", 118 Pokémon
 com imagem/silhueta/descrição, e código que o Pedro entende e consegue explicar.
 
 ## 2. Objetivos, não-objetivos e anti-objetivos
@@ -27,7 +27,7 @@ com imagem/silhueta/descrição, e código que o Pedro entende e consegue explic
 - Banco com 4 tabelas, só `INT`, `VARCHAR`, `DATETIME`, `DECIMAL`, `PRIMARY KEY`,
   `FOREIGN KEY`, `AUTO_INCREMENT`, `DEFAULT`.
 - Login no modelo do template da faculdade (Aquatech).
-- Catálogo completo: 88 espécies da Geração VII (#722–#809) + 18 formas de Alola = 106.
+- Catálogo completo: 88 espécies da Geração VII (#722–#809) + 12 formas alternativas da própria Geração VII + 18 formas de Alola = 118 (decisão do Pedro: "caminho A" — formas que mudam tipo ou aparência; Megas, Hisui, Gigantamax, Totem, cores do Minior e tipos do Silvally ficam de fora).
 - Visual "cartão-postal praiano" (aprovado no rascunho visual).
 - Página "Minha história" com 5 fases em polaroids, pronta para receber fotos e textos do Pedro.
 - Um **guia de explicação** página por página (cada campo, botão e função).
@@ -129,8 +129,8 @@ insere só os ids que ainda não estão nela (`for` + `if`), e devolve os ids no
 - **Perguntas fora do banco.**
 - **Silhueta:** gerada a partir do catálogo (`GET /api/pokemon`). Sorteia um Pokémon,
   mostra a imagem com `filter: brightness(0)`; as alternativas são o nome certo + 3 nomes
-  sorteados diferentes (`while` até ter 4 nomes distintos). Assim **todos os 106 podem ser
-  desbloqueados** sem escrever 106 perguntas. *(Decisão do assistente — ver seção 6.)*
+  sorteados diferentes (`while` até ter 4 nomes distintos). Assim **todos os 118 podem ser
+  desbloqueados** sem escrever 118 perguntas. *(Decisão do assistente — ver seção 6.)*
 - **Curiosidade:** vetor de objetos em `quiz.js`
   (`{ enunciado, idPokemon, alternativas: [...], resposta }`), com ~15 perguntas baseadas
   em fatos oficiais, conferidas pelo Pedro.
@@ -158,7 +158,7 @@ Como cada parte fica:
 - **Painel:** os 6 cards de números e os 2 `<canvas>` dos gráficos ficam no HTML com `id`.
   O JS só coloca os números.
 - **Filtros de tipo da Pokédex:** botões escritos no HTML (os 18 tipos).
-- **Listas de tamanho variável** (106 cards da Pokédex, últimos desbloqueios, favoritos,
+- **Listas de tamanho variável** (118 cards da Pokédex, últimos desbloqueios, favoritos,
   histórico de partidas): o "molde" de um card fica no HTML dentro de uma tag `<template>`.
   O JS faz um `for` pelo vetor de dados, copia o molde (`cloneNode`) e preenche os campos.
   Essa é a **única** parte em que o JS cria elementos, e o desenho do card continua no HTML.
@@ -214,7 +214,7 @@ Como cada parte fica:
 - O AGENTS.md diz "sem bibliotecas sem autorização". Esta tem autorização do Pedro;
   registrar isso no AGENTS.md.
 
-### 5.7 Catálogo (106 Pokémon)
+### 5.7 Catálogo (118 Pokémon)
 
 - **Escopo:** #722 Rowlet a #809 Melmetal (88) + formas de Alola de Rattata, Raticate,
   Raichu, Sandshrew, Sandslash, Vulpix, Ninetales, Diglett, Dugtrio, Meowth, Persian,
@@ -224,7 +224,7 @@ Como cada parte fica:
   minúsculas (`rowlet.png`, `vulpix-alola.png`); a coluna `imagem` guarda esse nome.
   Créditos no rodapé e no README.
 - **Descrições e categorias:** tradução livre das entradas oficiais em inglês de
-  Pokémon Sun/Moon, aviso "tradução livre" na Pokédex. Tipos em português. Altura em metros.
+  Pokémon **Moon** (pedido do Pedro); formas que não existem no Moon (Lycanroc Crepuscular, Necrozma Juba Crepuscular, Asas da Alvorada e Ultra) usam Ultra Moon. Descrições das formas vêm da PokémonDB, pois a PokeAPI não as guarda. Aviso "tradução livre" na Pokédex. Tipos em português. Altura em metros.
 - **Conferência:** inserir em ~4 lotes de 25–27; o Pedro confere cada lote antes do próximo.
 
 ### 5.8 Visual "cartão-postal praiano" (aprovado)
@@ -279,7 +279,7 @@ testado no navegador com o banco rodando.
   escrita poderiam ser desbloqueados.
 - **`<template>` para listas de tamanho variável** (5.5): mantém o desenho do card no HTML,
   como o Pedro pediu. `createElement` foi descartado porque levaria a estrutura para o JS.
-- **Ordem da Pokédex:** por `id` — Geração VII primeiro (ids 1–88), formas de Alola depois (89–106).
+- **Ordem da Pokédex:** por `id` — espécies da Geração VII em ordem nacional, cada forma alternativa logo depois da sua espécie (ids 1–100); formas de Alola no fim (101–118).
 - **Rodada do quiz:** 10 perguntas (7 de silhueta + 3 de curiosidade), sorteadas com `Math.random`.
 - **Perguntas de curiosidade:** o assistente redige a partir de fatos oficiais; o Pedro confere.
 - **Fontes:** `<link>` do Google Fonts (mais fácil de explicar), sempre com fonte reserva

@@ -3,7 +3,7 @@
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Deixar o Pokémon Trainer Hub simples de explicar (JS e banco no nível do 1º semestre,
-login no modelo do template), com 106 Pokémon com imagem, visual "cartão-postal praiano"
+login no modelo do template), com 118 Pokémon com imagem, visual "cartão-postal praiano"
 e guia de explicação.
 
 **Architecture:** Refatoração no lugar, etapa por etapa. Express serve `public/` e a API em
@@ -66,7 +66,7 @@ src/controllers/quizController.js          registrarTentativa, separarIdsNovos
 src/routes/{index,treinadores,pokemon,quiz}.js
 tests/treinadorController.test.js          novo (substitui treinadorAuth.test.js)
 tests/quizController.test.js               novo (substitui pokemonController.test.js)
-public/images/pokemon/*.png                106 imagens
+public/images/pokemon/*.png                118 imagens
 public/js/chart.umd.min.js                 Chart.js baixado
 public/js/sessao.js                        substitui js/shared/core.js
 public/js/pages/{login,cadastro,pokedex,quiz,painel}.js
@@ -243,7 +243,7 @@ o script do banco e consultas de conferência.
 
 ---
 
-## Etapa 3 — Catálogo (106 Pokémon)
+## Etapa 3 — Catálogo (118 Pokémon)
 
 Fonte dos dados: `https://pokeapi.co/api/v2/pokemon-species/<nome>` (descrição inglesa da
 versão `sun`; `genera` em inglês para a categoria) e `.../pokemon/<nome>` (tipos e altura em
@@ -264,10 +264,10 @@ Cada tarefa deste bloco tem os mesmos passos:
 - [ ] Mostrar ao Pedro uma tabela do lote (id, nome, tipos, categoria, descrição) e **aguardar
   a conferência** antes do próximo lote. Commit sugerido: `catálogo: lote N`.
 
-### Task 6: Lote 1 — ids 1–27 (#722 Rowlet a #748 Toxapex)
-### Task 7: Lote 2 — ids 28–54 (#749 Mudbray a #775 Komala)
-### Task 8: Lote 3 — ids 55–88 (#776 Turtonator a #809 Melmetal)
-### Task 9: Lote 4 — ids 89–106 (formas de Alola)
+### Task 6: Lote 1 — ids 1–33 (#722 Rowlet a #748 Toxapex + formas de Oricorio, Lycanroc, Wishiwashi)
+### Task 7: Lote 2 — ids 34–61 (#749 Mudbray a #775 Komala + Minior Núcleo)
+### Task 8: Lote 3 — ids 62–100 (#776 Turtonator a #809 Melmetal + Mimikyu Desmascarado, 3 formas de Necrozma, Magearna Cor Original)
+### Task 9: Lote 4 — ids 101–118 (formas de Alola)
 
 `numero` = número nacional; nome `"<Espécie> de Alola"`; imagem `"<especie>-alola.png"`.
 Ordem: Rattata, Raticate, Raichu, Sandshrew, Sandslash, Vulpix, Ninetales, Diglett, Dugtrio,
@@ -339,7 +339,7 @@ mostra "Cadastro feito! Indo para o login..." e redireciona com `setTimeout` de 
   `.card-nome`, `.card-tipos`, `.card-favorito` (botão); `<dialog id="detalhes-pokemon">`
   com campos fixos `#detalhe-numero`, `#detalhe-imagem`, `#detalhe-nome`, `#detalhe-tipos`,
   `#detalhe-categoria`, `#detalhe-altura`, `#detalhe-descricao` e o aviso "Descrição: tradução
-  livre da Pokédex oficial (Pokémon Sun)."
+  livre da Pokédex oficial (Pokémon Moon)."
 - JS: `let listaPokemon = []`, `let tipoSelecionado = "Todos"`; `carregarPokedex()`,
   `mostrarPokedex()` (limpa a grade, `for` + `if` de busca/tipo, clona o molde),
   `filtrarPorTipo(tipo)`, `alternarFavorito(idPokemon)`, `abrirDetalhes(idPokemon)`.
@@ -347,7 +347,7 @@ mostra "Cadastro feito! Indo para o login..." e redireciona com `setTimeout` de 
   favorito; o diálogo mostra "Acerte este Pokémon no quiz para descobri-lo.".
 
 - [ ] **Step 1:** Implementar.
-- [ ] **Step 2:** No navegador: contador "X / 106 descobertos"; filtros; busca
+- [ ] **Step 2:** No navegador: contador "X / 118 descobertos"; filtros; busca
   (Review Focus 4 e 5); favoritar e desfavoritar; detalhes de um bloqueado e de um desbloqueado.
 - [ ] **Step 3:** Resumo + commit sugerido: `pokédex com elementos no HTML`.
 
