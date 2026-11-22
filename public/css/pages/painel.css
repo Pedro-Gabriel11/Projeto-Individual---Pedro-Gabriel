@@ -1,28 +1,25 @@
-.dashboard-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 18px; }
-.chart { display: flex; height: 180px; align-items: end; gap: 10px; margin-top: 22px; padding: 0 10px; border-bottom: 1px solid var(--line); }
-.chart-bar { position: relative; flex: 1; min-width: 12px; border-radius: 8px 8px 0 0; background: #62b39a; }
-.chart-bar span { position: absolute; right: 0; bottom: calc(100% + 5px); left: 0; color: var(--muted); font-size: 10px; text-align: center; }
-.type-row { margin-top: 18px; }
-.type-row-label { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 13px; font-weight: 800; }
-.type-track { height: 9px; overflow: hidden; border-radius: 99px; background: #eef2ed; }
-.type-fill { height: 100%; border-radius: inherit; background: var(--yellow); }
-.goal-panel { background: var(--ink); color: white; }
-.goal-panel p { color: rgba(255,255,255,.68); line-height: 1.65; }
-.goal-panel h2 { font-size: 28px; }
+/* =====================================================================
+   PAINEL DO TREINADOR
+   ===================================================================== */
+
+.acoes-painel { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+
+/* 6 cards de números: 3 colunas (2 no celular) */
+.stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin: 28px 0 22px; }
+.stat-card { padding: 18px 20px; border: 0; border-radius: 16px; box-shadow: 0 6px 0 var(--turquesa); }
+.stat-card small { display: block; color: var(--texto-suave); font-size: 13px; font-weight: 800; }
+.stat-card strong { display: block; margin-top: 4px; color: var(--petroleo); font-family: "Fredoka", Arial, sans-serif; font-size: 34px; font-weight: 600; }
+
+/* Gráficos e listas: 2 colunas; o gráfico de tipos ocupa a linha inteira */
+.dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.painel-largo { grid-column: 1 / -1; }
+.dashboard-grid .panel { border: 0; border-radius: 16px; box-shadow: 0 6px 0 var(--linha); }
+
+/* O Chart.js desenha dentro desta caixa de altura fixa */
+.area-grafico { position: relative; height: 260px; margin-top: 14px; }
+.grafico-vazio { display: none; margin-top: 14px; padding: 28px 17px; border: 2px dashed var(--linha); border-radius: 14px; color: var(--texto-suave); font-weight: 800; text-align: center; }
 
 @media (max-width: 850px) {
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .dashboard-grid { grid-template-columns: 1fr; }
 }
-
-/* Painel novo: gráficos do Chart.js e listas (o visual final vem na Etapa 5) */
-.acoes-painel { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
-.dashboard-grid { grid-template-columns: 1fr 1fr; }
-.painel-largo { grid-column: 1 / -1; }
-.area-grafico { position: relative; height: 260px; margin-top: 14px; }
-.grafico-vazio { display: none; margin-top: 15px; padding: 28px 17px; border: 1px dashed #ceddd3; border-radius: 17px; background: #f8faf6; color: #7b908c; font-size: 13px; font-weight: 800; text-align: center; }
-
-/* Regras que antes ficavam no shared.css (a Tarefa 16 refaz o visual desta página) */
-.stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 17px; margin: 28px 0 18px; }
-.stat-card { min-height: 120px; padding: 20px; }
-.stat-card small { display: block; margin-top: 10px; color: var(--texto-suave); font-size: 13px; font-weight: 800; }
-.stat-card strong { display: block; font-size: 28px; }

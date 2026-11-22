@@ -1,38 +1,53 @@
-.toolbar { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin: 25px 0 17px; }
-.search-input { max-width: 400px; }
-.filter-list { display: flex; gap: 7px; overflow: auto; padding: 2px; }
-.filter-chip { flex: 0 0 auto; padding: 9px 14px; border: 1px solid var(--line); border-radius: 99px; background: white; color: var(--muted); cursor: pointer; font-size: 12px; font-weight: 900; }
-.filter-chip.active { border-color: var(--ink); background: var(--ink); color: white; }
-.pokemon-grid { grid-template-columns: repeat(4,1fr); }
-.pokemon-card { position: relative; overflow: hidden; padding: 13px; transition: transform .2s ease; }
-.pokemon-card:hover { transform: translateY(-3px); }
-.pokemon-number { position: absolute; top: 10px; left: 10px; padding: 5px 8px; border-radius: 99px; background: rgba(255,255,255,.9); color: #466361; font-size: 10px; font-weight: 900; }
-.pokemon-card h2 { margin: 12px 0 7px; font-size: 19px; }
-.type-tags { display: flex; flex-wrap: wrap; gap: 5px; }
-.type-tag { padding: 5px 8px; border-radius: 99px; background: #e5f0e5; color: #2a683f; font-size: 10px; font-weight: 900; }
-.favorite-btn { position: absolute; top: 20px; right: 20px; display: grid; width: 34px; height: 34px; place-items: center; border: 0; border-radius: 50%; background: white; color: var(--coral); cursor: pointer; font-size: 19px; }
-.favorite-btn:not(.selected) { color: #9badab; }
+/* =====================================================================
+   POKÉDEX — fundo azul-petróleo, cards brancos com sombra turquesa
+   ===================================================================== */
 
-@media (max-width: 850px) {
-  .pokemon-grid { grid-template-columns: repeat(2,1fr); }
-}
+/* Só nesta página, a área principal fica azul-petróleo */
+body { background: var(--petroleo); }
+.site-header { background: var(--areia); }
+.page-wrap h1 { color: var(--creme); }
+.page-wrap .muted { color: #bfd6da; }
+.page-wrap .eyebrow { color: var(--mostarda); }
 
-@media (max-width: 650px) {
-  .toolbar { align-items: stretch; flex-direction: column; }
-  .pokemon-grid { gap: 10px; }
-  .pokemon-card { padding: 9px; border-radius: 18px; }
-  .pokemon-card h2 { font-size: 16px; }
-}
+/* Contador "X / 118 descobertos" */
+#contador-pokedex { padding: 14px 20px; font-family: "Fredoka", Arial, sans-serif; font-size: 18px; font-weight: 600; }
 
-/* Imagens reais dos Pokémon (o visual final vem na Etapa 5) */
-.card-abrir { width: 100%; padding: 0; border: 0; background: transparent; text-align: left; cursor: pointer; font: inherit; color: inherit; }
+/* Busca e filtros */
+.toolbar { margin: 24px 0 14px; }
+.search-input { max-width: 420px; }
+.filter-list { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
+.filter-chip { padding: 7px 14px; border: 0; border-radius: 99px; background: rgba(255, 255, 255, .12); color: var(--creme); cursor: pointer; font-size: 13px; font-weight: 800; }
+.filter-chip:hover { background: rgba(255, 255, 255, .25); }
+.filter-chip.active { background: var(--turquesa); color: var(--branco); }
+#mensagem-pokedex { color: var(--creme); }
+
+/* Grade de cards: 4 colunas iguais (2 no celular) */
+.pokemon-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+
+.pokemon-card { position: relative; padding: 12px; border-radius: 16px; background: var(--branco); box-shadow: 0 6px 0 var(--turquesa); transition: transform .15s ease; }
+.pokemon-card:hover { transform: translateY(-4px); }
+.card-abrir { width: 100%; padding: 0; border: 0; background: transparent; color: inherit; cursor: pointer; font: inherit; text-align: left; }
+
+/* Área da imagem */
+.pokemon-art { position: relative; display: flex; width: 100%; aspect-ratio: 1.1; align-items: center; justify-content: center; border-radius: 12px; background: #e8f6f4; }
 .pokemon-art img { width: 78%; height: 78%; object-fit: contain; }
-.card-status { margin: 4px 0 0; font-size: 12px; }
-#detalhes-pokemon { width: min(520px, calc(100% - 30px)); border: 0; }
-.detalhe-imagem { display: block; width: 180px; height: 180px; margin: 0 auto 8px; object-fit: contain; }
+.pokemon-number { position: absolute; top: 8px; left: 8px; padding: 3px 8px; border-radius: 99px; background: var(--branco); color: var(--texto-suave); font-size: 11px; font-weight: 800; }
+
+.pokemon-card h2 { margin: 10px 0 6px; font-size: 18px; }
+.card-status { margin: 4px 0 0; color: var(--texto-suave); font-size: 13px; }
+
+/* Botão de favorito (coração) */
+.favorite-btn { position: absolute; top: 18px; right: 18px; width: 34px; height: 34px; border: 0; border-radius: 50%; background: var(--branco); color: #b9c7cb; cursor: pointer; font-size: 19px; }
+.favorite-btn.selected { color: var(--coral); }
+
+/* Janela de detalhes: um cartão-postal */
+#detalhes-pokemon { width: min(520px, calc(100% - 30px)); }
+#detalhes-pokemon::backdrop { background: rgba(20, 58, 71, .7); }
+.detalhe-imagem { display: block; width: 180px; height: 180px; margin: 0 auto 6px; object-fit: contain; }
+#detalhe-nome { margin-bottom: 8px; }
+#detalhe-descricao { line-height: 1.6; }
 .detalhe-fonte { font-size: 12px; }
 
-/* Regras que antes ficavam no shared.css (a Tarefa 16 refaz o visual desta página) */
-.pokemon-grid { display: grid; gap: 17px; }
-.pokemon-card { border: 1px solid var(--linha); border-radius: 14px; background: var(--branco); }
-.pokemon-art { position: relative; display: flex; width: 100%; aspect-ratio: 1.1; align-items: center; justify-content: center; border-radius: 12px; background: #e3f4f1; }
+@media (max-width: 850px) {
+  .pokemon-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+}

@@ -126,6 +126,7 @@ function mostrarPergunta() {
     document.getElementById("progresso-barra").style.width = ((indiceAtual + 1) * 10) + "%";
     document.getElementById("enunciado").textContent = pergunta.enunciado;
     document.getElementById("mensagem-resposta").textContent = "";
+    document.getElementById("mensagem-resposta").className = "form-note";
 
     // A imagem do Pokémon da pergunta é carregada já com o filtro de silhueta.
     // Na curiosidade ela fica escondida (aparece o "?") até a resposta ser confirmada.
@@ -183,9 +184,11 @@ function confirmarResposta() {
         acertos++;
         idsAcertados.push(pergunta.idPokemon);
         mensagem.textContent = "Acertou! É " + pergunta.resposta + ".";
+        mensagem.className = "form-note mensagem-certa";
     } else {
         erros++;
         mensagem.textContent = "Errou! A resposta certa é " + pergunta.resposta + ".";
+        mensagem.className = "form-note mensagem-errada";
     }
 
     // Pinta a certa de verde e a escolhida errada de vermelho; trava os botões
