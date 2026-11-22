@@ -97,8 +97,38 @@ INSERT INTO pokemon (id, numero, nome, tipo1, tipo2, categoria, descricao, altur
 (33, 748, 'Toxapex', 'Venenoso', 'Água', 'Pokémon Estrela Cruel', 'Quem é atacado pelo veneno de Toxapex sofre dores intensas por três dias e três noites. Mesmo depois de se recuperar, ficam algumas sequelas.', 0.7, 'toxapex.png');
 
 -- =====================================================================
--- CATÁLOGO: LOTE 2 (ids 28 a 54)
+-- CATÁLOGO: LOTE 2 (ids 34 a 61: #749 Mudbray a #775 Komala, com Minior Núcleo)
+-- Dados: PokeAPI e PokémonDB. Descrições e categorias: tradução livre de Pokémon Moon.
 -- =====================================================================
+INSERT INTO pokemon (id, numero, nome, tipo1, tipo2, categoria, descricao, altura, imagem) VALUES
+(34, 749, 'Mudbray', 'Terra', NULL, 'Pokémon Burro', 'Tem temperamento teimoso e independente. Comer terra, fazer lama e brincar no lamaçal fazem parte da sua rotina diária.', 1, 'mudbray.png'),
+(35, 750, 'Mudsdale', 'Terra', NULL, 'Pokémon Cavalo de Tração', 'Seus coices pesados e cobertos de lama são sua melhor forma de ataque. Consegue transformar caminhões grandes em sucata sem fazer esforço.', 2.5, 'mudsdale.png'),
+(36, 751, 'Dewpider', 'Água', 'Inseto', 'Pokémon Bolha de Água', 'Quando encontra inimigos ou possíveis presas, este Pokémon bate neles com a cabeça coberta por uma bolha de água.', 0.3, 'dewpider.png'),
+(37, 752, 'Araquanid', 'Água', 'Inseto', 'Pokémon Bolha de Água', 'Apesar da aparência, se preocupa com os outros. Se encontra Pokémon fracos e indefesos, coloca-os em sua bolha de água para protegê-los.', 1.8, 'araquanid.png'),
+(38, 753, 'Fomantis', 'Grama', NULL, 'Pokémon Foice de Grama', 'Exalam um aroma doce e refrescante. Os Cutiefly costumam se reunir perto do mato alto onde os Fomantis se escondem.', 0.3, 'fomantis.png'),
+(39, 754, 'Lurantis', 'Grama', NULL, 'Pokémon Foice Florida', 'Dispara raios de suas pétalas em forma de foice. Esses raios são fortes o bastante para cortar placas grossas de metal.', 0.9, 'lurantis.png'),
+(40, 755, 'Morelull', 'Grama', 'Fada', 'Pokémon Iluminação', 'Enquanto cochila o dia todo, se alimenta sugando as raízes das árvores. Acorda ao cair da noite e sai vagando em busca de uma nova árvore.', 0.2, 'morelull.png'),
+(41, 756, 'Shiinotic', 'Grama', 'Fada', 'Pokémon Iluminação', 'Solta esporos cintilantes que causam sonolência. Quando suas presas caem no sono, este Pokémon se alimenta sugando a energia delas.', 1, 'shiinotic.png'),
+(42, 757, 'Salandit', 'Venenoso', 'Fogo', 'Pokémon Lagarto Tóxico', 'Vive em vulcões ou em lugares secos e rochosos. Solta um gás venenoso de cheiro doce que atrai Pokémon inseto, e então os ataca.', 0.6, 'salandit.png'),
+(43, 758, 'Salazzle', 'Venenoso', 'Fogo', 'Pokémon Lagarto Tóxico', 'Cheio de feromônios, seu gás venenoso pode ser diluído e usado na produção de perfumes deliciosos.', 1.2, 'salazzle.png'),
+(44, 759, 'Stufful', 'Normal', 'Lutador', 'Pokémon Esperneio', 'O toque de qualquer um que não seja um amigo conhecido o deixa num frenesi descontrolado. É um Pokémon extremamente perigoso.', 0.5, 'stufful.png'),
+(45, 760, 'Bewear', 'Normal', 'Lutador', 'Pokémon Braço Forte', 'Este Pokémon tem o hábito de abraçar seus companheiros. Muitos Treinadores já deixaram este mundo depois de terem a coluna esmagada por seu abraço.', 2.1, 'bewear.png'),
+(46, 761, 'Bounsweet', 'Grama', NULL, 'Pokémon Fruta', 'Embora seja doce demais para o consumo humano, o suor de Bounsweet pode ser diluído em água para virar um suco com a doçura na medida certa.', 0.3, 'bounsweet.png'),
+(47, 762, 'Steenee', 'Grama', NULL, 'Pokémon Fruta', 'Este Pokémon vive pulando cheio de energia. Outros Pokémon são atraídos por sua aparência animada e seu aroma agradável.', 0.7, 'steenee.png'),
+(48, 763, 'Tsareena', 'Grama', NULL, 'Pokémon Fruta', 'Conhecido pela beleza de suas pernas bem torneadas, às vezes aparece como mascote em propagandas de salões de beleza.', 1.2, 'tsareena.png'),
+(49, 764, 'Comfey', 'Fada', NULL, 'Pokémon Colhe-Flor', 'Banhos preparados com as flores de seu cipó têm efeito relaxante, por isso este Pokémon faz sucesso com muitas pessoas.', 0.1, 'comfey.png'),
+(50, 765, 'Oranguru', 'Normal', 'Psíquico', 'Pokémon Sábio', 'Vive no alto das copas das árvores, no fundo da floresta. Em raras ocasiões, aparece na praia para disputar inteligência com Slowking.', 1.5, 'oranguru.png'),
+(51, 766, 'Passimian', 'Lutador', NULL, 'Pokémon Trabalho em Equipe', 'Batalham usando frutas duras como armas. Suas técnicas são passadas do chefe para o grupo, de geração em geração.', 2, 'passimian.png'),
+(52, 767, 'Wimpod', 'Inseto', 'Água', 'Pokémon Fujão', 'Seu habitat vai das praias ao fundo do mar. Come restos por natureza e devora com alegria qualquer coisa comestível, não importa o quão podre esteja.', 0.5, 'wimpod.png'),
+(53, 768, 'Golisopod', 'Inseto', 'Água', 'Pokémon Escama Dura', 'Batalha com habilidade usando seus seis braços, mas passa a maior parte do tempo meditando em paz em cavernas no fundo do mar.', 2, 'golisopod.png'),
+(54, 769, 'Sandygast', 'Fantasma', 'Terra', 'Pokémon Monte de Areia', 'Controla qualquer um que coloque a mão em sua boca. Assim, aumenta o monte de areia que forma seu corpo.', 0.5, 'sandygast.png'),
+(55, 770, 'Palossand', 'Fantasma', 'Terra', 'Pokémon Castelo de Areia', 'Enterrados sob o castelo, há montes de ossos secos daqueles cuja energia vital ele sugou.', 1.3, 'palossand.png'),
+(56, 771, 'Pyukumuku', 'Água', NULL, 'Pokémon Pepino-do-Mar', 'Estes Pokémon se espalham pelas praias. O muco grudento que cobre seu corpo pode ser usado para aliviar a pele queimada de sol. Que prático!', 0.3, 'pyukumuku.png'),
+(57, 772, 'Type: Null', 'Normal', NULL, 'Pokémon Sintético', 'Pelo risco de este Pokémon sintético perder o controle, ele usa uma máscara de controle que limita seu poder.', 1.9, 'type-null.png'),
+(58, 773, 'Silvally', 'Normal', NULL, 'Pokémon Sintético', 'Embora no início seu nome fosse Type: Null, o garoto que o fez evoluir para esta forma lhe deu o nome pelo qual é conhecido hoje.', 2.3, 'silvally.png'),
+(59, 774, 'Minior Meteoro', 'Pedra', 'Voador', 'Pokémon Meteoro', 'Impactos fortes podem tirá-lo de sua casca. Este Pokémon nasceu de nanopartículas que sofreram mutação.', 0.3, 'minior.png'),
+(60, 774, 'Minior Núcleo', 'Pedra', 'Voador', 'Pokémon Meteoro', 'Se o núcleo ficar exposto, logo morre. É possível que sobreviva se for colocado numa Poké Bola rápido o bastante.', 0.3, 'minior-core.png'),
+(61, 775, 'Komala', 'Normal', NULL, 'Pokémon Sonolento', 'O tronco que carrega foi dado por seus pais quando nasceu. Também é conhecido por se agarrar ao braço de Treinadores amigáveis.', 0.4, 'komala.png');
 
 -- =====================================================================
 -- CATÁLOGO: LOTE 3 (ids 55 a 88)
