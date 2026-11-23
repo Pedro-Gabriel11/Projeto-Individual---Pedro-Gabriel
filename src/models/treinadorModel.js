@@ -1,7 +1,5 @@
 let database = require("../database/config");
 
-// ---------------- CONTA ----------------
-
 function buscarPorUsuario(usuario) {
     let instrucaoSql = "SELECT id FROM treinador WHERE usuario = ?";
     return database.executar(instrucaoSql, [usuario]);
@@ -17,10 +15,6 @@ function cadastrar(nome, usuario, email, senha) {
     return database.executar(instrucaoSql, [nome, usuario, email, senha]);
 }
 
-// "conta" pode ser o e-mail ou o nome de treinador (usuario).
-// A senha NÃO é comparada aqui: o MySQL compara textos ignorando maiúsculas e
-// minúsculas, então "rowlet@722" passaria por "Rowlet@722". A comparação é feita
-// no controller, em JavaScript, onde o == diferencia maiúsculas de minúsculas.
 function buscarPorConta(conta) {
     let instrucaoSql = `
         SELECT id, nome, usuario, email, senha FROM treinador
@@ -28,8 +22,6 @@ function buscarPorConta(conta) {
     `;
     return database.executar(instrucaoSql, [conta, conta]);
 }
-
-// ---------------- PAINEL ----------------
 
 function contarCatalogo() {
     let instrucaoSql = "SELECT COUNT(id) AS total FROM pokemon";
@@ -53,7 +45,6 @@ function buscarResumoTentativas(idTreinador) {
     return database.executar(instrucaoSql, [idTreinador]);
 }
 
-// As 8 partidas mais recentes.
 function buscarTentativas(idTreinador) {
     let instrucaoSql = `
         SELECT pontos, acertos, erros, dt_tentativa FROM tentativa
@@ -62,7 +53,6 @@ function buscarTentativas(idTreinador) {
     return database.executar(instrucaoSql, [idTreinador]);
 }
 
-// Os Pokémon desbloqueados pelo treinador, do mais recente para o mais antigo.
 function buscarColecao(idTreinador) {
     let instrucaoSql = `
         SELECT pokemon.id, pokemon.nome, pokemon.tipo1, pokemon.tipo2, pokemon.imagem,
@@ -73,8 +63,6 @@ function buscarColecao(idTreinador) {
     `;
     return database.executar(instrucaoSql, [idTreinador]);
 }
-
-// ---------------- FAVORITO ----------------
 
 function alterarFavorito(idTreinador, idPokemon, favorito) {
     let instrucaoSql = "UPDATE colecao SET favorito = ? WHERE fk_treinador = ? AND fk_pokemon = ?";

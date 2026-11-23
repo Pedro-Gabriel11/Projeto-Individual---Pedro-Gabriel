@@ -1,8 +1,6 @@
 let treinadorModel = require("../models/treinadorModel");
 let pokemonModel = require("../models/pokemonModel");
 
-// O SUM e o MAX do MySQL devolvem NULL quando não há linhas.
-// Esta função troca NULL por 0 e garante que o valor seja um número.
 function numeroOuZero(valor) {
     if (valor == null) {
         return 0;
@@ -10,13 +8,10 @@ function numeroOuZero(valor) {
     return Number(valor);
 }
 
-// Resposta padrão quando o banco dá erro.
 function erroNoServidor(res, erro) {
     console.log("Erro no banco:", erro);
     return res.status(500).json({ mensagem: "Não foi possível concluir a operação. Tente novamente." });
 }
-
-// ---------------- CADASTRO ----------------
 
 function cadastrar(req, res) {
     let nome = req.body.nome;
@@ -24,13 +19,10 @@ function cadastrar(req, res) {
     let email = req.body.email;
     let senha = req.body.senha;
 
-    // 1) Confere se os campos chegaram
     if (nome == undefined || usuario == undefined || email == undefined || senha == undefined) {
         return res.status(400).json({ mensagem: "Preencha todos os campos." });
     }
 
-    // 2) Tira espaços das pontas; usuário e e-mail sempre em minúsculas,
-    //    para "Ash@X.com" e "ash@x.com" serem a mesma conta
     nome = nome.trim();
     usuario = usuario.trim().toLowerCase();
     email = email.trim().toLowerCase();
@@ -39,7 +31,6 @@ function cadastrar(req, res) {
         return res.status(400).json({ mensagem: "Preencha todos os campos." });
     }
 
-    // 3) O nome de treinador já existe?
     return treinadorModel.buscarPorUsuario(usuario)
         .then(function (resultadoUsuario) {
             if (resultadoUsuario.length > 0) {
@@ -47,7 +38,6 @@ function cadastrar(req, res) {
                 return;
             }
 
-            // 4) O e-mail já existe?
             return treinadorModel.buscarPorEmail(email)
                 .then(function (resultadoEmail) {
                     if (resultadoEmail.length > 0) {
@@ -55,7 +45,6 @@ function cadastrar(req, res) {
                         return;
                     }
 
-                    // 5) Tudo certo: grava no banco
                     return treinadorModel.cadastrar(nome, usuario, email, senha)
                         .then(function () {
                             res.status(201).json({ mensagem: "Cadastro realizado com sucesso!" });
@@ -63,15 +52,12 @@ function cadastrar(req, res) {
                 });
         })
         .catch(function (erro) {
-            // Garantia extra: o UNIQUE do banco também barra repetidos
             if (erro.code == "ER_DUP_ENTRY") {
                 return res.status(409).json({ mensagem: "Esse nome de treinador ou e-mail já está cadastrado." });
             }
             return erroNoServidor(res, erro);
         });
 }
-
-// ---------------- LOGIN ----------------
 
 function autenticar(req, res) {
     let conta = req.body.conta;
@@ -85,9 +71,7 @@ function autenticar(req, res) {
 
     return treinadorModel.buscarPorConta(conta)
         .then(function (resultado) {
-            // Achou a conta E a senha é exatamente igual (maiúsculas contam)?
             if (resultado.length == 1 && resultado[0].senha == senha) {
-                // A senha não é enviada de volta ao navegador
                 res.status(200).json({
                     id: resultado[0].id,
                     nome: resultado[0].nome,
@@ -103,15 +87,12 @@ function autenticar(req, res) {
         });
 }
 
-// ---------------- PAINEL ----------------
-
 function painel(req, res) {
     let idTreinador = Number(req.params.idTreinador);
     if (isNaN(idTreinador) || idTreinador < 1) {
         return res.status(400).json({ mensagem: "Treinador inválido." });
     }
 
-    // Cada consulta guarda o seu resultado neste objeto, uma depois da outra.
     let resposta = {
         estatisticas: {},
         tentativas: [],
@@ -148,10 +129,6 @@ function painel(req, res) {
         });
 }
 
-// ---------------- POKÉDEX ----------------
-
-// Devolve o catálogo inteiro, marcando em cada Pokémon se o treinador
-// já o desbloqueou e se ele é favorito.
 function pokedex(req, res) {
     let idTreinador = Number(req.params.idTreinador);
     if (isNaN(idTreinador) || idTreinador < 1) {
@@ -170,7 +147,6 @@ function pokedex(req, res) {
                 catalogo[i].desbloqueado = 0;
                 catalogo[i].favorito = 0;
 
-                // Procura este Pokémon na coleção do treinador
                 for (let j = 0; j < colecao.length; j++) {
                     if (colecao[j].id == catalogo[i].id) {
                         catalogo[i].desbloqueado = 1;
@@ -185,8 +161,6 @@ function pokedex(req, res) {
         });
 }
 
-// ---------------- FAVORITO ----------------
-
 function alterarFavorito(req, res) {
     let idTreinador = Number(req.params.idTreinador);
     let idPokemon = Number(req.params.idPokemon);
@@ -198,8 +172,6 @@ function alterarFavorito(req, res) {
 
     return treinadorModel.alterarFavorito(idTreinador, idPokemon, favorito)
         .then(function (resultado) {
-            // affectedRows = quantas linhas o UPDATE alterou.
-            // 0 significa que esse Pokémon não está na coleção do treinador.
             if (resultado.affectedRows == 0) {
                 res.status(404).json({ mensagem: "Esse Pokémon ainda não foi desbloqueado." });
             } else {

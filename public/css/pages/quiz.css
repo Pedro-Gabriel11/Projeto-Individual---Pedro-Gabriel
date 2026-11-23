@@ -1,27 +1,19 @@
-/* =====================================================================
-   QUIZ
-   ===================================================================== */
-
 .quiz-card { max-width: 860px; overflow: hidden; margin: 28px auto 0; border-radius: 16px; background: var(--branco); box-shadow: 0 6px 0 var(--turquesa); }
 
-/* Barra de progresso */
 .quiz-progress { padding: 18px 24px; border-bottom: 2px dashed var(--linha); }
 .quiz-progress-row { display: flex; justify-content: space-between; font-family: "Bungee", Arial, sans-serif; font-size: 12px; color: var(--texto-suave); }
 .progress-track { height: 8px; margin-top: 10px; overflow: hidden; border-radius: 99px; background: var(--creme); }
 .progress-fill { height: 100%; background: var(--coral); transition: width .25s ease; }
 
-/* Imagem à esquerda, pergunta à direita */
 .quiz-content { display: flex; }
 .quiz-art { display: flex; flex: 0.85; min-height: 380px; align-items: center; justify-content: center; padding: 20px; background: var(--creme); }
 .quiz-question { flex: 1.15; padding: 26px; }
 .quiz-question h2 { font-size: 25px; }
 
-/* A imagem: a revelação (tirar a silhueta) é suave; virar silhueta é instantâneo */
 .imagem-pergunta { width: 85%; max-width: 280px; transition: filter .4s ease; }
 .imagem-pergunta.silhueta { transition: none; }
 .simbolo-curiosidade { color: var(--coral); font-family: "Pacifico", cursive; font-size: 130px; }
 
-/* Alternativas */
 .quiz-options { display: flex; flex-direction: column; gap: 9px; margin-top: 18px; }
 .quiz-option { display: flex; align-items: center; gap: 10px; padding: 11px 12px; border: 2px solid var(--linha); border-radius: 10px; background: var(--branco); color: var(--petroleo); cursor: pointer; font-weight: 800; text-align: left; }
 .quiz-option:hover:not(:disabled), .quiz-option.selected { border-color: var(--turquesa); background: #e8f6f4; }
@@ -30,12 +22,10 @@
 .quiz-option.certa { border-color: var(--verde-certo); background: #e3f5e8; }
 .quiz-option.errada { border-color: var(--coral); background: #fbe7e6; }
 
-/* Mensagem depois de confirmar */
 .mensagem-certa { color: var(--verde-certo); }
 .mensagem-errada { color: var(--coral-escuro); }
 .quiz-actions { margin-top: 14px; }
 
-/* Resultado */
 .result-banner { padding: 34px 22px; background: var(--petroleo); color: var(--creme); text-align: center; }
 .result-banner .eyebrow { color: var(--mostarda); }
 .result-banner h2 { margin: 6px 0; color: var(--branco); font-size: 42px; }

@@ -5,7 +5,6 @@ function registrarTentativa(idTreinador, acertos, erros, pontos) {
     return database.executar(instrucaoSql, [idTreinador, acertos, erros, pontos]);
 }
 
-// Os ids dos Pokémon que o treinador já tem.
 function buscarIdsDaColecao(idTreinador) {
     let instrucaoSql = "SELECT fk_pokemon FROM colecao WHERE fk_treinador = ?";
     return database.executar(instrucaoSql, [idTreinador]);

@@ -1,19 +1,13 @@
-/* =====================================================================
-   LOGIN E CADASTRO
-   ===================================================================== */
-
 .auth-shell { padding: 50px 20px; }
 .auth-layout { display: flex; width: min(1000px, 100%); align-items: center; gap: 45px; margin: 0 auto; }
 .auth-copy { flex: 1; }
 .auth-copy h1 { font-size: clamp(36px, 5vw, 54px); }
 
-/* O formulário também é um cartão-postal, com a linha tracejada por dentro */
 .form-card { flex: 1; padding: 38px; border: 10px solid var(--branco); border-radius: 0; background: var(--creme); outline: 2px dashed #c9a96a; outline-offset: -18px; box-shadow: 0 14px 34px rgba(29, 78, 95, .14); }
 .form-card h2 { margin-bottom: 4px; }
 .form-card > p { margin-bottom: 22px; color: var(--texto-suave); }
 .form-card .btn { width: 100%; margin-top: 4px; }
 
-/* No cadastro, os campos ficam em duas colunas */
 .form-grid { display: flex; flex-wrap: wrap; gap: 14px; }
 .form-grid .field { width: calc(50% - 7px); }
 .form-grid .field-full { width: 100%; }
@@ -27,5 +21,4 @@
   .form-grid .field { width: 100%; }
 }
 
-/* Dica fixa com as regras da senha (não é mensagem de erro, por isso fica cinza) */
 .dica-senha { margin: 0; color: var(--texto-suave); font-size: 13px; }

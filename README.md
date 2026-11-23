@@ -21,7 +21,6 @@
 [Banco de dados](#banco-de-dados) •
 [Como executar](#como-executar) •
 [API](#api) •
-[Testes](#testes) •
 [Uso de IA](#uso-de-ia) •
 [Autor](#autor)
 
@@ -30,10 +29,6 @@
 ---
 
 ## Sobre o projeto
-
-<!-- PEDRO: esta seção é sua. Conte a sua história com Pokémon: quando começou,
-     o que a franquia significou em cada fase da sua vida, e por que ela virou
-     o tema deste projeto. Dois ou três parágrafos bastam. -->
 
 > _A preencher: a conexão entre Pokémon e a minha trajetória._
 
@@ -68,8 +63,6 @@ Pokémon na sua Pokédex pessoal. Esse uso gera os dados que alimentam os gráfi
 **Catálogo:** 118 entradas — as 88 espécies da Geração VII (#722 a #809), 12 formas alternativas da
 própria geração (Oricorio, Lycanroc, Wishiwashi, Minior, Mimikyu, Necrozma, Magearna) e as 18 formas de Alola.
 
-Explicação detalhada de cada página, campo e função: [`docs/guia-de-explicacao.md`](docs/guia-de-explicacao.md).
-
 ---
 
 ## Arquitetura
@@ -92,8 +85,6 @@ app.js                    servidor Express e variáveis de ambiente
 │   ├── js/sessao.js      menu e controle de sessão (sessionStorage)
 │   ├── js/pages/         um script por página
 │   └── images/           imagens dos Pokémon e fotos da história
-│
-└── tests/                testes unitários (node:test)
 ```
 
 **Por que separar assim:** a rota só diz qual endereço existe, o controller cuida das regras e da
@@ -192,31 +183,12 @@ Os pontos (100 por acerto) são calculados no servidor.
 
 ---
 
-## Testes
-
-Testes unitários com o módulo nativo `node:test`, sem bibliotecas externas:
-
-```bash
-npm test
-```
-
-Cobrem as validações do cadastro e do login (campos vazios, usuário e e-mail repetidos, normalização
-de maiúsculas), o painel de um treinador sem partidas, a marcação de desbloqueados na Pokédex, os
-favoritos e o registro de partidas do quiz. Os testes **não usam o banco**: as funções do model são
-substituídas por versões falsas. Por isso, o fluxo completo também foi testado no navegador com o
-banco ligado.
-
----
 
 ## Uso de IA
-
-<!-- PEDRO: confira se a disciplina exige esse registro e em que formato. -->
 
 O desenvolvimento contou com apoio de ferramentas de IA (OpenCode e Claude Code) para estruturação do
 código, tradução das descrições dos Pokémon e revisão. As decisões de escopo, o tema, o visual, o
 conteúdo pessoal e a validação do que foi implementado são de autoria própria.
-
-As diretrizes dadas aos agentes estão em [`AGENTS.md`](AGENTS.md).
 
 ---
 

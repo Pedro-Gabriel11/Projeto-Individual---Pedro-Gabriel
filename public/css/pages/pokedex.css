@@ -1,18 +1,11 @@
-/* =====================================================================
-   POKÉDEX — fundo azul-petróleo, cards brancos com sombra turquesa
-   ===================================================================== */
-
-/* Só nesta página, a área principal fica azul-petróleo */
 body { background: var(--petroleo); }
 .site-header { background: var(--areia); }
 .page-wrap h1 { color: var(--creme); }
 .page-wrap .muted { color: #bfd6da; }
 .page-wrap .eyebrow { color: var(--mostarda); }
 
-/* Contador "X / 118 descobertos" */
 #contador-pokedex { padding: 14px 20px; font-family: "Fredoka", Arial, sans-serif; font-size: 18px; font-weight: 600; }
 
-/* Busca e filtros */
 .toolbar { margin: 24px 0 14px; }
 .search-input { max-width: 420px; }
 .filter-list { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
@@ -21,14 +14,12 @@ body { background: var(--petroleo); }
 .filter-chip.active { background: var(--turquesa); color: var(--branco); }
 #mensagem-pokedex { color: var(--creme); }
 
-/* Grade de cards: 4 colunas iguais (2 no celular) */
 .pokemon-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
 
 .pokemon-card { position: relative; padding: 12px; border-radius: 16px; background: var(--branco); box-shadow: 0 6px 0 var(--turquesa); transition: transform .15s ease; }
 .pokemon-card:hover { transform: translateY(-4px); }
 .card-abrir { width: 100%; padding: 0; border: 0; background: transparent; color: inherit; cursor: pointer; font: inherit; text-align: left; }
 
-/* Área da imagem */
 .pokemon-art { position: relative; display: flex; width: 100%; aspect-ratio: 1.1; align-items: center; justify-content: center; border-radius: 12px; background: #e8f6f4; }
 .pokemon-art img { width: 78%; height: 78%; object-fit: contain; }
 .pokemon-number { position: absolute; top: 8px; left: 8px; padding: 3px 8px; border-radius: 99px; background: var(--branco); color: var(--texto-suave); font-size: 11px; font-weight: 800; }
@@ -36,11 +27,9 @@ body { background: var(--petroleo); }
 .pokemon-card h2 { margin: 10px 0 6px; font-size: 18px; }
 .card-status { margin: 4px 0 0; color: var(--texto-suave); font-size: 13px; }
 
-/* Botão de favorito (coração) */
 .favorite-btn { position: absolute; top: 18px; right: 18px; width: 34px; height: 34px; border: 0; border-radius: 50%; background: var(--branco); color: #b9c7cb; cursor: pointer; font-size: 19px; }
 .favorite-btn.selected { color: var(--coral); }
 
-/* Janela de detalhes: um cartão-postal */
 #detalhes-pokemon { width: min(520px, calc(100% - 30px)); }
 #detalhes-pokemon::backdrop { background: rgba(20, 58, 71, .7); }
 .detalhe-imagem { display: block; width: 180px; height: 180px; margin: 0 auto 6px; object-fit: contain; }

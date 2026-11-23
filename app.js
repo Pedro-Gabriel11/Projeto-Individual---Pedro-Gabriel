@@ -1,9 +1,6 @@
-// let ambiente_processo = 'producao';
 let ambiente_processo = 'desenvolvimento';
 
 let caminho_env = ambiente_processo === 'producao' ? '.env' : '.env.dev';
-// Acima, temos o uso do operador ternário para definir o caminho do arquivo .env
-// A sintaxe do operador ternário é: condição ? valor_se_verdadeiro : valor_se_falso
 
 require("dotenv").config({ path: caminho_env });
 process.env.AMBIENTE_PROCESSO = process.env.AMBIENTE_PROCESSO || ambiente_processo;
@@ -18,7 +15,6 @@ let app = express();
 let apiRouter = require("./src/routes");
 
 app.use(express.json());
-// A pasta public vira a raiz do site: public/cadastro.html → /cadastro.html
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/api", apiRouter);
 

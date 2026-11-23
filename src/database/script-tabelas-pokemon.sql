@@ -1,13 +1,7 @@
--- Script do banco do Pokémon Trainer Hub.
--- ATENÇÃO: este script APAGA o banco e cria tudo de novo.
--- Execute o arquivo inteiro no MySQL Workbench.
-
 DROP DATABASE IF EXISTS pokemon_trainer_hub;
 CREATE DATABASE pokemon_trainer_hub;
 USE pokemon_trainer_hub;
 
--- Cada pessoa que cria uma conta no site.
--- "usuario" é o nome de treinador (o @) e não pode se repetir.
 CREATE TABLE treinador (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(80) NOT NULL,
@@ -17,9 +11,6 @@ CREATE TABLE treinador (
     dt_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
--- O catálogo da Pokédex: os 106 Pokémon do site.
--- tipo2 fica NULL quando o Pokémon tem um tipo só.
--- altura em metros. imagem = nome do arquivo em public/images/pokemon/.
 CREATE TABLE pokemon (
     id INT PRIMARY KEY,
     numero INT NOT NULL,
@@ -32,9 +23,6 @@ CREATE TABLE pokemon (
     imagem VARCHAR(60)
 );
 
--- Quais Pokémon cada treinador já desbloqueou (tabela associativa).
--- A chave primária composta impede o mesmo Pokémon duas vezes para o mesmo treinador.
--- favorito: 0 = não, 1 = sim.
 CREATE TABLE colecao (
     fk_treinador INT,
     fk_pokemon INT,
@@ -45,7 +33,6 @@ CREATE TABLE colecao (
     FOREIGN KEY (fk_pokemon) REFERENCES pokemon(id)
 );
 
--- Cada partida de quiz jogada. A precisão é calculada: acertos / (acertos + erros).
 CREATE TABLE tentativa (
     id INT PRIMARY KEY AUTO_INCREMENT,
     fk_treinador INT,
@@ -56,11 +43,6 @@ CREATE TABLE tentativa (
     FOREIGN KEY (fk_treinador) REFERENCES treinador(id)
 );
 
--- =====================================================================
--- CATÁLOGO: LOTE 1 (ids 1 a 33: #722 Rowlet a #748 Toxapex, com formas)
--- Dados: PokeAPI. Descrições e categorias: tradução livre de Pokémon Moon
--- (formas que não existem no Moon usam a entrada de Ultra Moon).
--- =====================================================================
 INSERT INTO pokemon (id, numero, nome, tipo1, tipo2, categoria, descricao, altura, imagem) VALUES
 (1, 722, 'Rowlet', 'Grama', 'Voador', 'Pokémon Pena de Grama', 'Plana em silêncio e se aproxima de seus alvos. Antes que eles percebam, começa a atacá-los com chutes ferozes.', 0.3, 'rowlet.png'),
 (2, 723, 'Dartrix', 'Grama', 'Voador', 'Pokémon Pena Lâmina', 'Arremessa penas afiadas, chamadas penas-lâmina, contra inimigos ou presas. Raramente erra.', 0.7, 'dartrix.png'),
@@ -96,10 +78,6 @@ INSERT INTO pokemon (id, numero, nome, tipo1, tipo2, categoria, descricao, altur
 (32, 747, 'Mareanie', 'Venenoso', 'Água', 'Pokémon Estrela Cruel', 'É encontrado rastejando por praias e pelo fundo do mar. Os corais que crescem na cabeça de Corsola são, para este Pokémon, um banquete cinco estrelas.', 0.4, 'mareanie.png'),
 (33, 748, 'Toxapex', 'Venenoso', 'Água', 'Pokémon Estrela Cruel', 'Quem é atacado pelo veneno de Toxapex sofre dores intensas por três dias e três noites. Mesmo depois de se recuperar, ficam algumas sequelas.', 0.7, 'toxapex.png');
 
--- =====================================================================
--- CATÁLOGO: LOTE 2 (ids 34 a 61: #749 Mudbray a #775 Komala, com Minior Núcleo)
--- Dados: PokeAPI e PokémonDB. Descrições e categorias: tradução livre de Pokémon Moon.
--- =====================================================================
 INSERT INTO pokemon (id, numero, nome, tipo1, tipo2, categoria, descricao, altura, imagem) VALUES
 (34, 749, 'Mudbray', 'Terra', NULL, 'Pokémon Burro', 'Tem temperamento teimoso e independente. Comer terra, fazer lama e brincar no lamaçal fazem parte da sua rotina diária.', 1, 'mudbray.png'),
 (35, 750, 'Mudsdale', 'Terra', NULL, 'Pokémon Cavalo de Tração', 'Seus coices pesados e cobertos de lama são sua melhor forma de ataque. Consegue transformar caminhões grandes em sucata sem fazer esforço.', 2.5, 'mudsdale.png'),
@@ -130,12 +108,6 @@ INSERT INTO pokemon (id, numero, nome, tipo1, tipo2, categoria, descricao, altur
 (60, 774, 'Minior Núcleo', 'Pedra', 'Voador', 'Pokémon Meteoro', 'Se o núcleo ficar exposto, logo morre. É possível que sobreviva se for colocado numa Poké Bola rápido o bastante.', 0.3, 'minior-core.png'),
 (61, 775, 'Komala', 'Normal', NULL, 'Pokémon Sonolento', 'O tronco que carrega foi dado por seus pais quando nasceu. Também é conhecido por se agarrar ao braço de Treinadores amigáveis.', 0.4, 'komala.png');
 
--- =====================================================================
--- CATÁLOGO: LOTE 3 (ids 62 a 100: #776 Turtonator a #809 Melmetal, com formas de Mimikyu, Necrozma e Magearna)
--- Poipole, Naganadel, Stakataka, Blacephalon, Zeraora e as formas de Necrozma: Ultra Moon.
--- Meltan e Melmetal: Pokémon Let's Go (não aparecem em Moon nem Ultra Moon).
--- Dados: PokeAPI e PokémonDB. Descrições e categorias: tradução livre de Pokémon Moon.
--- =====================================================================
 INSERT INTO pokemon (id, numero, nome, tipo1, tipo2, categoria, descricao, altura, imagem) VALUES
 (62, 776, 'Turtonator', 'Fogo', 'Dragão', 'Pokémon Tartaruga Explosiva', 'Solta fogo e gases venenosos pelas narinas. Seu esterco é uma substância explosiva e pode ser usado de várias formas.', 2, 'turtonator.png'),
 (63, 777, 'Togedemaru', 'Elétrico', 'Aço', 'Pokémon Bolinha', 'Os pelos longos das costas funcionam como para-raios. Os raios que atrai ficam armazenados como energia em sua bolsa elétrica.', 0.3, 'togedemaru.png'),
@@ -177,12 +149,6 @@ INSERT INTO pokemon (id, numero, nome, tipo1, tipo2, categoria, descricao, altur
 (99, 808, 'Meltan', 'Aço', NULL, 'Pokémon Porca Sextavada', 'Derrete partículas de ferro e de outros metais encontrados no subsolo para absorvê-las em seu corpo de aço derretido.', 0.2, 'meltan.png'),
 (100, 809, 'Melmetal', 'Aço', NULL, 'Pokémon Porca Sextavada', 'Venerado há muito tempo por sua capacidade de criar ferro do nada, por algum motivo voltou à vida depois de 3.000 anos.', 2.5, 'melmetal.png');
 
--- =====================================================================
--- CATÁLOGO: LOTE 4 (ids 101 a 118 — formas de Alola)
--- "numero" é o número nacional da espécie original (ex.: Vulpix de Alola = 37).
--- Descrições: entrada de Pokémon Moon da FORMA DE ALOLA (fonte: PokémonDB).
--- Dados: PokeAPI e PokémonDB. Descrições e categorias: tradução livre de Pokémon Moon.
--- =====================================================================
 INSERT INTO pokemon (id, numero, nome, tipo1, tipo2, categoria, descricao, altura, imagem) VALUES
 (101, 19, 'Rattata de Alola', 'Sombrio', 'Normal', 'Pokémon Rato', 'Fica ativo quando o sol se põe. Corre pela cidade atrás de comida boa para o chefe do seu ninho, Raticate.', 0.3, 'rattata-alola.png'),
 (102, 20, 'Raticate de Alola', 'Sombrio', 'Normal', 'Pokémon Rato', 'Este Pokémon gourmet é exigente com o sabor e o frescor da comida. Restaurantes onde vivem Raticate têm boa reputação.', 0.7, 'raticate-alola.png'),

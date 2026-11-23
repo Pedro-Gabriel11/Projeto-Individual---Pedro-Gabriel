@@ -1,9 +1,3 @@
-// Quiz Pokémon.
-// Cada partida tem 10 perguntas: 7 de silhueta (montadas a partir do catálogo)
-// e 3 de curiosidade (sorteadas do vetor abaixo).
-
-// Perguntas de curiosidade. "idPokemon" é o id do Pokémon na tabela pokemon:
-// acertar a pergunta desbloqueia esse Pokémon.
 let perguntasCuriosidade = [
     { enunciado: "Qual Pokémon inicial de Alola é do tipo Grama e Voador?", idPokemon: 1, alternativas: ["Litten", "Rowlet", "Popplio", "Pikipek"], resposta: "Rowlet" },
     { enunciado: "Qual destes Pokémon é a evolução final de Litten?", idPokemon: 6, alternativas: ["Torracat", "Salazzle", "Incineroar", "Turtonator"], resposta: "Incineroar" },
@@ -24,15 +18,14 @@ let perguntasCuriosidade = [
     { enunciado: "Qual Pokémon de Alola é do tipo Elétrico e Psíquico e se locomove montado na própria cauda?", idPokemon: 103, alternativas: ["Togedemaru", "Raichu de Alola", "Tapu Koko", "Zeraora"], resposta: "Raichu de Alola" }
 ];
 
-let catalogo = [];          // os 118 Pokémon, vindos do servidor
-let rodada = [];            // as 10 perguntas da partida atual
-let indiceAtual = 0;        // qual pergunta está na tela (0 a 9)
+let catalogo = [];
+let rodada = [];
+let indiceAtual = 0;
 let alternativaEscolhida = -1;
 let acertos = 0;
 let erros = 0;
 let idsAcertados = [];
 
-// Devolve um número inteiro sorteado entre 0 e (maximo - 1).
 function sortearNumero(maximo) {
     return Math.floor(Math.random() * maximo);
 }
@@ -46,21 +39,16 @@ function buscarNoCatalogo(idPokemon) {
     return null;
 }
 
-// Monta as 4 alternativas de uma pergunta de silhueta:
-// o nome certo + 3 nomes sorteados diferentes.
 function sortearAlternativas(pokemonCerto) {
     let alternativas = [pokemonCerto.nome];
 
     while (alternativas.length < 4) {
         let sorteado = catalogo[sortearNumero(catalogo.length)];
-        // Não pode repetir nome, nem ser outra forma do mesmo Pokémon
-        // (ex.: Magearna e Magearna Cor Original têm a mesma silhueta).
         if (alternativas.indexOf(sorteado.nome) == -1 && sorteado.numero != pokemonCerto.numero) {
             alternativas.push(sorteado.nome);
         }
     }
 
-    // O nome certo está na posição 0; troca com uma posição sorteada.
     let posicao = sortearNumero(4);
     let guardado = alternativas[posicao];
     alternativas[posicao] = alternativas[0];
@@ -69,14 +57,11 @@ function sortearAlternativas(pokemonCerto) {
     return alternativas;
 }
 
-// Monta as 10 perguntas da partida, sem repetir Pokémon.
-// As curiosidades ficam nas posições 3, 6 e 9 (índices 2, 5 e 8).
 function montarRodada() {
     rodada = [];
     let idsUsados = [];
     let curiosidadesEscolhidas = [];
 
-    // 1) Sorteia 3 perguntas de curiosidade diferentes
     while (curiosidadesEscolhidas.length < 3) {
         let pergunta = perguntasCuriosidade[sortearNumero(perguntasCuriosidade.length)];
         if (idsUsados.indexOf(pergunta.idPokemon) == -1) {
@@ -85,7 +70,6 @@ function montarRodada() {
         }
     }
 
-    // 2) Monta a rodada, sorteando os Pokémon das silhuetas
     let proximaCuriosidade = 0;
     for (let i = 0; i < 10; i++) {
         if (i == 2 || i == 5 || i == 8) {
@@ -115,7 +99,6 @@ function montarRodada() {
     }
 }
 
-// Mostra na tela a pergunta da posição indiceAtual.
 function mostrarPergunta() {
     let pergunta = rodada[indiceAtual];
     let imagem = document.getElementById("imagem-pergunta");
@@ -128,8 +111,6 @@ function mostrarPergunta() {
     document.getElementById("mensagem-resposta").textContent = "";
     document.getElementById("mensagem-resposta").className = "form-note";
 
-    // A imagem do Pokémon da pergunta é carregada já com o filtro de silhueta.
-    // Na curiosidade ela fica escondida (aparece o "?") até a resposta ser confirmada.
     let pokemonDaPergunta = buscarNoCatalogo(pergunta.idPokemon);
     imagem.classList.add("silhueta");
     imagem.src = "images/pokemon/" + pokemonDaPergunta.imagem;
@@ -157,7 +138,6 @@ function mostrarPergunta() {
     document.getElementById("botao-proxima").style.display = "none";
 }
 
-// Chamada ao clicar numa alternativa (0 = A, 1 = B, 2 = C, 3 = D).
 function escolherAlternativa(indice) {
     alternativaEscolhida = indice;
     for (let i = 0; i < 4; i++) {
@@ -191,7 +171,6 @@ function confirmarResposta() {
         mensagem.className = "form-note mensagem-errada";
     }
 
-    // Pinta a certa de verde e a escolhida errada de vermelho; trava os botões
     for (let i = 0; i < 4; i++) {
         let botao = document.getElementById("alternativa-" + i);
         botao.disabled = true;
@@ -202,8 +181,6 @@ function confirmarResposta() {
         }
     }
 
-    // Revela o Pokémon: tira o filtro de silhueta e mostra a imagem
-    // (na curiosidade, a imagem estava escondida atrás do "?")
     let imagem = document.getElementById("imagem-pergunta");
     imagem.classList.remove("silhueta");
     imagem.style.display = "block";
@@ -228,7 +205,6 @@ function proximaPergunta() {
     }
 }
 
-// Envia o resultado para o servidor, que grava a partida e desbloqueia os Pokémon.
 function finalizarQuiz() {
     document.getElementById("tela-pergunta").style.display = "none";
     document.getElementById("mensagem-quiz").textContent = "Salvando seu resultado...";
@@ -296,7 +272,6 @@ function jogarNovamente() {
     mostrarPergunta();
 }
 
-// Busca o catálogo no servidor e começa a primeira partida.
 function carregarCatalogo() {
     fetch("/api/pokemon")
         .then(function (resposta) {

@@ -1,6 +1,3 @@
-// Cadastro: as três funções de validação devolvem "" quando está tudo certo,
-// ou a mensagem do primeiro problema encontrado.
-
 function validarUsuario(usuario) {
     if (usuario == "") {
         return "Informe seu nome de treinador.";
@@ -34,7 +31,6 @@ function validarSenha(senha, confirmacao) {
     let temNumero = false;
     let temEspecial = false;
 
-    // Olha cada caractere da senha, um por vez
     for (let i = 0; i < senha.length; i++) {
         let letra = senha[i];
         if (letra >= "A" && letra <= "Z") {
@@ -44,7 +40,7 @@ function validarSenha(senha, confirmacao) {
         } else if (letra >= "0" && letra <= "9") {
             temNumero = true;
         } else {
-            temEspecial = true; // qualquer outro caractere: ! @ # $ % ...
+            temEspecial = true;
         }
     }
 
@@ -64,7 +60,6 @@ function validarSenha(senha, confirmacao) {
     return "";
 }
 
-// Chamada pelo botão "Criar conta de treinador" (onclick="cadastrar()").
 function cadastrar() {
     let nome = document.getElementById("input-nome").value.trim();
     let usuario = document.getElementById("input-usuario").value.trim();
@@ -73,7 +68,6 @@ function cadastrar() {
     let confirmacao = document.getElementById("input-confirmacao").value;
     let mensagem = document.getElementById("mensagem-cadastro");
 
-    // Verifica tudo na ordem; mostra só o primeiro problema
     let erro = "";
     if (nome == "") {
         erro = "Informe seu nome.";
@@ -107,7 +101,6 @@ function cadastrar() {
                     window.location = "login.html";
                 }, 2000);
             } else {
-                // Ex.: "Esse nome de treinador já está em uso."
                 return resposta.json().then(function (resultado) {
                     mensagem.textContent = resultado.mensagem;
                 });

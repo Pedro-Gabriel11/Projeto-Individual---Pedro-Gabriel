@@ -1,9 +1,3 @@
-// Funções de sessão usadas por todas as páginas.
-// Depois do login, os dados do treinador ficam guardados no sessionStorage do navegador
-// (como no template da faculdade). Eles somem quando a aba é fechada ou quando o treinador sai.
-
-// Mostra no menu "Entrar / Começar" para visitantes,
-// ou "@usuario / Sair" para quem já entrou.
 function atualizarMenu() {
     let menuVisitante = document.getElementById("menu-visitante");
     let menuTreinador = document.getElementById("menu-treinador");
@@ -19,8 +13,6 @@ function atualizarMenu() {
     }
 }
 
-// Usada no começo das páginas que só treinadores podem ver (Painel, Pokédex e Quiz).
-// Se ninguém entrou, manda para o login e devolve false.
 function validarSessao() {
     if (sessionStorage.ID_TREINADOR == undefined) {
         window.location = "login.html";

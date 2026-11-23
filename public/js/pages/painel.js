@@ -1,6 +1,3 @@
-// Painel do treinador: números, 3 gráficos (Chart.js) e listas de Pokémon.
-
-// Cores da paleta praiana usadas nos gráficos
 let corPetroleo = "#1d4e5f";
 let corCoral = "#d9534f";
 let corTurquesa = "#2ec4b6";
@@ -51,13 +48,11 @@ function mostrarNumeros(estatisticas) {
     document.getElementById("numero-melhor").textContent = estatisticas.melhorPontuacao;
 }
 
-// Esconde a área do gráfico e mostra a mensagem de "sem dados".
 function mostrarVazio(idCanvas, idMensagem) {
     document.getElementById(idCanvas).parentElement.style.display = "none";
     document.getElementById(idMensagem).style.display = "block";
 }
 
-// Gráfico de linha: pontos das últimas partidas.
 function criarGraficoPontos(tentativas) {
     if (tentativas.length == 0) {
         mostrarVazio("grafico-pontos", "vazio-pontos");
@@ -67,11 +62,8 @@ function criarGraficoPontos(tentativas) {
     let rotulos = [];
     let pontos = [];
 
-    // O servidor manda da mais recente para a mais antiga;
-    // o for de trás para frente coloca a mais antiga primeiro.
     for (let i = tentativas.length - 1; i >= 0; i--) {
         let data = new Date(tentativas[i].dt_tentativa);
-        // ex.: "22/11/2026 14:30" (a hora diferencia partidas do mesmo dia)
         rotulos.push(data.toLocaleDateString("pt-BR") + " " + data.toLocaleTimeString("pt-BR").slice(0, 5));
         pontos.push(tentativas[i].pontos);
     }
@@ -96,7 +88,6 @@ function criarGraficoPontos(tentativas) {
     });
 }
 
-// Gráfico de pizza: total de acertos x total de erros.
 function criarGraficoAcertos(totalAcertos, totalErros) {
     if (totalAcertos + totalErros == 0) {
         mostrarVazio("grafico-acertos", "vazio-acertos");
@@ -114,14 +105,11 @@ function criarGraficoAcertos(totalAcertos, totalErros) {
             }]
         },
         options: {
-            // deixa o gráfico ocupar a altura do quadro (.area-grafico)
             maintainAspectRatio: false
         }
     });
 }
 
-// Gráfico de barras: quantos Pokémon de cada tipo foram desbloqueados.
-// Usa dois vetores "paralelos": nomesTipos[i] tem quantidades[i] Pokémon.
 function criarGraficoTipos(colecao) {
     if (colecao.length == 0) {
         mostrarVazio("grafico-tipos", "vazio-tipos");
@@ -158,7 +146,6 @@ function criarGraficoTipos(colecao) {
     });
 }
 
-// Se o tipo já está no vetor, soma 1; se não está, acrescenta com quantidade 1.
 function contarTipo(tipo, nomesTipos, quantidades) {
     let posicao = nomesTipos.indexOf(tipo);
     if (posicao == -1) {
@@ -169,7 +156,6 @@ function contarTipo(tipo, nomesTipos, quantidades) {
     }
 }
 
-// Copia o molde "mini" para cada Pokémon da lista.
 function preencherMiniLista(lista, idDestino) {
     let destino = document.getElementById(idDestino);
     let molde = document.getElementById("molde-mini");
@@ -182,7 +168,6 @@ function preencherMiniLista(lista, idDestino) {
     }
 }
 
-// Os 4 mais recentes (a coleção já vem do mais recente para o mais antigo).
 function mostrarUltimos(colecao) {
     if (colecao.length == 0) {
         document.getElementById("vazio-ultimos").style.display = "block";

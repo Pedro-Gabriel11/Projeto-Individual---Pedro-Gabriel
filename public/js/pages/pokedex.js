@@ -1,10 +1,6 @@
-// Pokédex do treinador.
-// listaPokemon guarda os 118 Pokémon que vêm do servidor, cada um com
-// desbloqueado (0 ou 1) e favorito (0 ou 1).
 let listaPokemon = [];
 let tipoSelecionado = "Todos";
 
-// Transforma 7 em "#007" e 37 em "#037".
 function formatarNumero(numero) {
     if (numero < 10) {
         return "#00" + numero;
@@ -14,7 +10,6 @@ function formatarNumero(numero) {
     return "#" + numero;
 }
 
-// O banco manda a altura como "0.3"; mostramos "0,3 m".
 function formatarAltura(altura) {
     return Number(altura).toFixed(1).replace(".", ",") + " m";
 }
@@ -38,7 +33,6 @@ function carregarPokedex() {
         });
 }
 
-// Desenha os cards de acordo com a busca e o tipo escolhido.
 function mostrarPokedex() {
     let grade = document.getElementById("grade-pokemon");
     let molde = document.getElementById("molde-card");
@@ -46,7 +40,7 @@ function mostrarPokedex() {
     let quantidadeMostrada = 0;
     let quantidadeDescobertos = 0;
 
-    grade.textContent = ""; // apaga os cards anteriores
+    grade.textContent = "";
 
     for (let i = 0; i < listaPokemon.length; i++) {
         let pokemon = listaPokemon[i];
@@ -55,8 +49,6 @@ function mostrarPokedex() {
             quantidadeDescobertos++;
         }
 
-        // Com busca ou filtro ativos, só aparecem os já descobertos
-        // (assim a busca não revela onde está um Pokémon bloqueado).
         if (pokemon.desbloqueado == 0 && (busca != "" || tipoSelecionado != "Todos")) {
             continue;
         }
@@ -67,7 +59,6 @@ function mostrarPokedex() {
             continue;
         }
 
-        // Copia o molde e preenche a cópia
         let card = molde.content.cloneNode(true);
         let imagem = card.querySelector(".card-imagem");
         let tipo2 = card.querySelector(".card-tipo2");
@@ -118,7 +109,6 @@ function mostrarPokedex() {
     }
 }
 
-// Chamado pelos botões de tipo. Marca o botão escolhido e redesenha.
 function filtrarPorTipo(tipo) {
     tipoSelecionado = tipo;
 
@@ -134,7 +124,6 @@ function filtrarPorTipo(tipo) {
     mostrarPokedex();
 }
 
-// Procura um Pokémon da lista pelo id.
 function buscarPokemonPorId(idPokemon) {
     for (let i = 0; i < listaPokemon.length; i++) {
         if (listaPokemon[i].id == idPokemon) {

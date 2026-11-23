@@ -25,7 +25,6 @@
   </header>
 
   <main class="page-wrap">
-    <!-- Dados do treinador -->
     <section class="page-intro">
       <div>
         <p class="eyebrow">Painel do treinador</p>
@@ -40,7 +39,6 @@
 
     <p class="form-note" id="mensagem-painel"></p>
 
-    <!-- Números -->
     <section class="stats-grid">
       <article class="stat-card"><small>Desbloqueados</small><strong id="numero-desbloqueados">0</strong><small id="numero-total-catalogo"></small></article>
       <article class="stat-card"><small>Progresso da Pokédex</small><strong id="numero-progresso">0%</strong></article>
@@ -50,7 +48,6 @@
       <article class="stat-card"><small>Melhor pontuação</small><strong id="numero-melhor">0</strong></article>
     </section>
 
-    <!-- Gráficos -->
     <div class="dashboard-grid">
       <section class="panel">
         <h2>Pontos nas últimas partidas</h2>
@@ -71,7 +68,6 @@
         <p class="grafico-vazio" id="vazio-tipos">Os tipos aparecem quando você desbloquear Pokémon.</p>
       </section>
 
-      <!-- Listas -->
       <section class="panel">
         <h2>Últimos desbloqueios</h2>
         <div class="recent-grid" id="lista-ultimos"></div>
@@ -86,7 +82,6 @@
     </div>
   </main>
 
-  <!-- Molde de um Pokémon pequeno (últimos desbloqueios e favoritos) -->
   <template id="molde-mini">
     <div class="mini-pokemon">
       <img class="mini-imagem" alt="">
@@ -96,7 +91,6 @@
 
   <footer class="site-footer"><div class="footer-inner"><strong>Pokémon Trainer Hub</strong><span>Seus dados são atualizados a cada atividade.</span></div><p class="creditos">Imagens: PokeAPI. Pokémon © Nintendo / Game Freak / The Pokémon Company. Projeto acadêmico sem fins comerciais.</p></footer>
 
-  <!-- Chart.js carregado pela internet (CDN), como no exemplo da faculdade -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <script src="js/sessao.js"></script>
   <script src="js/pages/painel.js"></script>

@@ -1,30 +1,20 @@
-/* =====================================================================
-   PÁGINA INICIAL
-   ===================================================================== */
-
 .hero { padding: 48px 20px; }
 
-/* O cartão-postal: borda branca grossa + uma linha tracejada desenhada por dentro.
-   outline-offset negativo faz o "outline" ficar dentro da borda. */
 .cartao-postal { position: relative; display: flex; width: min(1120px, 100%); align-items: center; gap: 30px; margin: 0 auto; padding: 48px 44px; border: 12px solid var(--branco); background: var(--creme); outline: 2px dashed #c9a96a; outline-offset: -22px; box-shadow: 0 18px 40px rgba(29, 78, 95, .15); }
 .cartao-texto { flex: 1.2; }
 .cartao-texto h1 { font-size: clamp(38px, 6vw, 62px); }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
 
-/* Selo de correio no canto, levemente girado */
 .selo { position: absolute; top: 34px; right: 40px; display: flex; width: 82px; height: 96px; align-items: center; justify-content: center; border: 5px dotted var(--branco); background: var(--mostarda); outline: 2px solid var(--mostarda); font-family: "Bungee", Arial, sans-serif; font-size: 13px; transform: rotate(6deg); }
 
-/* Os três iniciais de Alola */
 .cartao-pokemon { display: flex; flex: 1; align-items: flex-end; justify-content: center; padding-top: 60px; }
 .cartao-pokemon img { width: 33%; max-width: 150px; }
 
-/* ---------------- SEÇÕES ---------------- */
 .section { padding: 30px 0; }
 .section .page-wrap { padding: 30px 0; }
 .section-heading { max-width: 640px; margin: 0 auto 34px; text-align: center; }
 .section-heading h2 { margin: 6px 0 10px; }
 
-/* Cards brancos com sombra turquesa (estilo dos cards da Pokédex) */
 .feature-grid { display: flex; flex-wrap: wrap; gap: 22px; }
 .feature-card { flex: 1; min-width: 240px; padding: 24px; border-radius: 16px; background: var(--branco); box-shadow: 0 6px 0 var(--turquesa); text-align: center; transition: transform .15s ease; }
 .feature-card:hover { transform: translateY(-4px); }
@@ -32,7 +22,6 @@
 .feature-card h3 { margin: 10px 0 8px; font-size: 22px; }
 .feature-card p { margin: 0; color: var(--texto-suave); line-height: 1.6; }
 
-/* Faixa azul-petróleo que leva para a história */
 .section-historia { background: var(--petroleo); color: var(--creme); }
 .faixa-historia { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
 .faixa-historia h2 { margin: 4px 0 8px; color: var(--branco); }

@@ -38,7 +38,6 @@
       <input class="search-input" id="busca-pokemon" type="text" placeholder="Buscar Pokémon descoberto pelo nome..." oninput="mostrarPokedex()">
     </div>
 
-    <!-- Filtros: um botão para cada tipo -->
     <div class="filter-list">
       <button class="filter-chip active" onclick="filtrarPorTipo('Todos')">Todos</button>
       <button class="filter-chip" onclick="filtrarPorTipo('Normal')">Normal</button>
@@ -65,7 +64,6 @@
     <section class="pokemon-grid" id="grade-pokemon"></section>
   </main>
 
-  <!-- Molde de UM card. O JavaScript copia este molde para cada Pokémon. -->
   <template id="molde-card">
     <article class="pokemon-card">
       <button class="card-abrir">
@@ -84,7 +82,6 @@
     </article>
   </template>
 
-  <!-- Janela de detalhes de um Pokémon -->
   <dialog id="detalhes-pokemon" class="form-card">
     <p class="eyebrow" id="detalhe-numero"></p>
     <img id="detalhe-imagem" class="detalhe-imagem" alt="">
