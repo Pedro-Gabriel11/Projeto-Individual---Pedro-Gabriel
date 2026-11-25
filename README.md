@@ -52,8 +52,7 @@ Pokémon na sua Pokédex pessoal. Esse uso gera os dados que alimentam os gráfi
 
 | Página | O que faz |
 |---|---|
-| **Início** (`index.html`) | Apresenta o site em um "cartão-postal" e leva ao quiz, à Pokédex e ao painel |
-| **Minha história** (`historia.html`) | Fases da minha vida com Pokémon, em fotos estilo polaroid |
+| **Início** (`index.html`) | Apresenta o site em um "cartão-postal", leva ao quiz, à Pokédex e ao painel, e traz a seção **Minha história**: as fases da minha vida com Pokémon, em fotos estilo polaroid |
 | **Cadastro** (`cadastro.html`) | Cria a conta, com validação de e-mail e de senha (maiúscula, minúscula, número e caractere especial) e verificação de nome de treinador e e-mail repetidos |
 | **Login** (`login.html`) | Entrada por e-mail ou nome de treinador |
 | **Quiz** (`quiz.html`) | 10 perguntas por partida: 7 de silhueta e 3 de curiosidade. Cada acerto desbloqueia o Pokémon |
@@ -79,7 +78,7 @@ app.js                    servidor Express e variáveis de ambiente
 │   └── database/         conexão (config.js) e script do banco
 │
 ├── public/               tudo que o navegador recebe
-│   ├── *.html            as 7 páginas (os elementos ficam escritos no HTML)
+│   ├── *.html            as 6 páginas (os elementos ficam escritos no HTML)
 │   ├── css/shared.css    paleta de cores e estilos comuns
 │   ├── css/pages/        um arquivo por página
 │   ├── js/sessao.js      menu e controle de sessão (sessionStorage)
