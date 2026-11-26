@@ -21,7 +21,7 @@
 [Banco de dados](#banco-de-dados) •
 [Como executar](#como-executar) •
 [API](#api) •
-[Uso de IA](#uso-de-ia) •
+[Uso de IA](#uso-de-ia-e-diário-de-prompts) •
 [Autor](#autor)
 
 </div>
@@ -183,11 +183,47 @@ Os pontos (100 por acerto) são calculados no servidor.
 ---
 
 
-## Uso de IA
+## Uso de IA e diário de prompts
 
-O desenvolvimento contou com apoio de ferramentas de IA (OpenCode e Claude Code) para estruturação do
-código, tradução das descrições dos Pokémon e revisão. As decisões de escopo, o tema, o visual, o
-conteúdo pessoal e a validação do que foi implementado são de autoria própria.
+O desenvolvimento contou com apoio de ferramentas de IA (OpenCode e Claude Code). Eu usei a IA como
+uma parceira de programação: **as decisões de tema, escopo, visual, regras do site e conteúdo pessoal
+foram minhas**. A IA propunha opções e escrevia código a partir dessas decisões, e eu revisava cada
+etapa, testava no navegador, conferia os dados e fazia os commits. Também pedi que ela me explicasse
+cada mudança e me fizesse perguntas, para eu entender e conseguir explicar o código.
+
+Abaixo estão os principais pedidos que fiz, em ordem, com o texto organizado e resumido.
+
+### Antes de 22/11 — primeira versão
+
+| # | O que eu pedi | Minha participação |
+|---|---|---|
+| 1 | Prtótipo so site com Figma | Utilizei a plataforma do Figma para realizar o primeiro protótipo e esboço do projeto, focando mais na parte visual do site. |
+
+### 22/11 — avaliação, planejamento e refatoração
+
+| # | O que eu pedi | Minha participação |
+|---|---|---|
+| 1 | Avaliar tudo o que já estava feito e me ajudar a planejar as mudanças, porque eu apresentaria o projeto em poucos dias. Listei o que queria: um visual mais "praiano" e menos genérico, fotos e textos sobre a minha relação com Pokémon, JavaScript em português usando a lógica do 1º semestre (if, else, while, for, vetores, JSON), um banco sem tipos que não vimos em aula e um site mais simples, com imagens, silhuetas e descrição para todos os Pokémon. | Levei a lista de problemas que eu mesmo tinha identificado e o feedback de uma colega: não fazia sentido guardar as perguntas do quiz no banco. |
+| 2 | Escolher como ficaria o login. | Escolhi manter o modelo de sessão do template da faculdade, que é o que vimos em aula. |
+| 3 | Simplificar o site. | Aprovei tirar a página Perfil (os dados dela foram para o Painel) e manter os favoritos. Aprovei o banco com 4 tabelas. |
+| 4 | Mostrar opções de visual. | Comparei três estilos e escolhi o "cartão-postal retrô", com os cards de outro estilo. Pedi fotos maiores e mais fases na página da história. |
+| 5 | Usar o Chart.js, como no exemplo da faculdade, e acrescentar um gráfico de pizza. | Defini os gráficos do painel e escolhi a pizza de "Acertos x Erros". |
+| 6 | Deixar os elementos das páginas escritos no próprio HTML, e não gerados pelo JavaScript, e usar `let` no lugar de `var`. | Regras de código definidas por mim. |
+| 7 | Validar o cadastro: e-mail, senha com letra maiúscula, minúscula, número e caractere especial, e verificar no banco se o nome de treinador ou o e-mail já existem. | Defini as regras de validação. |
+| 8 | Me guiar durante a execução e me fazer perguntas sobre cada etapa. | Respondi às perguntas de cada etapa (chave primária composta, SQL injection, `while` x `for`, `sessionStorage`, vetores paralelos, CSS) e fiz os commits a cada etapa. |
+| 9 | Usar as descrições da Pokédex do **Pokémon Moon** e incluir também as formas diferentes dos Pokémon. | Conferi os quatro lotes do catálogo antes de cada um entrar no banco e escolhi incluir as formas que mudam de tipo ou de aparência (118 Pokémon). |
+| 10 | Corrigir dois erros visuais que encontrei testando o quiz. | Encontrei os erros: nas perguntas de curiosidade o Pokémon não aparecia depois da resposta, e ao passar de pergunta dava para ver a imagem antes da silhueta. |
+| 11 | Carregar o Chart.js pela internet, sem baixar o arquivo para o projeto, e tirar o e-mail da tela do painel. | Ajustes decididos por mim depois de revisar o painel. |
+| 12 | Organizar o repositório no padrão do projeto-modelo da faculdade, tirando arquivos de apoio do desenvolvimento e os comentários do código. | Comparei com o projeto-modelo e decidi o que ficaria. |
+
+### 24/11 a 26/11 — ajustes finais
+
+| # | O que eu pedi | Minha participação |
+|---|---|---|
+| 13 | Juntar o conteúdo da página "Minha história" à página inicial, mantendo as fotos e os textos. | Decisão minha para deixar o site mais direto. |
+| 14 | Tirar "Minha história" do menu, já que tudo passou a ficar na mesma página. | Decisão minha. |
+| 15 | Diminuir o quiz para 5 perguntas, porque cada partida estava demorando muito. | Testei o quiz e decidi pelo tamanho menor. |
+| 16 | Montar este diário de prompts e um plano de preparação para a apresentação. | Pedido meu para documentar o processo. |
 
 ---
 
