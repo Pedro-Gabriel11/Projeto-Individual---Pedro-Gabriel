@@ -55,7 +55,7 @@ Pokémon na sua Pokédex pessoal. Esse uso gera os dados que alimentam os gráfi
 | **Início** (`index.html`) | Apresenta o site em um "cartão-postal", leva ao quiz, à Pokédex e ao painel, e traz a seção **Minha história**: as fases da minha vida com Pokémon, em fotos estilo polaroid |
 | **Cadastro** (`cadastro.html`) | Cria a conta, com validação de e-mail e de senha (maiúscula, minúscula, número e caractere especial) e verificação de nome de treinador e e-mail repetidos |
 | **Login** (`login.html`) | Entrada por e-mail ou nome de treinador |
-| **Quiz** (`quiz.html`) | 10 perguntas por partida: 7 de silhueta e 3 de curiosidade. Cada acerto desbloqueia o Pokémon |
+| **Quiz** (`quiz.html`) | 5 perguntas por partida: 3 de silhueta e 2 de curiosidade. Cada acerto desbloqueia o Pokémon |
 | **Pokédex** (`pokedex.html`) | Os 118 Pokémon com busca, filtro por tipo, silhuetas dos não descobertos, detalhes e favoritos |
 | **Painel** (`painel.html`) | Números do treinador e 3 gráficos (Chart.js): pontos por partida (linha), acertos x erros (pizza) e Pokémon por tipo (barras) |
 

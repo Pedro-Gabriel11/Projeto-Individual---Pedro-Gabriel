@@ -62,7 +62,7 @@ function montarRodada() {
     let idsUsados = [];
     let curiosidadesEscolhidas = [];
 
-    while (curiosidadesEscolhidas.length < 3) {
+    while (curiosidadesEscolhidas.length < 2) {
         let pergunta = perguntasCuriosidade[sortearNumero(perguntasCuriosidade.length)];
         if (idsUsados.indexOf(pergunta.idPokemon) == -1) {
             idsUsados.push(pergunta.idPokemon);
@@ -71,8 +71,8 @@ function montarRodada() {
     }
 
     let proximaCuriosidade = 0;
-    for (let i = 0; i < 10; i++) {
-        if (i == 2 || i == 5 || i == 8) {
+    for (let i = 0; i < 5; i++) {
+        if (i == 1 || i == 3) {
             let pergunta = curiosidadesEscolhidas[proximaCuriosidade];
             proximaCuriosidade++;
             rodada.push({
@@ -106,7 +106,7 @@ function mostrarPergunta() {
 
     document.getElementById("progresso-texto").textContent = "Pergunta " + (indiceAtual + 1) + " de " + rodada.length;
     document.getElementById("pontos-parciais").textContent = acertos + " acerto(s)";
-    document.getElementById("progresso-barra").style.width = ((indiceAtual + 1) * 10) + "%";
+    document.getElementById("progresso-barra").style.width = Math.round((indiceAtual + 1) / rodada.length * 100) + "%";
     document.getElementById("enunciado").textContent = pergunta.enunciado;
     document.getElementById("mensagem-resposta").textContent = "";
     document.getElementById("mensagem-resposta").className = "form-note";

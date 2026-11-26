@@ -83,7 +83,7 @@ function criarGraficoPontos(tentativas) {
         },
         options: {
             maintainAspectRatio: false,
-            scales: { y: { min: 0, max: 1000 } }
+            scales: { y: { min: 0, suggestedMax: 500 } }
         }
     });
 }
